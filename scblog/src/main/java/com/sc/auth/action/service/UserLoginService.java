@@ -1,9 +1,9 @@
-package com.sc.auth.action.userlogon.service;
+package com.sc.auth.action.service;
 
 import java.sql.SQLException;
 
-import com.sc.auth.action.userlogon.BaseUser;
-import com.sc.auth.action.userlogon.dao.UserDao;
+import com.sc.auth.action.BaseUser;
+import com.sc.auth.action.dao.UserDao;
 
 public class UserLoginService {
 
@@ -14,10 +14,5 @@ public class UserLoginService {
 	public BaseUser getUser(String userName, String password) throws SQLException{
 		return getUserDao().getUser(userName, password);
 	}
-	
-	public boolean excuteSql(String sql){
-		return getUserDao().excuteSql(sql);
-	}
-
 	
 }

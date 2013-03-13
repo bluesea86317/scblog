@@ -3,49 +3,133 @@ package com.sc.auth.core;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import javax.sql.DataSource;
 
 import com.sc.auth.exception.DataSourceInitException;
 import com.sc.auth.util.ParamUtils;
 
 public class DaoSupport {
-//	private BasicDataSource dataSource;
 	
-	public boolean insert(){
+	/**
+	 * Sql statement of insert
+	 * @param sqlMapConfig
+	 * @param param
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean insert(String sqlMapConfig, Map<String,Object> param) throws SQLException{
 		boolean flag = true;
-		return flag;
-	}
-	
-	public boolean update(){
-		boolean flag = true;
-		return flag;
-	}
-	
-	public List<?> queryForList(String sqlMapConfig, Object param, Class clz) throws SQLException{
-		List<?> result = new ArrayList<Object>();
-		ResultSet rs;
+		Connection conn = null;
 		try {
-			rs = getDataSource().getConnection().createStatement().executeQuery("");
-			rs.getString("");
-			return result;
+			conn = createConnection();
+			String sql = ParamUtils.getSql(sqlMapConfig, param);
+			conn.createStatement().execute(sql);
+			return flag;
+		} catch (SQLException e) {			
+			flag = false;
+			e.printStackTrace();
 		} catch (DataSourceInitException e) {
+			flag = false;
+			e.printStackTrace();
+		}finally{
+			if(null != conn){
+				conn.close();				
+			}
+		}
+		return flag;
+	}
+	
+	/**
+	 * Sql statement of update
+	 * @param sqlMapConfig
+	 * @param param
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean update(String sqlMapConfig, Map<String,Object> param) throws SQLException{
+		boolean flag = true;
+		Connection conn = null;
+		try {
+			conn = createConnection();
+			String sql = ParamUtils.getSql(sqlMapConfig, param);
+			conn.createStatement().executeUpdate(sql);
+			return flag;
+		} catch (SQLException e) {			
+			flag = false;
+			e.printStackTrace();
+		} catch (DataSourceInitException e) {
+			flag = false;
+			e.printStackTrace();
+		}finally{
+			if(null != conn){
+				conn.close();				
+			}
+		}
+		return flag;
+	}
+	
+	public List<?> queryForList(String sqlMapConfig, Map<String,Object> param, Class<?> clazz) throws SQLException{
+		List<Object> resultList = new ArrayList<Object>();
+		ResultSet rs;
+		Connection conn = null;
+		try {
+			conn = createConnection();
+			String sql = ParamUtils.getSql(sqlMapConfig, param);
+			rs = conn.createStatement().executeQuery(sql);
+			while(rs.next()){
+				Object object = clazz.newInstance();
+				Field[] fields = clazz.getDeclaredFields();
+				for(Field field : fields){
+					Method method = clazz.getMethod("set" + ParamUtils.initMethodName(field.getName()), field.getType());
+					method.invoke(object, rs.getObject(field.getName()));
+				}
+				resultList.add(object);
+			}
+			
+			return resultList;
+		} catch (DataSourceInitException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			if(null != conn){
+				conn.close();				
+			}
 		}
 		return null;
 	}
 	
-	public Object queryForObject(String sqlMapConfig, Map<String,Object> param, Class<?> clazz) throws SQLException{
+	@SuppressWarnings("unchecked")
+	public <T> T queryForObject(String sqlMapConfig, Map<String,Object> param, Class<?> clazz) throws SQLException{
 		Object object = null;
+		Connection conn = null;
 		try {
+			conn = createConnection();
 			String sql = ParamUtils.getSql(sqlMapConfig, param);
-			ResultSet rs = getDataSource().getConnection().createStatement().executeQuery(sql);
+			ResultSet rs = conn.createStatement().executeQuery(sql);
 			Field[] fields = clazz.getDeclaredFields();
 			if(rs.next()){
 				object = clazz.newInstance();
@@ -54,7 +138,7 @@ public class DaoSupport {
 					method.invoke(object, rs.getObject(field.getName()));
 				}				
 			}
-			return object;
+			return (T)object;
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,33 +160,64 @@ public class DaoSupport {
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if(null != conn){
+				conn.close();				
+			}
 		}
 		return null;
 	}
 	
-	public boolean excuteSql(String sql){
+	
+	
+	public boolean delete(String sqlMapConfig, Map<String,Object> param) throws SQLException{
 		boolean flag = true;
+		Connection conn = null;
 		try {
-			getDataSource().getConnection().createStatement().execute(sql);			
-		} catch (SQLException e) {
-			e.printStackTrace();
+			conn = createConnection();
+			String sql = ParamUtils.getSql(sqlMapConfig, param);
+			conn.createStatement().executeUpdate(sql);
+			return flag;
+		} catch (SQLException e) {			
 			flag = false;
+			e.printStackTrace();
 		} catch (DataSourceInitException e) {
-			e.printStackTrace();
 			flag = false;
+			e.printStackTrace();
+		}finally{
+			if(null != conn){
+				conn.close();				
+			}
+		}
+		return flag;
+	}
+
+	public boolean excuteSql(String sql) throws SQLException{
+		boolean flag = true;
+		Connection conn = null;
+		try {
+			createConnection().createStatement().execute(sql);			
+		} catch (SQLException e) {
+			flag = false;
+			e.printStackTrace();
+		} catch (DataSourceInitException e) {
+			flag = false;
+			e.printStackTrace();
+		}finally{
+			if(null != conn){
+				conn.close();				
+			}
 		}
 		
 		return flag;
 	}
 	
-	public boolean delete(){
-		boolean flag = true;
-		return flag;
-	}
-
-	public BasicDataSource getDataSource() throws DataSourceInitException {
+	public DataSource getDataSource() throws DataSourceInitException {
 		return DataSourceFactory.getDataSource();
 	}
 	
+	public Connection createConnection() throws SQLException, DataSourceInitException{
+		return getDataSource().getConnection();
+	}
 	
 }

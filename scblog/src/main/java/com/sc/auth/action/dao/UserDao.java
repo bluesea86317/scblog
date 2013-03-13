@@ -1,10 +1,10 @@
-package com.sc.auth.action.userlogon.dao;
+package com.sc.auth.action.dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sc.auth.action.userlogon.BaseUser;
+import com.sc.auth.action.BaseUser;
 import com.sc.auth.core.DaoSupport;
 import com.sc.auth.exception.DataSourceInitException;
 
@@ -29,7 +29,4 @@ public class UserDao extends DaoSupport {
 		return baseUser;
 	}
 	
-	public boolean excuteSql(String sql){
-		return super.excuteSql(sql);
-	}
 }

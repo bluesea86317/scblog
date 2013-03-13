@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.mysql.jdbc.StringUtils;
 
 public class ParamUtils {
 	
@@ -59,7 +58,7 @@ public class ParamUtils {
 	
 	@SuppressWarnings("unchecked")
 	public static String getSql(String sql, Object param){
-		Map<String,Object> paramMap = (HashMap)param;
+		Map<String,Object> paramMap = (HashMap<String,Object>)param;
 		Iterator<?> itr = paramMap.keySet().iterator();
 		while(itr.hasNext()){
 			String key = (String)itr.next();

@@ -9,23 +9,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.mysql.jdbc.StringUtils;
 import com.sc.auth.exception.NonActionForRequstException;
 import com.sc.auth.util.ParamUtils;
+import com.sc.auth.util.StringUtils;
 
 public class ActionServlet extends HttpServlet {
 
@@ -83,7 +80,7 @@ public class ActionServlet extends HttpServlet {
 		ActionConfig actionConfig = configMap.get(actionPath);
 		try {
 		if(null == actionConfig){
-			throw new NonActionForRequstException("There is no action config for this request !");			
+			throw new NonActionForRequstException("There is no action config for this request which the path is \"" + actionPath + "\"");			
 		}
 		String clzName = actionConfig.getActionclass();
 		Map<String,String> forwardMap = actionConfig.getForwardMap();
@@ -128,10 +125,10 @@ public class ActionServlet extends HttpServlet {
 			clazz = Class.forName(className);
 			Object dataSource = clazz.newInstance();
 //			获取DB参数
-			List<?> dataSourcePropertyNodesList = rootNode.selectNodes("data-sources/data-source/set-property");
+			List<?> dataSourcePropertyNodesList = rootNode.selectNodes("data-sources/data-source/property");
 			for(Object node : dataSourcePropertyNodesList){
 				Element propertyNode = (Element)node;
-				String dataSourceProperty = propertyNode.attributeValue("property");
+				String dataSourceProperty = propertyNode.attributeValue("name");
 				String dataSourceValue = propertyNode.attributeValue("value");
 				Field[] fields = clazz.getDeclaredFields();
 				for(Field field : fields){
@@ -142,7 +139,7 @@ public class ActionServlet extends HttpServlet {
 				}
 			}
 //			初始化DB连接
-			DataSourceFactory.init((BasicDataSource)dataSource);
+			DataSourceFactory.init((DataSource)dataSource);
 			System.out.println("初始化数据库连接结束");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -192,7 +189,7 @@ public class ActionServlet extends HttpServlet {
 				Element forewardNode = (Element)fNode;
 				String path = forewardNode.attributeValue("path");
 				String value = forewardNode.attributeValue("value");
-				forwardMap.put(path, value);
+				forwardMap.put(value, path);
 			}
 			actionConfig.setForwardMap(forwardMap);
 			configMap.put(actionPath,actionConfig);

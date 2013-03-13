@@ -1,4 +1,4 @@
-package com.sc.auth.action.userlogon;
+package com.sc.auth.action;
 
 public class BaseUser {
 	
