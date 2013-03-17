@@ -1,0 +1,53 @@
+/**
+ * @auth wen_chen
+ */
+
+body{background:url(../img/light_wool.png)}
+
+.footer{
+	
+	width:960px;
+	margin: 0 auto;
+	height:50px;
+}
+.h-edge{
+	background-image: url(../img/m-up.gif);
+	height:15px;
+	border:0px;
+}
+.navbar-inner{
+	background-image: url(), url(../img/m-up.gif),  url(../img/tex2res5.png);
+	background-repeat: repeat-x, repeat-x, repeat;
+	background-position: top, bottom;
+	height:50px;}
+
+.navbar-inner .container{width:960px;}
+.navbar .nav{
+	margin:-10px 10px 0 0;
+}
+.navbar .nav > li  {
+	margin-left: 5px;
+}
+.navbar .nav > li > a {
+	text-transform: uppercase;
+	font-family: 'Droid Sans', sans-serif;
+	color: #555;
+}
+.navbar .nav > li > a:hover {
+	background-color: transparent;
+	color: #d5d5d5;
+	background: url(../img/nav-bg.png) repeat;
+	text-decoration: none;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px; 
+}
+.navbar .nav .active > a,
+.navbar .nav .active > a:hover {
+	color: #d5d5d5;
+	text-decoration: none;
+	background: url(../img/nav-bg.png) repeat;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px; 
+}
