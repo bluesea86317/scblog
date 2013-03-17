@@ -4,9 +4,8 @@
 			<hr class="h-edge">
 			<p class="pull-left">&copy; Copyright Holder 2012</p>
 			<p class="pull-right">
-				Developed by <a href="http://www.stephenchen.me/">Stephen Chen</a>
-				with <a href="http://www.WordPress.org/" target="_blank">WordPress</a> and 
-				<a href="http://twitter.github.com/bootstrap/" target="_blank">Boostrap</a>				
+				Developed by <a href="http://www.stephenchen.me/">Stephen Chen</a> 				
+				Theme by <a href="http://twitter.github.com/bootstrap/" target="_blank">Boostrap</a>				
 			</p>
 	</div>
     <!-- Le javascript

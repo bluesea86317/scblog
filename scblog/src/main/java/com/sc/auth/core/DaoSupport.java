@@ -24,7 +24,7 @@ public class DaoSupport {
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean insert(String sqlMapConfig, Map<String,Object> param) throws SQLException{
+	public boolean insert(String sqlMapConfig, Object param) throws SQLException{
 		boolean flag = true;
 		Connection conn = null;
 		try {
@@ -87,7 +87,7 @@ public class DaoSupport {
 				Object object = clazz.newInstance();
 				Field[] fields = clazz.getDeclaredFields();
 				for(Field field : fields){
-					Method method = clazz.getMethod("set" + ParamUtils.initMethodName(field.getName()), field.getType());
+					Method method = clazz.getMethod("set" + ParamUtils.upperCaseMethodName(field.getName()), field.getType());
 					method.invoke(object, rs.getObject(field.getName()));
 				}
 				resultList.add(object);
@@ -134,7 +134,7 @@ public class DaoSupport {
 			if(rs.next()){
 				object = clazz.newInstance();
 				for(Field field : fields){
-					Method method = clazz.getMethod("set" + ParamUtils.initMethodName(field.getName()), field.getType());
+					Method method = clazz.getMethod("set" + ParamUtils.upperCaseMethodName(field.getName()), field.getType());
 					method.invoke(object, rs.getObject(field.getName()));
 				}				
 			}

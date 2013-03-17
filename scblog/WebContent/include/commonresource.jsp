@@ -3,6 +3,7 @@
 <!-- Le styles -->
     <link href="${web_host }/css/bootstrap.css" rel="stylesheet">
 	<link href="${web_host }/css/style.css" rel="stylesheet">
+	<link href="${web_host }/css/common.css" rel="stylesheet">
     <link rel="shortcut icon" href="${web_host }/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="${web_host }/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="${web_host }/ico/apple-touch-icon-114-precomposed.png">

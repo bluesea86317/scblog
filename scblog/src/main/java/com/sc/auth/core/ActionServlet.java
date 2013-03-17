@@ -133,7 +133,7 @@ public class ActionServlet extends HttpServlet {
 				Field[] fields = clazz.getDeclaredFields();
 				for(Field field : fields){
 					if(field.getName().equals(dataSourceProperty)){
-						Method method = clazz.getMethod("set" + ParamUtils.initMethodName(field.getName()), field.getType());
+						Method method = clazz.getMethod("set" + ParamUtils.upperCaseMethodName(field.getName()), field.getType());
 						method.invoke(dataSource, ParamUtils.convertString(dataSourceValue, field.getType()));
 					}
 				}
