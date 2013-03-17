@@ -1,9 +1,9 @@
-package com.sc.auth.action.service;
+package com.sc.auth.service;
 
 import java.sql.SQLException;
 
-import com.sc.auth.action.BaseUser;
 import com.sc.auth.action.dao.UserDao;
+import com.sc.auth.vo.BaseUser;
 
 public class UserLoginService {
 

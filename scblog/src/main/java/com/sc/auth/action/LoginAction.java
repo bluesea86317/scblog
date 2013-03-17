@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sc.auth.action.service.UserLoginService;
 import com.sc.auth.core.Action;
+import com.sc.auth.service.UserLoginService;
 import com.sc.auth.util.ParamUtils;
+import com.sc.auth.vo.BaseUser;
 
 public class LoginAction extends Action {
 

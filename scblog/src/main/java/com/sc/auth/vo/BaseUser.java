@@ -1,4 +1,4 @@
-package com.sc.auth.action;
+package com.sc.auth.vo;
 
 public class BaseUser {
 	
