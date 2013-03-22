@@ -16,9 +16,10 @@ body{background:url(../img/light_wool.png)}
 	border:0px;
 }
 .navbar-inner{
-	background-image: url(), url(../img/m-up.gif),  url(../img/tex2res5.png);
+	/*background-image: url(), url(../img/m-up.gif),  url(../img/tex2res5.png);
 	background-repeat: repeat-x, repeat-x, repeat;
-	background-position: top, bottom;
+	background-position: top, bottom;*/
+	background-color:#000000;
 	height:50px;}
 
 .navbar-inner .container{width:960px;}

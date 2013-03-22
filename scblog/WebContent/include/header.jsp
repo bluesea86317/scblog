@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top" id="header">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">MYBOLG</a>
+          <a class="brand" href="#">SC'BLOG</a>
           <div class="nav-collapse pull-right">
             <ul class="nav">
               <li class="active"><a href="#">主页</a></li>
