@@ -43,10 +43,13 @@ ul,ol{
 
 /* content start */
 #content {
-	width: 960px;
+	width: 980px;
 	margin: 0 auto;
 	overflow: hidden;
 	text-align: left;
+	padding: 0 10px;
+	
+	background:rgba(252,252,252,0.8)
 }
 /* content end */
 
@@ -60,7 +63,7 @@ ul,ol{
 	width: 620px;
 	margin: 0;
 	padding: 0 10px 10px 0px;
-	border-bottom: 1px solid #CCC;
+	border-bottom: 1px solid #E0E0E0;
 }
 
 .single-post-image{
@@ -86,7 +89,7 @@ ul,ol{
 	padding-left: 15px;	
 	color:#aaa;
 	line-height: 24px;
-	border-left: 1px solid #CCC;
+	border-left: 1px solid #E0E0E0;
 }
 
 /* posts end*/
@@ -97,6 +100,7 @@ ul,ol{
 	float: left;
 	color: #888;
 	padding-bottom: 35px;
+	line-height: 24px;
 }
 
 .search-form{
@@ -121,6 +125,6 @@ ul,ol{
 #slidebar ul li{
 	line-height: 24px;
 	padding: 3px 0;
-	border-bottom: 1px dotted #DDD;
+	border-bottom: 1px dotted #E0E0E0;
 }
 /* slidebar end */

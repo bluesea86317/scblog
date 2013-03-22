@@ -15,7 +15,7 @@
     	<div id="posts">
     		<div class="single-post">
     			<div class="single-post-image">
-    				<img src="../images/image10.jpg" alt="Another Image in a Post" style="opacity: 1;">
+    				<img src="../images/image5.jpg" alt="Another Image in a Post" style="opacity: 1;">
     			</div>
     			<div class="single-post-text">
     				<h2>这个世界好疯狂</h2>
@@ -32,7 +32,7 @@
     		
     		<div class="single-post">
     			<div class="single-post-image">
-    				<img src="../images/image5.jpg" alt="Another Image in a Post" style="opacity: 1;">
+    				<img src="../images/image10.jpg" alt="Another Image in a Post" style="opacity: 1;">
     			</div>
     			<div class="single-post-text">
     				<h2>这个世界好疯狂</h2>
