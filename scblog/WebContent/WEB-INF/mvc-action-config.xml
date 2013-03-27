@@ -11,13 +11,16 @@
 		</data-source>
 	</data-sources>
 	<action-mapping>
-		<action class="com.sc.auth.action.LoginAction" path="/login">
-			<forward value="success" path="./index.jsp"/>
-			<forward value="failure" path="./login.jsp"/>
+		<action class="com.sc.auth.action.LoginAction" path="/adminweb/login">
+			<forward value="success" path="./adminweb/list.jsp"/>
+			<forward value="failure" path="./adminweb/login.jsp"/>
+		</action>
+		<action class="com.sc.auth.action.LogoutAction" path="/adminweb/logout">
 		</action>
 		<action class="com.sc.auth.action.ExcsqlAction" path="/excSql">
 			<forward value="success" path="./index.jsp"/>
 			<forward value="failure" path="./index.jsp"/>
 		</action>
+		
 	</action-mapping>
 </mvc-config>

@@ -64,7 +64,7 @@ public class ActionServlet extends HttpServlet {
 //			初始化数据库连接
 			this.initializeDataSource(rootNode);
 //			设置host
-			this.getServletContext().setAttribute("platform_host", "http://localhost:8080/auth_sys");
+			this.getServletContext().setAttribute("web_host", "http://localhost:7070/scblog");
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

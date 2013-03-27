@@ -4,9 +4,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sc.auth.action.BaseUser;
 import com.sc.auth.core.DaoSupport;
 import com.sc.auth.exception.DataSourceInitException;
+import com.sc.auth.vo.BaseUser;
 
 public class UserDao extends DaoSupport {
 	

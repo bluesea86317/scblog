@@ -43,7 +43,7 @@ ul,ol{
 
 /* content start */
 #content {
-	width: 980px;
+	width: 960px;
 	margin: 0 auto;
 	overflow: hidden;
 	text-align: left;
@@ -56,7 +56,7 @@ ul,ol{
 /* posts start */
 #posts {
 	float: left;
-	width: 640p;
+	width: 640px;
 }
 
 .single-post{
@@ -92,6 +92,33 @@ ul,ol{
 	border-left: 1px solid #E0E0E0;
 }
 
+.full-post{
+	margin-top: 35px;
+	overflow: hidden;
+}
+
+.meta-full-post{
+	padding: 10px 0;
+	border-bottom: 1px solid #E0E0E0;
+}
+
+.full-post-content{
+	margin: 20px 0;
+}
+
+#respond{
+	margin: 25px 0;
+	padding: 25px 0;
+}
+
+#respond .postcomment{
+	margin-bottom: 20px;
+}
+
+#respond textarea{
+	width: 340px;
+	resize:none;
+}
 /* posts end*/
 
 /* slidebar start */
@@ -104,9 +131,9 @@ ul,ol{
 }
 
 .search-form{
-	margin: 35px 0;
+	margin: 35px 0 28px 0;
 }
-.search-form form input{
+.search-form form input, #respond input{
 	width: 230px;
 	height: 30px;
 	padding: 0 5px;
@@ -115,7 +142,6 @@ ul,ol{
 	color: #aaaaaa;
 	line-height: 20px;
 	background: #ffffff;
-	border: 1px solid #eee
 }
 
 #slidebar ul{
@@ -128,3 +154,17 @@ ul,ol{
 	border-bottom: 1px dotted #E0E0E0;
 }
 /* slidebar end */
+
+/*common css*/
+.center{
+	margin: 0 auto;
+}
+
+.text-center{
+	text-align: center;
+}
+
+.color_orange{
+	color: #FF6600;
+}
+/*common css*/

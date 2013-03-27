@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="navbar navbar-fixed-top" id="header">
       <div class="navbar-inner">
         <div class="container">
@@ -15,6 +16,9 @@
               <li><a href="#about">关于我</a></li>
               <li><a href="#contact">联系我</a></li>
             </ul>
+            <c:if test="${!empty logonUser }">
+            	<a href="${web_host }/adminweb/logout.do">退 出</a>
+            </c:if>
           </div><!--/.nav-collapse -->
         </div>
       </div>
