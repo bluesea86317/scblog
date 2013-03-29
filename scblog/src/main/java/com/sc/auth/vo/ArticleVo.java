@@ -37,4 +37,62 @@ public class ArticleVo {
 	 * 文章类型，对应文章分类， 比如技术类，前端类，java，CSS，JavaScript等分类
 	 */
 	private int articleType;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public int getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(int authorId) {
+		this.authorId = authorId;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getLastModifyTime() {
+		return lastModifyTime;
+	}
+
+	public void setLastModifyTime(Date lastModifyTime) {
+		this.lastModifyTime = lastModifyTime;
+	}
+
+	public int getArticleType() {
+		return articleType;
+	}
+
+	public void setArticleType(int articleType) {
+		this.articleType = articleType;
+	}
+	
+	
 }

@@ -23,6 +23,17 @@ public class ParamUtils {
 		return value;
 	}
 	
+	public static int getInt(HttpServletRequest request, String paramName, int defaultValue){
+		int value = 0;
+		try {
+			value = Integer.parseInt(request.getParameter(paramName));
+			return value;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return defaultValue;
+		}
+	}
+	
 	public static String upperCaseMethodName(String fieldName){		
 		return fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 	}
@@ -89,10 +100,10 @@ public class ParamUtils {
 						Object value = method.invoke(param);
 						String property = ParamUtils.lowerCaseMethodName(method.getName().substring(3));
 						if(sql.indexOf("#"+ property +"#") != -1){
-							if(String.class.getName() == value.getClass().getName()){
-								sql = sql.replace("#" + property + "#","'" + String.valueOf(value) + "'");
-							}else{
+							if(null == value || String.class.getName() != value.getClass().getName()){
 								sql = sql.replaceAll("#"+ property +"#", String.valueOf(value));
+							}else if(String.class.getName() == value.getClass().getName()){
+								sql = sql.replace("#" + property + "#","'" + String.valueOf(value) + "'");
 							}
 						}
 					}

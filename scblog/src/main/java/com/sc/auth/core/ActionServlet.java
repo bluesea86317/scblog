@@ -73,6 +73,8 @@ public class ActionServlet extends HttpServlet {
 	}
 	
 	private void process(HttpServletRequest request, HttpServletResponse response){
+//		设置请求响应的编码规则
+		response.setCharacterEncoding("UTF-8");
 		String servletPath = request.getServletPath();
 		String actionPath = servletPath.substring(0,servletPath.lastIndexOf("."));
 //			requestUri.substring(0,requestUri.lastIndexOf("."));
@@ -83,11 +85,11 @@ public class ActionServlet extends HttpServlet {
 			throw new NonActionForRequstException("There is no action config for this request which the path is \"" + actionPath + "\"");			
 		}
 		String clzName = actionConfig.getActionclass();
-		Map<String,String> forwardMap = actionConfig.getForwardMap();
+		ActionForward forwardMap = actionConfig.getActionForward();
 			Action action = (Action)Class.forName(clzName).newInstance();
-			String forwardPath = action.excute(request, response);
+			String forwardPath = action.excute(request, response, forwardMap);
 			if(!StringUtils.isNullOrEmpty(forwardPath)){
-				request.getRequestDispatcher(forwardMap.get(forwardPath)).forward(request, response);				
+				request.getRequestDispatcher(forwardPath).forward(request, response);				
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -184,14 +186,15 @@ public class ActionServlet extends HttpServlet {
 			actionConfig.setActionclass(actionClass);
 //			设置action处理完成后的跳转取消，path处理完成后的选择符，value是路径
 			List<?> forwardNodeList = actionNode.selectNodes("forward");
-			Map<String,String> forwardMap = new HashMap<String,String>();
+			
+			ActionForward forward = new ActionForward();
 			for(Object fNode : forwardNodeList){
 				Element forewardNode = (Element)fNode;
 				String path = forewardNode.attributeValue("path");
-				String value = forewardNode.attributeValue("value");
-				forwardMap.put(value, path);
+				String name = forewardNode.attributeValue("name");
+				forward.putForwardMap(name, path);
 			}
-			actionConfig.setForwardMap(forwardMap);
+			actionConfig.setActionForward(forward);
 			configMap.put(actionPath,actionConfig);
 		}
 		System.out.println("初始化actionConfig结束");

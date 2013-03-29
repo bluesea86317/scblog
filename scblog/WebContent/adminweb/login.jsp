@@ -51,7 +51,7 @@
 	    <div class="control-group">
 		    <label class="control-label" for="inputPassword">密码：</label>
 		    <div class="controls">
-		    	<input type="password" name="userPassword" id="userPassword" class="input-block-level" placeholder="密码">
+		    	<input type="password" name="password" id="password" class="input-block-level" placeholder="密码">
 	    	</div>
 	    </div>
 	    <div class="control-group">

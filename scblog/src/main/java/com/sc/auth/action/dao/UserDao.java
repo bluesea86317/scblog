@@ -10,6 +10,10 @@ import com.sc.auth.vo.BaseUser;
 
 public class UserDao extends DaoSupport {
 	
+	public static UserDao getInstance(){
+		return new UserDao();
+	}
+	
 	/**
 	 * 查询用户，用来验证用户名，密码是否正确
 	 * @param userName
@@ -22,10 +26,11 @@ public class UserDao extends DaoSupport {
 	 */
 	public BaseUser getUser(String userName, String password) throws SQLException{
 		Map<String,Object> paramMap = new HashMap<String,Object>();
+		String sql = "select * from t_user where userName = #userName# and password = PASSWORD(#password#)";
 		BaseUser baseUser;
 		paramMap.put("userName", userName);
 		paramMap.put("password", password);
-		baseUser = (BaseUser)queryForObject("select * from t_user where userName = #userName# and password = PASSWORD(#password#)", paramMap, BaseUser.class);
+		baseUser = (BaseUser)queryForObject(sql, paramMap, BaseUser.class);
 		return baseUser;
 	}
 	

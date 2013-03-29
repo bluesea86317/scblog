@@ -15,8 +15,8 @@ import javax.sql.DataSource;
 import com.sc.auth.exception.DataSourceInitException;
 import com.sc.auth.util.ParamUtils;
 
-public class DaoSupport {
-	
+public abstract class DaoSupport {
+		
 	/**
 	 * Sql statement of insert
 	 * @param sqlMapConfig
@@ -24,7 +24,7 @@ public class DaoSupport {
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean insert(String sqlMapConfig, Object param) throws SQLException{
+	protected boolean insert(String sqlMapConfig, Object param) throws SQLException{
 		boolean flag = true;
 		Connection conn = null;
 		try {
@@ -32,10 +32,7 @@ public class DaoSupport {
 			String sql = ParamUtils.getSql(sqlMapConfig, param);
 			conn.createStatement().execute(sql);
 			return flag;
-		} catch (SQLException e) {			
-			flag = false;
-			e.printStackTrace();
-		} catch (DataSourceInitException e) {
+		}catch (DataSourceInitException e) {
 			flag = false;
 			e.printStackTrace();
 		}finally{
@@ -53,7 +50,7 @@ public class DaoSupport {
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean update(String sqlMapConfig, Map<String,Object> param) throws SQLException{
+	protected boolean update(String sqlMapConfig, Map<String,Object> param) throws SQLException{
 		boolean flag = true;
 		Connection conn = null;
 		try {
@@ -61,9 +58,6 @@ public class DaoSupport {
 			String sql = ParamUtils.getSql(sqlMapConfig, param);
 			conn.createStatement().executeUpdate(sql);
 			return flag;
-		} catch (SQLException e) {			
-			flag = false;
-			e.printStackTrace();
 		} catch (DataSourceInitException e) {
 			flag = false;
 			e.printStackTrace();
@@ -75,7 +69,7 @@ public class DaoSupport {
 		return flag;
 	}
 	
-	public List<?> queryForList(String sqlMapConfig, Map<String,Object> param, Class<?> clazz) throws SQLException{
+	protected List<?> queryForList(String sqlMapConfig, Map<String,Object> param, Class<?> clazz) throws SQLException{
 		List<Object> resultList = new ArrayList<Object>();
 		ResultSet rs;
 		Connection conn = null;
@@ -123,7 +117,7 @@ public class DaoSupport {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> T queryForObject(String sqlMapConfig, Map<String,Object> param, Class<?> clazz) throws SQLException{
+	protected <T> T queryForObject(String sqlMapConfig, Map<String,Object> param, Class<?> clazz) throws SQLException{
 		Object object = null;
 		Connection conn = null;
 		try {
@@ -170,7 +164,7 @@ public class DaoSupport {
 	
 	
 	
-	public boolean delete(String sqlMapConfig, Map<String,Object> param) throws SQLException{
+	protected boolean delete(String sqlMapConfig, Map<String,Object> param) throws SQLException{
 		boolean flag = true;
 		Connection conn = null;
 		try {
@@ -178,10 +172,7 @@ public class DaoSupport {
 			String sql = ParamUtils.getSql(sqlMapConfig, param);
 			conn.createStatement().executeUpdate(sql);
 			return flag;
-		} catch (SQLException e) {			
-			flag = false;
-			e.printStackTrace();
-		} catch (DataSourceInitException e) {
+		}  catch (DataSourceInitException e) {
 			flag = false;
 			e.printStackTrace();
 		}finally{
@@ -192,15 +183,12 @@ public class DaoSupport {
 		return flag;
 	}
 
-	public boolean excuteSql(String sql) throws SQLException{
+	protected boolean excuteSql(String sql) throws SQLException{
 		boolean flag = true;
 		Connection conn = null;
 		try {
 			createConnection().createStatement().execute(sql);			
-		} catch (SQLException e) {
-			flag = false;
-			e.printStackTrace();
-		} catch (DataSourceInitException e) {
+		}  catch (DataSourceInitException e) {
 			flag = false;
 			e.printStackTrace();
 		}finally{
@@ -212,11 +200,11 @@ public class DaoSupport {
 		return flag;
 	}
 	
-	public DataSource getDataSource() throws DataSourceInitException {
+	private DataSource getDataSource() throws DataSourceInitException {
 		return DataSourceFactory.getDataSource();
 	}
 	
-	public Connection createConnection() throws SQLException, DataSourceInitException{
+	private Connection createConnection() throws SQLException, DataSourceInitException{
 		return getDataSource().getConnection();
 	}
 	

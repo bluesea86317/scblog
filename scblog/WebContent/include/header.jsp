@@ -30,8 +30,7 @@
 		setInterval(
 				function(){var op = parseFloat($("#breath_o").css("opacity"));
 				if(air > 0.08){ air-=0.02};
-				if(air < 0.03){ air+=0.03};
-				console.log(air);
+				if(air < 0.03){ air+=0.03};				
 				op = is_breath_in ?　op + air　: op - air;	
 				if(op > 1) {
 					is_breath_in = false;

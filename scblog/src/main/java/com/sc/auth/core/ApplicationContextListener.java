@@ -12,6 +12,6 @@ public class ApplicationContextListener implements ServletRequestListener {
 	}
 	
 	public void requestInitialized(ServletRequestEvent sre) {
-		sre.getServletContext().setAttribute("web_host", "http://localhost:8080/scblog");		
+//		sre.getServletContext().setAttribute("web_host", "http://localhost:7070/scblog");		
 	}
 }

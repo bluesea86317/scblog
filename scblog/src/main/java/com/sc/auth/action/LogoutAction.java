@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sc.auth.core.Action;
+import com.sc.auth.core.ActionForward;
 
 public class LogoutAction extends Action {
 
@@ -13,7 +14,7 @@ public class LogoutAction extends Action {
 	
 	@Override
 	public String excute(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response, ActionForward actionForward) throws IOException {
 		request.getSession().invalidate();
 		response.sendRedirect(request.getContextPath() + LOGIN_PAGE_PATH);
 		return null;

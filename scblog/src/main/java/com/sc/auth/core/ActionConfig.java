@@ -1,13 +1,9 @@
 package com.sc.auth.core;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ActionConfig {
 	private String actionPath;
 	private String actionclass;
-	private Map<String,String> forwardMap = new HashMap<String,String>();
-	
+	private ActionForward actionForward;
 	
 	public String getActionPath() {
 		return actionPath;
@@ -21,11 +17,11 @@ public class ActionConfig {
 	public void setActionclass(String actionclass) {
 		this.actionclass = actionclass;
 	}
-	public Map<String, String> getForwardMap() {
-		return forwardMap;
+	public ActionForward getActionForward() {
+		return actionForward;
 	}
-	public void setForwardMap(Map<String, String> forwardMap) {
-		this.forwardMap = forwardMap;
+	public void setActionForward(ActionForward actionForward) {
+		this.actionForward = actionForward;
 	}
 	
 	

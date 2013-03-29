@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sc.auth.action.service.UserLoginService;
 import com.sc.auth.core.Action;
+import com.sc.auth.core.ActionForward;
 import com.sc.auth.util.ParamUtils;
 import com.sc.auth.util.StringUtils;
 import com.sc.auth.vo.BaseUser;
 
 public class LoginAction extends Action {
 
-	private final static String LOGIN_INDEX_PAGE_PATH = "/adminweb/list.jsp";
+	private final static String LOGIN_INDEX_PAGE_PATH = "/adminweb/article_list.jsp";
 	
 	@Override
-	public String excute(HttpServletRequest request,HttpServletResponse response) throws IOException {				
+	public String excute(HttpServletRequest request,HttpServletResponse response, ActionForward actionForward) throws IOException {				
 		return checkUserExist(request,response);		
 	}
 
@@ -26,7 +27,7 @@ public class LoginAction extends Action {
 		String userName = ParamUtils.getString(request, "userName", "");
 		String password = ParamUtils.getString(request, "password", "");		
 		try {
-			BaseUser user = getUserLoginService().getBaseUser(userName, password);
+			BaseUser user = getUserLoginService().getUser(userName, password);
 			if(null != user){
 //			用户名密码验证通过,设置session会话,跳转到登陆前访问的地址
 				request.getSession().setAttribute("logonUser", user);

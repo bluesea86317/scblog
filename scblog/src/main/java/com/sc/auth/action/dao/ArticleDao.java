@@ -1,6 +1,7 @@
 package com.sc.auth.action.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,10 +10,22 @@ import com.sc.auth.vo.ArticleVo;
 
 public class ArticleDao extends DaoSupport {
 	
+	public static ArticleDao getInstance(){
+		return new ArticleDao();
+	}
+	
 	public boolean addArticle(ArticleVo article) throws SQLException{
 		boolean flag = true;
-		String insertSql = "insert into t_article (fid, ftitle, fcontent, fauthorId, fcreateTime, flastModifyTime, farticleType)";
+		String insertSql = "insert into t_article (title, content, authorId, createTime, lastModifyTime, articleType) " +
+				"values (#title#, #content#, #authorId#, #createTime#, #lastModifyTime#, #articleType#)";
 		flag = insert(insertSql, article);
+		return flag;
+	}
+	
+	public boolean deleteArticle(Map<String,Object> param) throws SQLException{		
+		boolean flag = true;		
+		String deleteSql = "delete from t_article where id = #id#";		
+		flag = delete(deleteSql, param);
 		return flag;
 	}
 	

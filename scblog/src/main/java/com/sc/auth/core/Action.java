@@ -12,7 +12,7 @@ public abstract class Action {
 	
 	protected final static String PROCESS_RESULT_FAILURE = "";
 	
-	public abstract String excute(HttpServletRequest request, HttpServletResponse response) throws IOException;	
+	public abstract String excute(HttpServletRequest request, HttpServletResponse response, ActionForward actionForward) throws IOException;	
 	
 	/**
 	 * ajax result return : success

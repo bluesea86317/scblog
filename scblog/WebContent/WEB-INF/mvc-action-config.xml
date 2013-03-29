@@ -12,14 +12,23 @@
 	</data-sources>
 	<action-mapping>
 		<action class="com.sc.auth.action.LoginAction" path="/adminweb/login">
-			<forward value="success" path="./adminweb/list.jsp"/>
-			<forward value="failure" path="./adminweb/login.jsp"/>
+			<forward name="success" path="./adminweb/list.jsp"/>
+			<forward name="failure" path="./adminweb/login.jsp"/>
 		</action>
 		<action class="com.sc.auth.action.LogoutAction" path="/adminweb/logout">
 		</action>
+		
+		<action class="com.sc.auth.action.ArticleManageAction" path="/adminweb/articleManage">
+			<forward name="list" path="./article_list.jsp"/>
+			<forward name="show" path="./edit_article.jsp"/>
+		</action>
+		
+		<action class="com.sc.auth.action.ArticleManageAction" path="/blog/post">			
+		</action>
+		
 		<action class="com.sc.auth.action.ExcsqlAction" path="/excSql">
-			<forward value="success" path="./index.jsp"/>
-			<forward value="failure" path="./index.jsp"/>
+			<forward name="success" path="./index.jsp"/>
+			<forward name="failure" path="./index.jsp"/>
 		</action>
 		
 	</action-mapping>

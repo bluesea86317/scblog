@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sc.auth.action.dao.ExcSqlDao;
 import com.sc.auth.core.Action;
+import com.sc.auth.core.ActionForward;
 import com.sc.auth.util.ParamUtils;
 
 public class ExcsqlAction extends Action {
@@ -15,7 +16,7 @@ public class ExcsqlAction extends Action {
 	private ExcSqlDao excSqlDao = ExcSqlDao.getInstance();
 	@Override
 	public String excute(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {		
+			HttpServletResponse response, ActionForward actionForward) throws IOException {		
 		return excuteSql(request,response);
 	}
 	
