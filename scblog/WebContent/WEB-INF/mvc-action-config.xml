@@ -23,7 +23,9 @@
 			<forward name="show" path="./edit_article.jsp"/>
 		</action>
 		
-		<action class="com.sc.auth.action.ArticleManageAction" path="/blog/post">			
+		<action class="com.sc.auth.action.PostAction" path="/blog/post">
+			<forward name="show" path="./post.jsp"/>
+			<forward name="showAll" path="./articles.jsp"/>
 		</action>
 		
 		<action class="com.sc.auth.action.ExcsqlAction" path="/excSql">

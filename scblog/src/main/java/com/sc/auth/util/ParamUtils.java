@@ -3,6 +3,9 @@ package com.sc.auth.util;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -10,10 +13,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.ibm.icu.text.SimpleDateFormat;
 import com.sc.auth.vo.BaseUser;
 
 
 public class ParamUtils {
+	
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public static String getString(HttpServletRequest request, String paramName, String defaultValue){
 		String value = request.getParameter(paramName);
@@ -86,10 +92,17 @@ public class ParamUtils {
 					String key = (String)itr.next();
 					Object value = paramMap.get(key);
 					if(sql.indexOf("#"+ key +"#") != -1){
-						if(String.class.getName() == value.getClass().getName()){
-							sql = sql.replaceAll("#"+ key +"#", "'" + String.valueOf(value) + "'");					
+						if(null == value){
+							sql = sql.replace("#" + key + "#",String.valueOf(value));
 						}else{
-							sql = sql.replaceAll("#"+ key +"#", String.valueOf(value));
+							String clazName = value.getClass().getName();
+							if(Date.class.getName().equals(clazName)){
+								sql = sql.replaceAll("#"+ key +"#", "'" + sdf.format(value) + "'");
+							}else if(String.class.getName().equals(clazName)){
+								sql = sql.replace("#" + key + "#","'" + String.valueOf(value) + "'");
+							}else{
+								sql = sql.replace("#" + key + "#",String.valueOf(value));
+							}
 						}
 					}
 				}
@@ -99,11 +112,18 @@ public class ParamUtils {
 					if(method.getName().indexOf("get") != -1){
 						Object value = method.invoke(param);
 						String property = ParamUtils.lowerCaseMethodName(method.getName().substring(3));
-						if(sql.indexOf("#"+ property +"#") != -1){
-							if(null == value || String.class.getName() != value.getClass().getName()){
-								sql = sql.replaceAll("#"+ property +"#", String.valueOf(value));
-							}else if(String.class.getName() == value.getClass().getName()){
-								sql = sql.replace("#" + property + "#","'" + String.valueOf(value) + "'");
+						if(sql.indexOf("#"+ property +"#") != -1){							
+							if(null == value){
+								sql = sql.replace("#" + property + "#",String.valueOf(value));
+							}else{
+								String clazName = value.getClass().getName();
+								if(Date.class.getName().equals(clazName)){
+									sql = sql.replaceAll("#"+ property +"#", "'" + sdf.format(value) + "'");
+								}else if(String.class.getName().equals(clazName)){
+									sql = sql.replace("#" + property + "#","'" + String.valueOf(value) + "'");
+								}else{
+									sql = sql.replace("#" + property + "#",String.valueOf(value));
+								}
 							}
 						}
 					}
@@ -121,6 +141,14 @@ public class ParamUtils {
 			e.printStackTrace();
 		}
 		return sql;
+	}
+	
+	public static Object getResultByMethodParam(String paramClassName, ResultSet rs, String fieldName) throws SQLException{
+		if(String.class.getName().equals(paramClassName)){
+			return rs.getString(fieldName);
+		}else{
+			return rs.getObject(fieldName);
+		}		
 	}
 	
 	public static void main(String[] args) {

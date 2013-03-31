@@ -1,6 +1,8 @@
 package com.sc.auth.action;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -96,9 +98,10 @@ public class ArticleManageAction extends Action {
 	 * @param response
 	 * @param forward 
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	private String addArticle(HttpServletRequest request,
-			HttpServletResponse response, ActionForward forward) {
+			HttpServletResponse response, ActionForward forward) throws UnsupportedEncodingException {
 		try {
 			String title = ParamUtils.getString(request, "title", "");
 			String content = ParamUtils.getString(request, "articleContent", "");

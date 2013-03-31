@@ -38,7 +38,7 @@ public class ArticleDao extends DaoSupport {
 	}
 	
 	public ArticleVo findArticle(Map<String,Object> param) throws SQLException{
-		String sqlMapConfig = "select * from t_article where fid = #id#";
+		String sqlMapConfig = "select * from t_article where id = #id#";
 		return queryForObject(sqlMapConfig, param, ArticleVo.class);
 	}
 }

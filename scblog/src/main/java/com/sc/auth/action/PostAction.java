@@ -2,6 +2,7 @@ package com.sc.auth.action;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +20,24 @@ public class PostAction extends Action {
 	public String excute(HttpServletRequest request,
 			HttpServletResponse response, ActionForward actionForward)
 			throws IOException {
-		return showArticle(request, response, actionForward);
+		int id = ParamUtils.getInt(request, "id", 0);
+		if(id == 0){
+			return showAllArticle(request, response, actionForward);
+		}else{
+			return showArticle(request, response, actionForward);
+		}
+	}
+
+	private String showAllArticle(HttpServletRequest request,
+			HttpServletResponse response, ActionForward actionForward) {
+		try {
+			List<ArticleVo> articles = articleManageService.queryArticles();
+			request.setAttribute("articles", articles);
+			return actionForward.findForward("showAll");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**
@@ -32,7 +50,7 @@ public class PostAction extends Action {
 	private String showArticle(HttpServletRequest request,
 			HttpServletResponse response, ActionForward forward) {
 		try {
-			int id = ParamUtils.getInt(request, "articleId", 0);
+			int id = ParamUtils.getInt(request, "id", 0);
 			ArticleVo article = articleManageService.findArticle(id);
 			if(null == article){
 				return forward.findForward("inexistence");

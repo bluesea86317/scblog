@@ -81,11 +81,12 @@ public class ActionServlet extends HttpServlet {
 //		config
 		ActionConfig actionConfig = configMap.get(actionPath);
 		try {
-		if(null == actionConfig){
-			throw new NonActionForRequstException("There is no action config for this request which the path is \"" + actionPath + "\"");			
-		}
-		String clzName = actionConfig.getActionclass();
-		ActionForward forwardMap = actionConfig.getActionForward();
+			request.setCharacterEncoding("UTF-8");
+			if(null == actionConfig){
+				throw new NonActionForRequstException("There is no action config for this request which the path is \"" + actionPath + "\"");			
+			}
+			String clzName = actionConfig.getActionclass();
+			ActionForward forwardMap = actionConfig.getActionForward();
 			Action action = (Action)Class.forName(clzName).newInstance();
 			String forwardPath = action.excute(request, response, forwardMap);
 			if(!StringUtils.isNullOrEmpty(forwardPath)){

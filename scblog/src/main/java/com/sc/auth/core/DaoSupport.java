@@ -82,7 +82,7 @@ public abstract class DaoSupport {
 				Field[] fields = clazz.getDeclaredFields();
 				for(Field field : fields){
 					Method method = clazz.getMethod("set" + ParamUtils.upperCaseMethodName(field.getName()), field.getType());
-					method.invoke(object, rs.getObject(field.getName()));
+					method.invoke(object, ParamUtils.getResultByMethodParam(method.getParameterTypes()[0].getName(), rs, field.getName()));
 				}
 				resultList.add(object);
 			}
@@ -129,7 +129,7 @@ public abstract class DaoSupport {
 				object = clazz.newInstance();
 				for(Field field : fields){
 					Method method = clazz.getMethod("set" + ParamUtils.upperCaseMethodName(field.getName()), field.getType());
-					method.invoke(object, rs.getObject(field.getName()));
+					method.invoke(object, ParamUtils.getResultByMethodParam(method.getParameterTypes()[0].getName(), rs, field.getName()));
 				}				
 			}
 			return (T)object;
