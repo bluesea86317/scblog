@@ -1,6 +1,7 @@
 package com.sc.auth.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class ArticleVo {
 	/**
@@ -12,6 +13,11 @@ public class ArticleVo {
 	 * 文章标题
 	 */
 	private String title;
+	
+	/**
+	 * 文章内容简介
+	 */
+	private String intro;
 	
 	/**
 	 * 文章内容
@@ -38,6 +44,11 @@ public class ArticleVo {
 	 */
 	private int articleType;
 
+	/**
+	 * 标签
+	 */
+	private List<Tag> tags;
+	
 	public int getId() {
 		return id;
 	}
@@ -48,6 +59,14 @@ public class ArticleVo {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
 	}
 
 	public void setTitle(String title) {
@@ -92,6 +111,14 @@ public class ArticleVo {
 
 	public void setArticleType(int articleType) {
 		this.articleType = articleType;
+	}
+
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
 	}
 	
 	

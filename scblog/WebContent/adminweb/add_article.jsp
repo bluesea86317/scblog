@@ -17,6 +17,13 @@
 		oFCKeditor.Width = 600;    
 		oFCKeditor.ToolbarSet = 'Basic';
 		oFCKeditor.ReplaceTextarea() ;
+		
+		var oFCKeditor1 = new FCKeditor('articleIntro') ;
+		oFCKeditor1.BasePath = "./fckeditor/";
+		oFCKeditor1.Height = 300 ;       
+		oFCKeditor1.Width = 600;    
+		oFCKeditor1.ToolbarSet = 'Basic';
+		oFCKeditor1.ReplaceTextarea() ;
 	};
 	
 	function addTemplate(){
@@ -25,8 +32,11 @@
 	
 	function ajaxPost(){
 		var oEditor = FCKeditorAPI.GetInstance("articleContent");
+		var oEditor1 = FCKeditorAPI.GetInstance("articleIntro");
 		var title = $("#title").val();
+		var tag = $("#tag").val();
 		var articleContent = oEditor.GetXHTML(true);
+		var articleIntro = oEditor1.GetXHTML(true);
 		if(title == ""){
 			window.alert("文章标题不能为空!");
 			return;
@@ -35,10 +45,16 @@
 			window.alert("文章内容不能为空!");
 			return;
 		}
+		if(articleIntro == ""){
+			window.alert("文章内容简介不能为空!");
+			return;
+		}
 		$.post("./articleManage.do", {
 			action : "add",
 			title:title,
-			articleContent: articleContent
+			articleContent: articleContent,
+			articleIntro:articleIntro,
+			tag:tag
 		},
 		function (result) {
 			window.alert(result);
@@ -63,16 +79,20 @@
 					<td><input type="text" name="title" id="title" value="" size="70"/></td>
 				</tr>
 				<tr>
-					<th>标签：</th>
-					<td>
-						<input type="text" name="tag" id="tag" value="" size="70" maxlength="150"/>
-						多个标签之间, 请用";"号隔开
-					</td>
+					<th>内容简介:</th>
+					<td><div id="box-body">&nbsp;&nbsp;<textarea style="display: none;" id="articleIntro" name="articleIntro" cols="" rows="20" class="textarea"></textarea></div></td>
 				</tr>
 				<tr>
 					<th>*文章内容：</th>
 					<td>
 						<div id="box-body">&nbsp;&nbsp;<textarea style="display: none;" id="articleContent" name="articleContent" cols="" rows="20" class="textarea"></textarea></div>
+					</td>
+				</tr>
+				<tr>
+					<th>标签：</th>
+					<td>
+						<input type="text" name="tag" id="tag" value="" size="70" maxlength="150"/>
+						多个标签之间, 请用";"号隔开
 					</td>
 				</tr>
 			</table>

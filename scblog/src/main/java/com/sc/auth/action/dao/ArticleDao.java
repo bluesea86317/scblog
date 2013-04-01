@@ -14,12 +14,10 @@ public class ArticleDao extends DaoSupport {
 		return new ArticleDao();
 	}
 	
-	public boolean addArticle(ArticleVo article) throws SQLException{
-		boolean flag = true;
-		String insertSql = "insert into t_article (title, content, authorId, createTime, lastModifyTime, articleType) " +
-				"values (#title#, #content#, #authorId#, #createTime#, #lastModifyTime#, #articleType#)";
-		flag = insert(insertSql, article);
-		return flag;
+	public int addArticle(ArticleVo article) throws SQLException{
+		String insertSql = "insert into t_article (title, intro, content, authorId, createTime, lastModifyTime, articleType) " +
+				"values (#title#, #intro#, #content#, #authorId#, #createTime#, #lastModifyTime#, #articleType#)";
+		return insert(insertSql, article);
 	}
 	
 	public boolean deleteArticle(Map<String,Object> param) throws SQLException{		

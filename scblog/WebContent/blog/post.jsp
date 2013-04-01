@@ -26,7 +26,10 @@
 	    		</div>
 	    		<div class="meta-full-post">
 	    			<p>分类: <span class="color_orange">图文</span></p>
-	    			<p>标签: <span class="color_orange">疯狂</span>, <span class="color_orange">世界</span></p>
+	    			<p>标签:
+	    				<c:forEach items="${article.tags}" var="tag">
+	    					<span class="color_orange">${tag.tagName }</span>
+	    				</c:forEach>
 	    		</div>
 	    		
 	    		<div id="respond">

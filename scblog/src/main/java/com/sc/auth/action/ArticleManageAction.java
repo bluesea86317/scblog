@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sc.auth.action.service.ArticleManageService;
+import com.sc.auth.action.service.TagManageService;
 import com.sc.auth.core.Action;
 import com.sc.auth.core.ActionForward;
 import com.sc.auth.util.ParamUtils;
@@ -20,6 +21,7 @@ import com.sc.auth.vo.BaseUser;
 public class ArticleManageAction extends Action {
 
 	private ArticleManageService articleManageService = ArticleManageService.getInstance();
+	
 	@Override
 	public String excute(HttpServletRequest request,
 			HttpServletResponse response, ActionForward forward) throws IOException {
@@ -104,17 +106,20 @@ public class ArticleManageAction extends Action {
 			HttpServletResponse response, ActionForward forward) throws UnsupportedEncodingException {
 		try {
 			String title = ParamUtils.getString(request, "title", "");
+			String articleIntro = ParamUtils.getString(request, "articleIntro", "");
 			String content = ParamUtils.getString(request, "articleContent", "");
 			int authorId = ((BaseUser)request.getSession().getAttribute("logonUser")).getId();
-	//		String createTime = ParamUtils.getString(request, "content", "");
+			String tagStr = ParamUtils.getString(request, "tag", "");
 			int articleType = ParamUtils.getInt(request, "articleType", 0);
 			ArticleVo article = new ArticleVo();
 			article.setAuthorId(authorId);
 			article.setTitle(title);
+			article.setIntro(articleIntro);
 			article.setContent(content);
 			article.setCreateTime(new Date());
 			article.setArticleType(articleType);
-			articleManageService.addArticle(article);
+//			新增文章和标签
+			articleManageService.addArticle(article, tagStr);			
 			return_out(response, PROCESS_RESULT_SUCCESS, "文章新增成功");
 		} catch (SQLException e) {			
 			e.printStackTrace();

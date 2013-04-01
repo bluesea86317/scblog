@@ -24,7 +24,7 @@
     			<div class="single-post-text">
     				<h2><a href="./post.do?id=${article.id }">${article.title }</a></h2>
     				<div class="single-post-content pull-left">
-    					${fn:substring(article.content,0,100) }
+    					${article.intro }
 					</div>
 					<div class="meta pull-left">
 						<p><fmt:formatDate value="${article.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/></p>

@@ -143,12 +143,17 @@ public class ParamUtils {
 		return sql;
 	}
 	
-	public static Object getResultByMethodParam(String paramClassName, ResultSet rs, String fieldName) throws SQLException{
-		if(String.class.getName().equals(paramClassName)){
-			return rs.getString(fieldName);
-		}else{
-			return rs.getObject(fieldName);
-		}		
+	public static Object getResultByMethodParam(String paramClassName, ResultSet rs, String fieldName){
+		try {
+			if(String.class.getName().equals(paramClassName)){
+					return rs.getString(fieldName);
+			}else{
+				return rs.getObject(fieldName);
+			}		
+		} catch (SQLException e) {			
+			e.printStackTrace();			
+		}
+		return null;
 	}
 	
 	public static void main(String[] args) {

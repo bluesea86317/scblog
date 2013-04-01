@@ -4,8 +4,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,23 +26,28 @@ public abstract class DaoSupport {
 	 * @return
 	 * @throws SQLException
 	 */
-	protected boolean insert(String sqlMapConfig, Object param) throws SQLException{
-		boolean flag = true;
+	protected int insert(String sqlMapConfig, Object param) throws SQLException{
 		Connection conn = null;
 		try {
 			conn = createConnection();
 			String sql = ParamUtils.getSql(sqlMapConfig, param);
-			conn.createStatement().execute(sql);
-			return flag;
+			PreparedStatement smt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			smt.executeUpdate();
+//			返回自动生成的主键ID
+			ResultSet rs = smt.getGeneratedKeys();
+			int id;
+			if(rs.next()){
+				id = rs.getInt(1);
+				return id;
+			}
 		}catch (DataSourceInitException e) {
-			flag = false;
 			e.printStackTrace();
 		}finally{
 			if(null != conn){
 				conn.close();				
 			}
 		}
-		return flag;
+		return 0;
 	}
 	
 	/**
@@ -69,7 +76,8 @@ public abstract class DaoSupport {
 		return flag;
 	}
 	
-	protected List<?> queryForList(String sqlMapConfig, Map<String,Object> param, Class<?> clazz) throws SQLException{
+	@SuppressWarnings("rawtypes")
+	protected List queryForList(String sqlMapConfig, Map<String,Object> param, Class<?> clazz) throws SQLException{
 		List<Object> resultList = new ArrayList<Object>();
 		ResultSet rs;
 		Connection conn = null;
