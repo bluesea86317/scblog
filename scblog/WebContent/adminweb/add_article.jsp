@@ -41,12 +41,12 @@
 			window.alert("文章标题不能为空!");
 			return;
 		}
-		if(articleContent == ""){
-			window.alert("文章内容不能为空!");
-			return;
-		}
 		if(articleIntro == ""){
 			window.alert("文章内容简介不能为空!");
+			return;
+		}
+		if(articleContent == ""){
+			window.alert("文章内容不能为空!");
 			return;
 		}
 		$.post("./articleManage.do", {
@@ -56,10 +56,12 @@
 			articleIntro:articleIntro,
 			tag:tag
 		},
-		function (result) {
-			window.alert(result);
-			window.close();
-			window.opener.location.reload();
+		function (data) {
+			if(result.resultCode == "success"){
+				window.alert(result.msg, true);				
+			}else{
+				window.alert(result.msg, false);
+			}
 		}
 		);
 	}
@@ -79,7 +81,7 @@
 					<td><input type="text" name="title" id="title" value="" size="70"/></td>
 				</tr>
 				<tr>
-					<th>内容简介:</th>
+					<th>*内容简介:</th>
 					<td><div id="box-body">&nbsp;&nbsp;<textarea style="display: none;" id="articleIntro" name="articleIntro" cols="" rows="20" class="textarea"></textarea></div></td>
 				</tr>
 				<tr>

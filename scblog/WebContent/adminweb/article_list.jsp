@@ -7,16 +7,30 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>文章列表</title>
 <%@include file="../include/commonresource.jsp" %>
+<script type="text/javascript">
+	
+	function deleteArticle(id){
+		$.post("articleManage.do",{action:'delete', articleId : id}, function(data){
+			var result = eval("(" + data + ")");
+			if(result.resultCode == "success"){
+				window.alert(result.msg, true);				
+			}else{
+				window.alert(result.msg, false);
+			}
+			
+		});
+	}
+	
+</script>
 </head>
 <body>
 	<%@include file="../include/header.jsp" %>
-	<div id="content">
+	<div id="content">		
 		<div class="row-fluid">
 		<jsp:include page="../include/nav.jsp">
 			<jsp:param value="article_list" name="nodeId"/>
 		</jsp:include>
 		<div class="span10">
-			<a class="btn btn-success" href="./add_article.jsp">写 文 章</a>
 			<table class="table table-bordered" width="100%">
 			  <tr>
 				<th width="10%"></th>
@@ -31,13 +45,14 @@
 				  	<td>${article.id }</td>
 				  	<td>${article.title }</td>
 				  	<td>${article.createTime }</td>
-				  	<td><a href="./edit_article.jsp">修改</a> 删除</td>
+				  	<td><a href="./edit_article.jsp">修改</a><a href="javascript:deleteArticle('${article.id }');">删除</a></td>
 				  </tr>
 			  </c:forEach>
 			  </table>
 		</div>
 		</div>
 	</div>
-	<%@include file="../include/footer.jsp" %> 
+	<%@include file="../include/footer.jsp" %>
+
 </body>
 </html>

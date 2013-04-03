@@ -17,29 +17,9 @@
               <li><a href="#contact">联系我</a></li>
             </ul>
             <c:if test="${!empty logonUser }">
-            	<a href="${web_host }/adminweb/logout.do">退 出</a>
+            	<a href="./add_article.jsp">写文章</a> | <a href="${web_host }/adminweb/logout.do">退 出</a>
             </c:if>
           </div><!--/.nav-collapse -->
         </div>
       </div>
 </div>
-<script type="text/javascript">
-	(function(){
-		var is_breath_in = true;
-		var air = Math.random()/10;
-		setInterval(
-				function(){var op = parseFloat($("#breath_o").css("opacity"));
-				if(air > 0.08){ air-=0.02};
-				if(air < 0.03){ air+=0.03};				
-				op = is_breath_in ?　op + air　: op - air;	
-				if(op > 1) {
-					is_breath_in = false;
-					air = Math.random()/10;
-				}else if(op < 0){
-					is_breath_in = true;
-					air = Math.random()/10;					
-				}
-				$("#breath_o").css("opacity",op);},
-				100);
-	})();
-</script>

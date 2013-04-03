@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
-    <title>就这么飘来荡去</title>
+    <title>Stephen Chen 个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A blog about software development technology">
     <meta name="author" content="Stephen Chen">
@@ -15,7 +15,7 @@
 			}
 		);
 	</script>
-
+  </head>
   <body>
 
     <%@include file="./include/header.jsp" %>

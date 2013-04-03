@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,11 +18,11 @@
     	<div id="posts">
     		<div class="full-post">
 	    		<h1 class="full-post-title">${article.title }</h1>
-	    		<div class="meta-full-post">发布于: 2013-03-27 by <span class="color_orange">Stephen Chen</span></div>
+	    		<div class="meta-full-post">发布于: <fmt:formatDate value="${article.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/> by <span class="color_orange">Stephen Chen</span></div>
 	    		<div class="full-post-content">
-	    			<p>
+	    			<!-- <p>
 	    				<img src="../images/image4.jpg" alt="Another Image in a Post">
-	    			</p>
+	    			</p> -->
 	    			<div>
 	    				 ${article.content }
 	    			</div>

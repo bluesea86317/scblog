@@ -14,7 +14,7 @@
   </welcome-file-list>
   
   <servlet>
-  	<servlet-name>action</servlet-name>
+  	<servlet-name>ActionServlet</servlet-name>
   	<servlet-class>com.sc.auth.core.ActionServlet</servlet-class>
   	<init-param>
   		<param-name>config</param-name>
@@ -23,8 +23,13 @@
   	<load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>action</servlet-name>
+  	<servlet-name>ActionServlet</servlet-name>
   	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>ActionServlet</servlet-name>
+  	<url-pattern>*.htm</url-pattern>
   </servlet-mapping>
   
   <filter>

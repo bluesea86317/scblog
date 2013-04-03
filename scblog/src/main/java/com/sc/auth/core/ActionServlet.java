@@ -74,25 +74,40 @@ public class ActionServlet extends HttpServlet {
 	
 	private void process(HttpServletRequest request, HttpServletResponse response){
 //		设置请求响应的编码规则
-		response.setCharacterEncoding("UTF-8");
 		String servletPath = request.getServletPath();
 		String actionPath = servletPath.substring(0,servletPath.lastIndexOf("."));
-//			requestUri.substring(0,requestUri.lastIndexOf("."));
 //		config
-		ActionConfig actionConfig = configMap.get(actionPath);
 		try {
+			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
+			
+			ActionConfig actionConfig = configMap.get(actionPath);
 			if(null == actionConfig){
 				throw new NonActionForRequstException("There is no action config for this request which the path is \"" + actionPath + "\"");			
-			}
-			String clzName = actionConfig.getActionclass();
-			ActionForward forwardMap = actionConfig.getActionForward();
-			Action action = (Action)Class.forName(clzName).newInstance();
-			String forwardPath = action.excute(request, response, forwardMap);
-			if(!StringUtils.isNullOrEmpty(forwardPath)){
-				request.getRequestDispatcher(forwardPath).forward(request, response);				
-			}
+			}			
 			
+			String filePath = getServletContext().getRealPath("/blog");
+			String fileName = "";
+			String forwardPath = "";
+			int articleId = ParamUtils.getInt(request, "id", 0);
+			if(articleId != 0){
+				fileName = articleId + ".html";
+				filePath = filePath + "\\" + fileName;
+				File file = new File(filePath);
+				if(file.exists()){
+//					response.sendRedirect(fileName);
+					request.getRequestDispatcher(fileName).forward(request, response);
+				}else{
+					forwardPath = dealForwardPath(request, response, actionConfig);
+					StaticHtmlPageCreator.createStaticHtmlPageAndRedirect(request, response, fileName, filePath, forwardPath);
+					
+				}
+			}else{			
+				forwardPath = dealForwardPath(request, response, actionConfig);
+				if(!StringUtils.isNullOrEmpty(forwardPath)){
+					request.getRequestDispatcher(forwardPath).forward(request, response);				
+				}
+			}			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,6 +127,13 @@ public class ActionServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private String dealForwardPath(HttpServletRequest request, HttpServletResponse response, ActionConfig actionConfig) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException{		
+		String clzName = actionConfig.getActionclass();
+		ActionForward forwardMap = actionConfig.getActionForward();
+		Action action = (Action)Class.forName(clzName).newInstance();
+		return action.excute(request, response, forwardMap);
 	}
 	
 	/**

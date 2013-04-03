@@ -18,11 +18,11 @@
     	<div id="posts">
     		<c:forEach items="${articles }" var="article">
     		<div class="single-post">
-    			<div class="single-post-image">
+    			<!-- <div class="single-post-image">
     				<img src="../images/image5.jpg" alt="Another Image in a Post" style="opacity: 1;">
-    			</div>
+    			</div> -->
     			<div class="single-post-text">
-    				<h2><a href="./post.do?id=${article.id }">${article.title }</a></h2>
+    				<h2><a href="./post.htm?id=${article.id }">${article.title }</a></h2>
     				<div class="single-post-content pull-left">
     					${article.intro }
 					</div>
@@ -34,7 +34,7 @@
     			</div>
     		</div>
     		</c:forEach>
-    		<div class="single-post">
+    		<!-- <div class="single-post">
     			<div class="single-post-image">
     				<img src="../images/image10.jpg" alt="Another Image in a Post" style="opacity: 1;">
     			</div>
@@ -66,7 +66,7 @@
 					</div>
 					<div class="clearfix"></div>
     			</div>
-    		</div>
+    		</div> -->
     	</div>    	
     	<%@include file="../include/slidebar.jsp" %>
     </div>

@@ -30,7 +30,7 @@ public class ArticleDao extends DaoSupport {
 	@SuppressWarnings("unchecked")
 	public List<ArticleVo> queryArticles(Map<String,Object> param) throws SQLException{
 		List<ArticleVo> articles;
-		String sqlMapConfig = "select * from t_article ";
+		String sqlMapConfig = "select * from t_article order by id desc";
 		articles = (List<ArticleVo>)queryForList(sqlMapConfig, param, ArticleVo.class);
 		return articles;
 	}

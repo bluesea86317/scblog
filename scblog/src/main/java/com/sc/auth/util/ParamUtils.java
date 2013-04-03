@@ -146,7 +146,7 @@ public class ParamUtils {
 	public static Object getResultByMethodParam(String paramClassName, ResultSet rs, String fieldName){
 		try {
 			if(String.class.getName().equals(paramClassName)){
-					return rs.getString(fieldName);
+				return rs.getString(fieldName);
 			}else{
 				return rs.getObject(fieldName);
 			}		

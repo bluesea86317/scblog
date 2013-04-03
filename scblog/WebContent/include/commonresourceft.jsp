@@ -16,3 +16,4 @@
     <script src="${web_host}/js/bootstrap-collapse.js"></script>
     <script src="${web_host}/js/bootstrap-carousel.js"></script>
     <script src="${web_host}/js/bootstrap-typeahead.js"></script>
+    <script src="${web_host}/js/common.js"></script>
