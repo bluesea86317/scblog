@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -44,7 +45,7 @@
 				  	<td><input type="checkbox"/></td>
 				  	<td>${article.id }</td>
 				  	<td>${article.title }</td>
-				  	<td>${article.createTime }</td>
+				  	<td><fmt:formatDate value="${article.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				  	<td><a href="./edit_article.jsp">修改</a><a href="javascript:deleteArticle('${article.id }');">删除</a></td>
 				  </tr>
 			  </c:forEach>

@@ -8,6 +8,31 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>文章</title>
 <%@include file="../include/commonresource.jsp" %>
+<script type="text/javascript">
+	function submitComment(){
+		var articleId = $("#articleId").val();
+		var visitor = $("#visitor").val();
+		var email = $("#email").val();
+		var commentContent = $("#commentContent").val();
+		var website = $("#website").val();
+		
+		$.post("./comment.do",{
+			action:'add',
+			articleId:articleId,
+			visitor:visitor,
+			email:email,
+			commentContent:commentContent,
+			website:website
+		}, function(date){
+			var result = eval("("+date+")");
+			if(result.resultCode == "success"){
+				window.alert(result.msg,true);				
+			}else{
+				window.alert(result.msg,false);
+			}
+		});
+	}
+</script>
 </head>
 <body>
 	<%@include file="../include/header.jsp" %>
@@ -38,11 +63,12 @@
 	    		<div id="respond">
 	    			<h3 class="postcomment">发表评论</h3>
 	    			<form action="" method="post">
-	    				<p><input type="text" class="searchfield" /> 称呼(必填)</p>
-	    				<p><input type="text" class="searchfield" /> 邮箱</p>
-	    				<p><input type="text" class="searchfield" /> 网站</p>
-	    				<p><textarea class="searchfield" cols="60" rows="10"></textarea></p>
-	    				<p><a class="btn btn-large">提 交</a></p>
+	    				<input type="hidden" name="articleId" id="articleId" value="${article.id}">
+	    				<p><input type="text" class="searchfield" id="visitor" name="visitor"/> 称呼(必填)</p>
+	    				<p><input type="text" class="searchfield" id="email" name="email"/> 邮箱</p>
+	    				<p><input type="text" class="searchfield" id="website" name="website"/> 网站</p>
+	    				<p><textarea class="searchfield" cols="60" rows="10" id="commentContent" name="commentContent"></textarea></p>
+	    				<p><a class="btn btn-large" href="javascript:submitComment();">提 交</a></p>
 	    			</form>
 	    		</div>
     		</div>

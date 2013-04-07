@@ -15,6 +15,7 @@
 			<forward name="success" path="./adminweb/list.jsp"/>
 			<forward name="failure" path="./adminweb/login.jsp"/>
 		</action>
+		
 		<action class="com.sc.auth.action.LogoutAction" path="/adminweb/logout">
 		</action>
 		
@@ -33,5 +34,11 @@
 			<forward name="failure" path="./index.jsp"/>
 		</action>
 		
+		<action class="com.sc.auth.action.CommentManageAction" path="/adminweb/comment">
+			<forward name="list" path="./comment_list.jsp"/>
+		</action>
+		
+		<action class="com.sc.auth.action.CommentManageAction" path="/blog/comment">
+		</action>
 	</action-mapping>
 </mvc-config>

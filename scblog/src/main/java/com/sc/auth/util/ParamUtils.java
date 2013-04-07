@@ -35,7 +35,6 @@ public class ParamUtils {
 			value = Integer.parseInt(request.getParameter(paramName));
 			return value;
 		} catch (Exception e) {
-			e.printStackTrace();
 			return defaultValue;
 		}
 	}

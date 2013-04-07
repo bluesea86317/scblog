@@ -57,6 +57,7 @@
 			tag:tag
 		},
 		function (data) {
+			var result = eval("("+data+")");
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);				
 			}else{

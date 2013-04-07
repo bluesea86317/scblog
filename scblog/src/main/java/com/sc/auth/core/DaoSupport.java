@@ -88,10 +88,16 @@ public abstract class DaoSupport {
 			while(rs.next()){
 				Object object = clazz.newInstance();
 				Field[] fields = clazz.getDeclaredFields();
-				for(Field field : fields){
-					Method method = clazz.getMethod("set" + ParamUtils.upperCaseMethodName(field.getName()), field.getType());
-					method.invoke(object, ParamUtils.getResultByMethodParam(method.getParameterTypes()[0].getName(), rs, field.getName()));
+				Method[] methods = clazz.getMethods();
+				for(Method method : methods){
+					if(method.getName().startsWith("set")){
+						method.invoke(object, ParamUtils.getResultByMethodParam(method.getParameterTypes()[0].getName(), rs, ParamUtils.lowerCaseMethodName(method.getName().substring(3))));
+					}
 				}
+//				for(Field field : fields){
+//					Method method = clazz.getMethod("set" + ParamUtils.upperCaseMethodName(field.getName()), field.getType());
+//					method.invoke(object, ParamUtils.getResultByMethodParam(method.getParameterTypes()[0].getName(), rs, field.getName()));
+//				}
 				resultList.add(object);
 			}
 			
@@ -107,10 +113,7 @@ public abstract class DaoSupport {
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
+		}  catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {

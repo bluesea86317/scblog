@@ -90,7 +90,7 @@ public class ActionServlet extends HttpServlet {
 			String fileName = "";
 			String forwardPath = "";
 			int articleId = ParamUtils.getInt(request, "id", 0);
-			if(articleId != 0){
+			if(articleId != 0 && "post".equals(actionPath)){
 				fileName = articleId + ".html";
 				filePath = filePath + "\\" + fileName;
 				File file = new File(filePath);
