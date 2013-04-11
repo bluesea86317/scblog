@@ -15,7 +15,7 @@ import com.sc.auth.vo.BaseUser;
 
 public class LoginAction extends Action {
 
-	private final static String LOGIN_INDEX_PAGE_PATH = "/adminweb/article_list.jsp";
+	private final static String LOGIN_INDEX_PAGE_PATH = "/adminweb/articleManage.do";
 	
 	@Override
 	public String excute(HttpServletRequest request,HttpServletResponse response, ActionForward actionForward) throws IOException {				
