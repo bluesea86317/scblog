@@ -8,6 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+
 import com.sc.auth.action.service.CommentService;
 import com.sc.auth.core.Action;
 import com.sc.auth.core.ActionForward;
@@ -28,10 +30,29 @@ public class CommentManageAction extends Action{
 			return update(request, response, actionForward);
 		}else if("delete".equals(action)){
 			return delete(request, response, actionForward);
+		}else if("showComment".equals(action)){
+			return showComment(request, response, actionForward);
 		}else{
 			return queryComments(request, response, actionForward);
 		}
 	}
+
+	
+	private String showComment(HttpServletRequest request,
+			HttpServletResponse response, ActionForward actionForward) {
+		int articleId = ParamUtils.getInt(request, "", 0);
+		try {
+			List<CommentVo> comments = commentService.findComments(articleId);
+			JSONArray jsonArray = new JSONArray();
+			jsonArray.addAll(comments);			
+			outPut(response, jsonArray.toString());
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return_out(response, PROCESS_RESULT_FAILURE, e.getMessage());
+		}
+		return null;
+	}
+
 
 	private String queryComments(HttpServletRequest request,
 			HttpServletResponse response, ActionForward actionForward) {

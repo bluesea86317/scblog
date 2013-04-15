@@ -32,6 +32,20 @@
 			}
 		});
 	}
+	
+	function showComment(){
+		$.post("./comment.do",{
+			action:'showComment',
+			articleId:'${article.id}'
+		}, function(date){
+			var result = eval("("+date+")");
+			alert(result);
+		});
+	}
+	
+	window.onload = function(){
+		showComment();
+	};
 </script>
 </head>
 <body>

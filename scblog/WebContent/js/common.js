@@ -19,7 +19,7 @@
 	Window.prototype.alert = function(info, needReload){
 			$(".alert").remove();
 			var alert_div = $("<div class=\"alert hide\"><a class=\"close\" data-dismiss=\"alert\">×</a><span>"+info+"</span></div>");
-			$("#content").prepend(alert_div);		
+			$("#header").append(alert_div);	
 			$(".alert").show(200);
 			if(needReload){
 				setTimeout("$(\".alert\").hide(200); window.location.reload();",2000);			

@@ -19,8 +19,17 @@ public abstract class Action {
 	 * @param response
 	 */
 	public void return_out(HttpServletResponse response,String result, String msg){
+		outPut(response,"{\"resultCode\":\"" + result + "\",\"msg\":\"" + msg + "\"}");
+	}
+	
+	/**
+	 * ajax输出
+	 * @param response
+	 * @param result
+	 */
+	public void outPut(HttpServletResponse response,String result){
 		try {
-			response.getWriter().print("{\"resultCode\":\"" + result + "\",\"msg\":\"" + msg + "\"}");
+			response.getWriter().print(result);
 		} catch (IOException e) {			
 			e.printStackTrace();
 		}
