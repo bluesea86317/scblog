@@ -15,13 +15,14 @@
 		var email = $("#email").val();
 		var commentContent = $("#commentContent").val();
 		var website = $("#website").val();
-		
+		var followedId = $("#followedId").val();
 		$.post("./comment.do",{
 			action:'add',
 			articleId:articleId,
 			visitor:visitor,
 			email:email,
 			commentContent:commentContent,
+			followedId:followedId,
 			website:website
 		}, function(date){
 			var result = eval("("+date+")");
@@ -42,11 +43,17 @@
 			var comment_div = "";
 			$(result).each(function(i){
 				//alert(result[i].id);
-				comment_div = comment_div + '<div class="comment_c"><h6><a href="'+result[i].website+'" rel="external nofollow" class="url">'+result[i].visitor+'</a><span class="pull-right">'+result[i].responseTime+'</span></h6><p>'+result[i].comment+'</p><div class="pull-right"><a>回复</a></div><div class="clearfix"></div></div>'
+				comment_div = comment_div + '<div class="comment_c"><h5><a href="'+result[i].website+'" rel="external nofollow" class="url">'+result[i].visitor+'</a><span class="pull-right">'+result[i].responseTime+'</span></h5><p>'+result[i].comment+'</p><div class="pull-right"><a href="javascript:reply('+result[i].id+',\''+result[i].visitor+'\')">回复</a></div><div class="clearfix"></div></div>'
 				$("#comment").html(comment_div);
 			});
 		});
 	}	
+	
+	function reply(comment_id, visitor){
+		$("#followedId").val(comment_id);
+		$("#commentContent").focus();
+		$("#commentContent").val("回复 " + visitor + ":");
+	}
 	
 	$(document).ready(function(){
 		showComment();
@@ -85,6 +92,7 @@
 	    			<h3 class="postcomment">发表评论</h3>
 	    			<form action="" method="post">
 	    				<input type="hidden" name="articleId" id="articleId" value="${article.id}">
+	    				<input type="hidden" name="followedId" id="followedId" value="0">
 	    				<p><input type="text" class="searchfield" id="visitor" name="visitor"/> 称呼(必填)</p>
 	    				<p><input type="text" class="searchfield" id="email" name="email"/> 邮箱</p>
 	    				<p><input type="text" class="searchfield" id="website" name="website"/> 网站</p>

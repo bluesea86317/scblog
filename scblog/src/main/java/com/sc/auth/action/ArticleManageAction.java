@@ -34,25 +34,10 @@ public class ArticleManageAction extends Action {
 			return deleteArticle(request, response,forward);
 		}else if("edit".equals(action)){
 			return showArticle(request, response, forward);
-		}else if("listRecentArticles".equals(action)){
-			return listRecentArticles(request, response, forward);
 		}else{
 			return listArticle(request, response, forward);
 		}
 		
-	}
-
-	private String listRecentArticles(HttpServletRequest request,
-			HttpServletResponse response, ActionForward forward) {
-		try {
-			List<ArticleVo> articles = articleManageService.queryRecentArticles();
-			JSONArray jsonArray = new JSONArray();
-			jsonArray.addAll(articles);
-			outPut(response, jsonArray.toString());
-		} catch (SQLException e) {			
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	private String listArticle(HttpServletRequest request,

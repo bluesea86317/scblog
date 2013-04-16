@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">SC'BL<span id="breath_o" style="opacity: 0;">O</span>G</a>
+          <a class="brand" href="${web_host }/blog/post.htm">SC'BL<span id="breath_o" style="opacity: 0;">O</span>G</a>
           <div class="nav-collapse pull-right">
             <ul class="nav">
               <li class="active"><a href="#">主页</a></li>

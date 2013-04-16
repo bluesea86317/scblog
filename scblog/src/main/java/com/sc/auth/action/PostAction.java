@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+
 import com.sc.auth.action.service.ArticleManageService;
 import com.sc.auth.core.Action;
 import com.sc.auth.core.ActionForward;
@@ -21,14 +23,29 @@ public class PostAction extends Action {
 			HttpServletResponse response, ActionForward actionForward)
 			throws IOException {
 		int id = ParamUtils.getInt(request, "id", 0);
-		
-		if(id == 0){
+		String action = ParamUtils.getString(request, "action", "");		
+		if("listRecentArticles".equals(action)){
+			return listRecentArticles(request, response, actionForward);
+		}else if(id == 0){
 			return showAllArticle(request, response, actionForward);
 		}else{
 			return showArticle(request, response, actionForward);
 		}
 	}
 
+	private String listRecentArticles(HttpServletRequest request,
+			HttpServletResponse response, ActionForward forward) {
+		try {
+			List<ArticleVo> articles = articleManageService.queryRecentArticles();
+			JSONArray jsonArray = new JSONArray();
+			jsonArray.addAll(articles);
+			outPut(response, jsonArray.toString());
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	private String showAllArticle(HttpServletRequest request,
 			HttpServletResponse response, ActionForward actionForward) {
 		try {

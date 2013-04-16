@@ -73,8 +73,8 @@
   	<filter-name>loginFilter</filter-name>
   	<url-pattern>/adminweb/*</url-pattern>  	
   </filter-mapping>
-  <error-page>
-  	<error-code>404</error-code>
+  <!-- <error-page>
+  	<error-code>500</error-code>
   	<location>/blog/post.do</location>
-  </error-page>
+  </error-page> -->
 </web-app>

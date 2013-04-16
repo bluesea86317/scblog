@@ -16,10 +16,7 @@
 					<li>为什么要一直下雨,真是搞不懂这个疯狂滴世界</li>
 					<li>后天下暴雨</li>
 					<li>好吧,我屈服了, Mother Fucker!</li> -->
-				</ul>
-				<br>
-				<h5>人生格言</h5>
-				<div>自从我变成了一坨屎,就再也没有人踩在我头上了.自从我变成了一坨屎,就再也没有人踩在我头上了.自从我变成了一坨屎,就再也没有人踩在我头上了.自从我变成了一坨屎,就再也没有人踩在我头上了.</div>
+				</ul>				
 				<br>
 				<h5>文章分类</h5>
 				<ul>
@@ -29,6 +26,9 @@
 					<li>生活</li>
 					<li>其他</li>
 				</ul>
+				<br>
+				<h5>人生格言</h5>
+				<div>自从我变成了一坨屎,就再也没有人踩在我头上了.</div>
 			</div>
 		</div>
    	</div>
@@ -40,14 +40,14 @@
 				var result = eval("("+date+")");
 				var article_li = "";
 				$(result).each(function(i){
-					article_li = article_li + '<li>'+ result[i].title +'</li>';
+					article_li = article_li + '<li><a href="./post.htm?id='+ result[i].id +'">'+ result[i].title +'</a></li>';
 					$("#recentArticles").html(article_li);
 				});
 			});
 	   	}
 	
 	   	function showArticleType(){
-	   		alert(2);
+	   		
 	   	}
 	
 	   	$(document).ready(function(){
