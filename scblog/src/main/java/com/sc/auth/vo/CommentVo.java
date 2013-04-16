@@ -1,5 +1,6 @@
 package com.sc.auth.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -72,6 +73,11 @@ public class CommentVo {
 		this.comment = comment;
 	}
 
+	public String getResponseTime(){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(createTime);
+	}
+	
 	public int getArticleId() {
 		return articleId;
 	}

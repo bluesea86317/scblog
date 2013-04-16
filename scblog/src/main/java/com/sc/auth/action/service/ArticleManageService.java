@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONArray;
+
 import com.sc.auth.action.dao.ArticleDao;
 import com.sc.auth.vo.ArticleVo;
 import com.sc.auth.vo.Tag;
@@ -51,6 +53,13 @@ public class ArticleManageService {
 		ArticleVo article = dao.findArticle(param);
 		article.setTags(tagManageService.queryTagsByArticleId(article.getId()));
 		return article;
+	}
+	
+	public List<ArticleVo> queryRecentArticles() throws SQLException{
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("recentCount", 5);
+		List<ArticleVo> articles = dao.queryRecentArticles(param);		
+		return articles;
 	}
 	
 	/**

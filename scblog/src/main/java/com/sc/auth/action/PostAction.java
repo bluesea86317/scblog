@@ -21,6 +21,7 @@ public class PostAction extends Action {
 			HttpServletResponse response, ActionForward actionForward)
 			throws IOException {
 		int id = ParamUtils.getInt(request, "id", 0);
+		
 		if(id == 0){
 			return showAllArticle(request, response, actionForward);
 		}else{

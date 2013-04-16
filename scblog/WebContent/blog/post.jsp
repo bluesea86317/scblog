@@ -39,13 +39,18 @@
 			articleId:'${article.id}'
 		}, function(date){
 			var result = eval("("+date+")");
-			alert(result);
+			var comment_div = "";
+			$(result).each(function(i){
+				//alert(result[i].id);
+				comment_div = comment_div + '<div class="comment_c"><h6><a href="'+result[i].website+'" rel="external nofollow" class="url">'+result[i].visitor+'</a><span class="pull-right">'+result[i].responseTime+'</span></h6><p>'+result[i].comment+'</p><div class="pull-right"><a>回复</a></div><div class="clearfix"></div></div>'
+				$("#comment").html(comment_div);
+			});
 		});
-	}
+	}	
 	
-	window.onload = function(){
+	$(document).ready(function(){
 		showComment();
-	};
+	});
 </script>
 </head>
 <body>
@@ -73,7 +78,9 @@
 	    					<span class="color_orange">${tag.tagName }</span>
 	    				</c:forEach>
 	    		</div>
-	    		
+	    		<div class="comment" id="comment">
+		    		
+				</div>
 	    		<div id="respond">
 	    			<h3 class="postcomment">发表评论</h3>
 	    			<form action="" method="post">

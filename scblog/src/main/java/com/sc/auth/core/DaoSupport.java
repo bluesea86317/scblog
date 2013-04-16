@@ -87,7 +87,7 @@ public abstract class DaoSupport {
 			rs = conn.createStatement().executeQuery(sql);
 			while(rs.next()){
 				Object object = clazz.newInstance();
-				Field[] fields = clazz.getDeclaredFields();
+//				Field[] fields = clazz.getDeclaredFields();
 				Method[] methods = clazz.getMethods();
 				for(Method method : methods){
 					if(method.getName().startsWith("set")){

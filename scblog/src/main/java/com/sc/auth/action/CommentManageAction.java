@@ -40,7 +40,7 @@ public class CommentManageAction extends Action{
 	
 	private String showComment(HttpServletRequest request,
 			HttpServletResponse response, ActionForward actionForward) {
-		int articleId = ParamUtils.getInt(request, "", 0);
+		int articleId = ParamUtils.getInt(request, "articleId", 0);
 		try {
 			List<CommentVo> comments = commentService.findComments(articleId);
 			JSONArray jsonArray = new JSONArray();
@@ -102,6 +102,9 @@ public class CommentManageAction extends Action{
 		String visitor = ParamUtils.getString(request, "visitor", "");
 		String email = ParamUtils.getString(request, "email", "");
 		String website = ParamUtils.getString(request, "website", "");
+		if(website.indexOf("http") == -1){
+			website = "http://" + website;
+		}
 		try {
 			CommentVo comment = new CommentVo();
 			comment.setVisitor(visitor);

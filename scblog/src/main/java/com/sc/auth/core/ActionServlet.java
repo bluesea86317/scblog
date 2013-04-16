@@ -83,7 +83,7 @@ public class ActionServlet extends HttpServlet {
 			
 			ActionConfig actionConfig = configMap.get(actionPath);
 			if(null == actionConfig){
-				throw new NonActionForRequstException("There is no action config for this request which the path is \"" + actionPath + "\"");			
+				throw new NonActionForRequstException("There is no action config for this request which path is \"" + actionPath + "\"");			
 			}			
 			
 			String filePath = getServletContext().getRealPath("/blog");

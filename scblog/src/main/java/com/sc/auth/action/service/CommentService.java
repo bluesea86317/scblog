@@ -65,9 +65,9 @@ public class CommentService {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<CommentVo> findComments(int id) throws SQLException{
+	public List<CommentVo> findComments(int articleId) throws SQLException{
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("articleId", id);
+		param.put("articleId", articleId);
 		return commentDao.findCommentByArticleId(param);
 	}
 }

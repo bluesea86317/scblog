@@ -121,6 +121,22 @@ ul,ol{
 }
 /* posts end*/
 
+/*comment start*/
+.comment{
+	
+}
+.comment_c{
+	border-bottom: 1px dotted #E0E0E0;
+	padding: 30px 0 10px;
+}
+
+.comment_c p{
+	margin: 10px 0;
+	
+	
+}
+/*comment end*/
+
 /* slidebar start */
 #slidebar {
 	width:320px;

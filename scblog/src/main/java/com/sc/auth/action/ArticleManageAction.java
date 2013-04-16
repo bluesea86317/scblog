@@ -10,6 +10,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+
 import com.sc.auth.action.service.ArticleManageService;
 import com.sc.auth.action.service.TagManageService;
 import com.sc.auth.core.Action;
@@ -32,10 +34,25 @@ public class ArticleManageAction extends Action {
 			return deleteArticle(request, response,forward);
 		}else if("edit".equals(action)){
 			return showArticle(request, response, forward);
+		}else if("listRecentArticles".equals(action)){
+			return listRecentArticles(request, response, forward);
 		}else{
 			return listArticle(request, response, forward);
 		}
 		
+	}
+
+	private String listRecentArticles(HttpServletRequest request,
+			HttpServletResponse response, ActionForward forward) {
+		try {
+			List<ArticleVo> articles = articleManageService.queryRecentArticles();
+			JSONArray jsonArray = new JSONArray();
+			jsonArray.addAll(articles);
+			outPut(response, jsonArray.toString());
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private String listArticle(HttpServletRequest request,
