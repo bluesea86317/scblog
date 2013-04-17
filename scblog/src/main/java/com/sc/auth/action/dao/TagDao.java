@@ -79,4 +79,17 @@ public class TagDao extends DaoSupport {
 		String sql = "update t_tag set tagName = #tagName# where id = #id#";
 		return update(sql, param);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Tag> queryTagsByArticleIdAndTagId(int articleId, int tagId) throws SQLException {
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("articleId", articleId);
+		param.put("tagId", tagId);
+		String sql = "select tt.* from t_article_tag at left join t_tag tt on at.tagId = tt.id where at.articleId = #articleId# and at.tagId = #tagId#";
+		return (List<Tag>)queryForList(sql, param, Tag.class);
+	}
+	public boolean deleteRelationByArticleId(Map<String, Object> param) throws SQLException {
+		String sql = "delete from t_article_tag where articleId = #articleId#";
+		return delete(sql, param);
+	}
 }

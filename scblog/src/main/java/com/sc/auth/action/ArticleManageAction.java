@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 
 import com.sc.auth.action.service.ArticleManageService;
+import com.sc.auth.action.service.ArticleTypeService;
 import com.sc.auth.action.service.TagManageService;
 import com.sc.auth.core.Action;
 import com.sc.auth.core.ActionForward;
@@ -23,7 +24,7 @@ import com.sc.auth.vo.BaseUser;
 public class ArticleManageAction extends Action {
 
 	private ArticleManageService articleManageService = ArticleManageService.getInstance();
-	
+	private ArticleTypeService articleTypeService = ArticleTypeService.getInstance();
 	@Override
 	public String excute(HttpServletRequest request,
 			HttpServletResponse response, ActionForward forward) throws IOException {
@@ -34,10 +35,41 @@ public class ArticleManageAction extends Action {
 			return deleteArticle(request, response,forward);
 		}else if("edit".equals(action)){
 			return showArticle(request, response, forward);
+		}else if("update".equals(action)){
+			return updateArticle(request, response, forward);
 		}else{
 			return listArticle(request, response, forward);
 		}
 		
+	}
+
+	private String updateArticle(HttpServletRequest request,
+			HttpServletResponse response, ActionForward forward) {
+		try {
+			int id = ParamUtils.getInt(request, "articleId", 0);
+			String title = ParamUtils.getString(request, "title", "");
+			String articleIntro = ParamUtils.getString(request, "articleIntro", "");
+			String content = ParamUtils.getString(request, "articleContent", "");
+			content = content.replace("'", "\\'");
+			articleIntro = articleIntro.replace("'", "\\'");
+			int authorId = ((BaseUser)request.getSession().getAttribute("logonUser")).getId();
+			String tagStr = ParamUtils.getString(request, "tag", "");
+			int articleType = ParamUtils.getInt(request, "articleType", 0);
+			ArticleVo article = new ArticleVo();
+			article.setId(id);
+			article.setTitle(title);
+			article.setIntro(articleIntro);
+			article.setContent(content);
+			article.setAuthorId(authorId);
+			article.setArticleType(articleType);
+			article.setLastModifyTime(new Date());
+			articleManageService.updateArticle(article, tagStr);			
+			return_out(response, PROCESS_RESULT_SUCCESS, "文章修改成功");
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return_out(response, PROCESS_RESULT_FAILURE, "文章修改失败, 错误原因: " +e.getMessage());
+		}
+		return null;
 	}
 
 	private String listArticle(HttpServletRequest request,
@@ -69,6 +101,7 @@ public class ArticleManageAction extends Action {
 				return forward.findForward("inexistence");
 			}
 			request.setAttribute("article", article);
+			request.setAttribute("articleTypeList", articleTypeService.queryArtilcType());
 			return forward.findForward("show");
 		}catch (SQLException e) {
 			e.printStackTrace();

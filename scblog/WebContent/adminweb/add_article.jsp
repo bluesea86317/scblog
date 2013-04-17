@@ -26,7 +26,7 @@
 		oFCKeditor1.ReplaceTextarea() ;
 	};
 	
-	function addTemplate(){
+	function addArticle(){
 		 ajaxPost();
 	}
 	
@@ -123,7 +123,7 @@
 				</tr>
 			</table>
 			<div class="text-center">
-				<a class="btn btn-success" onclick="javascript:addTemplate();">保 存</a>
+				<a class="btn btn-success" onclick="javascript:addArticle();">保 存</a>
 				<a class="btn">返 回</a>
 			</div>	
 			</div>

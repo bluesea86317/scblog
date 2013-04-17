@@ -31,6 +31,11 @@ public class ArticleManageService {
 		addArticleTag(articleId, tagStr);
 	}
 
+	public void updateArticle(ArticleVo article, String tagStr) throws SQLException{
+		dao.updateArticle(article);
+		addArticleTag(article.getId(), tagStr);
+	}
+	
 	public void addArticleTag(int articleId, String tagStr) throws SQLException{
 		tagManageService.addArticleTag(articleId, tagStr);
 	}

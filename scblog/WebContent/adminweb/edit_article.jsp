@@ -25,6 +25,51 @@
 		oFCKeditor1.ToolbarSet = 'Basic';
 		oFCKeditor1.ReplaceTextarea() ;
 	};
+	
+	function updateArticle(){
+		 ajaxPost();
+	}
+	
+	function ajaxPost(){
+		var oEditor = FCKeditorAPI.GetInstance("articleContent");
+		var oEditor1 = FCKeditorAPI.GetInstance("articleIntro");
+		var articleId = $("#articleId").val();
+		var title = $("#title").val();
+		var tag = $("#tag").val();
+		var articleType = $("#articleType").val();
+		var articleContent = oEditor.GetXHTML(true);
+		var articleIntro = oEditor1.GetXHTML(true);
+		if(title == ""){
+			window.alert("文章标题不能为空!");
+			return;
+		}
+		if(articleIntro == ""){
+			window.alert("文章内容简介不能为空!");
+			return;
+		}
+		if(articleContent == ""){
+			window.alert("文章内容不能为空!");
+			return;
+		}
+		$.post("./articleManage.do", {
+			action : "update",
+			articleId: articleId,
+			title:title,
+			articleContent: articleContent,
+			articleIntro:articleIntro,
+			articleType:articleType,
+			tag:tag
+		},
+		function (data) {
+			var result = eval("("+data+")");
+			if(result.resultCode == "success"){
+				window.alert(result.msg, true);				
+			}else{
+				window.alert(result.msg, false);
+			}
+		}
+		);
+	}
 </script>
 </head>
 <body>
@@ -38,7 +83,10 @@
 				<table class="table table-bordered">
 				<tr>
 					<th>文章标题：</th>
-					<td><input type="text" name="title" id="title" value="${article.title }" size="70"/></td>
+					<td>
+						<input type="hidden" id="articleId" value="${article.id }">
+						<input type="text" name="title" id="title" value="${article.title }" size="70"/>
+					</td>
 				</tr>
 				<tr>
 					<th>*内容简介:</th>
@@ -54,20 +102,22 @@
 					<th>标签：</th>
 					<td>
 						<select id="articleType">
-							
+							<c:forEach items="${articleTypeList }" var="articleType">
+								<option value="${articleType.id }" ${article.articleType == articleType.id ? 'selected':'' }>${articleType.typeName}</option>
+							</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th>标签：</th>
 					<td>
-						<input type="text" name="tag" id="tag" value="" size="70" maxlength="150"/>
+						<input type="text" name="tag" id="tag" size="70" maxlength="150" value="<c:forEach items="${article.tags}" var="tag" varStatus="status">${tag.tagName }<c:if test="${!status.last }">,</c:if></c:forEach>"/>
 						多个标签之间, 请用";"号隔开
 					</td>
 				</tr>
 			</table>
 			<div class="text-center">
-				<a class="btn btn-success">保 存</a>
+				<a class="btn btn-success" onclick="javascript:updateArticle();">保 存</a>
 				<a class="btn">返 回</a>
 			</div>	
 			</div>

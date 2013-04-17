@@ -47,4 +47,17 @@ public class ArticleDao extends DaoSupport {
 		String sqlMapConfig = "select a.*,at.typeName from t_article a left join t_article_type at on a.articleType = at.id where a.id = #id#";
 		return queryForObject(sqlMapConfig, param, ArticleVo.class);
 	}
+
+	public void updateArticle(ArticleVo article) throws SQLException {
+		Map<String,Object> param = new HashMap<String,Object>();
+		param.put("id", article.getId());
+		param.put("intro", article.getIntro());
+		param.put("title", article.getTitle());
+		param.put("content", article.getContent());
+		param.put("authorId", article.getAuthorId());
+		param.put("lastModifyTime", article.getLastModifyTime());
+		param.put("articleType", article.getArticleType());
+		String sql = "update t_article set title = #title#, intro = #intro#, content = #content#, authorId = #authorId#, lastModifyTime = #lastModifyTime#, articleType = #articleType# where id = #id#";
+		update(sql, param);
+	}
 }
