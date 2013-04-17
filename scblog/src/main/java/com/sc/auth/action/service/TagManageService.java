@@ -1,7 +1,9 @@
 package com.sc.auth.action.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.sc.auth.action.dao.TagDao;
 import com.sc.auth.util.StringUtils;
@@ -36,7 +38,26 @@ public class TagManageService {
 		}
 	}
 	
+	public void deleteTag(int tagId) throws SQLException{
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("tagId", tagId);
+		tagDao.deleteTag(param);
+		tagDao.deleteArticleTagRelation(param);
+	}
+	
+	public List<Tag> queryTags() throws SQLException{
+		Map<String,Object> param = new HashMap<String, Object>();
+		return tagDao.queryTags(param);
+	}
+	
 	public List<Tag> queryTagsByArticleId(int articleId) throws SQLException{
 		return tagDao.queryTagsByArticleId(articleId);		
+	}
+	
+	public void updateTag(int id, String tagName) throws SQLException {
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("id", id);
+		param.put("tagName", tagName);
+		tagDao.updateTag(param);		
 	}
 }

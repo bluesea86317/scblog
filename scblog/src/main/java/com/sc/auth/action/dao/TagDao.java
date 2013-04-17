@@ -58,4 +58,25 @@ public class TagDao extends DaoSupport {
 		String sql = "select tt.* from t_article_tag at left join t_tag tt on at.tagId = tt.id where at.articleId = #articleId#";
 		return (List<Tag>)queryForList(sql, param, Tag.class);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Tag> queryTags(Map<String,Object> param) throws SQLException{
+		String sql = "select * from t_tag";
+		return (List<Tag>)queryForList(sql, param, Tag.class);
+	}
+	
+	public boolean deleteTag(Map<String, Object> param) throws SQLException {
+		String sql = "delete from t_tag where id = #tagId#";
+		return delete(sql, param);
+	}
+	
+	public boolean deleteArticleTagRelation(Map<String, Object> param) throws SQLException {
+		String sql = "delete from t_article_tag where tagId = #tagId#";
+		return delete(sql, param);
+	}
+	
+	public boolean updateTag(Map<String, Object> param) throws SQLException {
+		String sql = "update t_tag set tagName = #tagName# where id = #id#";
+		return update(sql, param);
+	}
 }

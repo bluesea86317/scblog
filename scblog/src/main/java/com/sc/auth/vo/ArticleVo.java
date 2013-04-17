@@ -44,6 +44,9 @@ public class ArticleVo {
 	 */
 	private int articleType;
 
+	
+	private String typeName;
+	
 	/**
 	 * 标签
 	 */
@@ -111,6 +114,14 @@ public class ArticleVo {
 
 	public void setArticleType(int articleType) {
 		this.articleType = articleType;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 
 	public List<Tag> getTags() {

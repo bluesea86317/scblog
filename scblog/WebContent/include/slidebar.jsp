@@ -19,12 +19,12 @@
 				</ul>				
 				<br>
 				<h5>文章分类</h5>
-				<ul>
-					<li>前端</li>
+				<ul id="articleTypes">
+					<!-- <li>前端</li>
 					<li>Java</li>
 					<li>Javascript</li>
 					<li>生活</li>
-					<li>其他</li>
+					<li>其他</li> -->
 				</ul>
 				<br>
 				<h5>人生格言</h5>
@@ -45,13 +45,22 @@
 				});
 			});
 	   	}
-	
-	   	function showArticleType(){
-	   		
-	   	}
+		
+	   	function listArticleType(){
+			$.post("./post.do",{action: 'listArticleTypes'},function(data){
+				var result = eval("("+data+")");
+				var articleType_li = "";
+				$(result).each(function(i){
+					articleType_li = articleType_li + '<li>'+ result[i].typeName +'</li>'
+				});
+				$("#articleTypes").html(articleType_li);
+			});
+		}
+	   	
+	   
 	
 	   	$(document).ready(function(){
 	   		showRecentArticle();
-	   		showArticleType();
+	   		listArticleType();
 	   	});
    	</script>

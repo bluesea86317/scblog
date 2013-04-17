@@ -40,5 +40,13 @@
 		
 		<action class="com.sc.auth.action.CommentManageAction" path="/blog/comment">
 		</action>
+		
+		<action class="com.sc.auth.action.TagManageAction" path="/adminweb/tagManage">
+			<forward name="list" path="./tag_list.jsp"/>
+		</action>
+		
+		<action class="com.sc.auth.action.ArticleTypeManageAction" path="/adminweb/articleType">
+			<forward name="list" path="./article_type_list.jsp"/>
+		</action>
 	</action-mapping>
 </mvc-config>

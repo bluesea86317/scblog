@@ -25,7 +25,7 @@
 		$.post("comment.do",{action:'delete', id : id}, function(data){
 			var result = eval("(" + data + ")");
 			if(result.resultCode == "success"){
-				window.alert(result.msg, true);				
+				window.alert(result.msg, true);
 			}else{
 				window.alert(result.msg, false);
 			}

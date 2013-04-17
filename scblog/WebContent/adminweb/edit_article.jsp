@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,12 +11,19 @@
 <script type="text/javascript">
 	window.onload = function()
 	{
-		var oFCKeditor = new FCKeditor('mailContent') ;
+		var oFCKeditor = new FCKeditor('articleContent') ;
 		oFCKeditor.BasePath = "./fckeditor/";
 		oFCKeditor.Height = 300 ;       
 		oFCKeditor.Width = 600;    
 		oFCKeditor.ToolbarSet = 'Basic';
 		oFCKeditor.ReplaceTextarea() ;
+		
+		var oFCKeditor1 = new FCKeditor('articleIntro') ;
+		oFCKeditor1.BasePath = "./fckeditor/";
+		oFCKeditor1.Height = 300 ;       
+		oFCKeditor1.Width = 600;    
+		oFCKeditor1.ToolbarSet = 'Basic';
+		oFCKeditor1.ReplaceTextarea() ;
 	};
 </script>
 </head>
@@ -28,27 +36,33 @@
 			</jsp:include>
 			<div class="span10">
 				<table class="table table-bordered">
-				<c:if test="${!empty mailTemplate }">
-					<tr>
-						<th>序号：</th>
-						<td></td>
-					</tr>
-				</c:if>
 				<tr>
 					<th>文章标题：</th>
-					<td><input type="text" name="mailTitle" id="mailTitle" value="" size="70"/></td>
+					<td><input type="text" name="title" id="title" value="${article.title }" size="70"/></td>
 				</tr>
 				<tr>
-					<th>标签：</th>
-					<td>
-						<input type="text" name="bccMail" id="bccMail" value="" size="70" maxlength="150"/>
-						多个标签之间, 请用";"号隔开
-					</td>
+					<th>*内容简介:</th>
+					<td><div id="box-body">&nbsp;&nbsp;<textarea style="display: none;" id="articleIntro" name="articleIntro" cols="" rows="20" class="textarea">${article.intro}</textarea></div></td>
 				</tr>
 				<tr>
 					<th>*文章内容：</th>
 					<td>
-						<div id="box-body">&nbsp;&nbsp;<textarea style="display: none;" id="mailContent" name="mailContent" cols="" rows="20" class="textarea">${mailTemplate.mailContent}</textarea></div>
+						<div id="box-body">&nbsp;&nbsp;<textarea style="display: none;" id="articleContent" name="articleContent" cols="" rows="20" class="textarea">${article.content}</textarea></div>
+					</td>
+				</tr>
+				<tr>
+					<th>标签：</th>
+					<td>
+						<select id="articleType">
+							
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>标签：</th>
+					<td>
+						<input type="text" name="tag" id="tag" value="" size="70" maxlength="150"/>
+						多个标签之间, 请用";"号隔开
 					</td>
 				</tr>
 			</table>

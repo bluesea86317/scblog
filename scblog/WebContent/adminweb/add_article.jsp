@@ -35,6 +35,7 @@
 		var oEditor1 = FCKeditorAPI.GetInstance("articleIntro");
 		var title = $("#title").val();
 		var tag = $("#tag").val();
+		var articleType = $("#articleType").val();
 		var articleContent = oEditor.GetXHTML(true);
 		var articleIntro = oEditor1.GetXHTML(true);
 		if(title == ""){
@@ -54,6 +55,7 @@
 			title:title,
 			articleContent: articleContent,
 			articleIntro:articleIntro,
+			articleType:articleType,
 			tag:tag
 		},
 		function (data) {
@@ -66,6 +68,19 @@
 		}
 		);
 	}
+	
+	function listArticleType(){
+		$.post("articleType.do",{action: 'ajax_list'},function(data){
+			var result = eval("("+data+")");
+			var options = "";
+			$(result).each(function(i){
+				options = options + '<option value="'+result[i].id+'">'+result[i].typeName+'</option>';
+			});
+			$("#articleType").html(options);
+		});
+	}
+	
+	$(document).ready(function(){listArticleType();});
 </script>
 </head>
 <body>
@@ -89,6 +104,14 @@
 					<th>*文章内容：</th>
 					<td>
 						<div id="box-body">&nbsp;&nbsp;<textarea style="display: none;" id="articleContent" name="articleContent" cols="" rows="20" class="textarea"></textarea></div>
+					</td>
+				</tr>
+				<tr>
+					<th>标签：</th>
+					<td>
+						<select id="articleType">
+							
+						</select>
 					</td>
 				</tr>
 				<tr>

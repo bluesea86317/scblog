@@ -22,6 +22,9 @@
 		});
 	}
 	
+	function edit(id){
+		window.location.href = "./articleManage.do?action=edit&articleId="+id;
+	}
 </script>
 </head>
 <body>
@@ -46,7 +49,7 @@
 				  	<td>${article.id }</td>
 				  	<td>${article.title }</td>
 				  	<td><fmt:formatDate value="${article.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-				  	<td><a href="./edit_article.jsp">修改</a><a href="javascript:deleteArticle('${article.id }');">删除</a></td>
+				  	<td><a href="javascript:edit('${article.id }')">修改</a><a href="javascript:deleteArticle('${article.id }');">删除</a></td>
 				  </tr>
 			  </c:forEach>
 			  </table>
