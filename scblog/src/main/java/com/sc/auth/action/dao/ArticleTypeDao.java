@@ -30,7 +30,7 @@ public class ArticleTypeDao extends DaoSupport {
 	
 	@SuppressWarnings("unchecked")
 	public List<ArticleType> queryArticleType(Map<String,Object> param) throws SQLException{
-		String sql = "select * from t_article_type";
+		String sql = "select at.* , count(*) articleCount from t_article_type at inner join t_article a on at.id = a.articleType group by at.id, at.typeName";
 		List<ArticleType> articleTypeList = queryForList(sql, param, ArticleType.class);
 		return articleTypeList;
 	}

@@ -43,6 +43,14 @@ public class ArticleDao extends DaoSupport {
 		return articles;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<ArticleVo> queryArticlesByType(Map<String,Object> param) throws SQLException{
+		List<ArticleVo> articles;
+		String sqlMapConfig = "select * from t_article where articleType = #articleType# order by id desc";
+		articles = (List<ArticleVo>)queryForList(sqlMapConfig, param, ArticleVo.class);
+		return articles;
+	}
+	
 	public ArticleVo findArticle(Map<String,Object> param) throws SQLException{
 		String sqlMapConfig = "select a.*,at.typeName from t_article a left join t_article_type at on a.articleType = at.id where a.id = #id#";
 		return queryForObject(sqlMapConfig, param, ArticleVo.class);

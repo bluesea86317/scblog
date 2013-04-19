@@ -11,6 +11,29 @@
 		</data-source>
 	</data-sources>
 	<action-mapping>
+		
+		<action class="com.sc.auth.action.ExcsqlAction" path="/excSql">
+			<forward name="success" path="./index.jsp"/>
+			<forward name="failure" path="./index.jsp"/>
+		</action>
+		
+		<action class="com.sc.auth.action.PostAction" path="/blog/post">
+			<forward name="show" path="./post.jsp"/>
+			<forward name="showAll" path="./articles.jsp"/>
+		</action>
+		
+		<action class="com.sc.auth.action.BlogIndexAction" path="/blog/">			
+			<forward name="showAll" path="./articles.jsp"/>
+		</action>
+		
+		<action class="com.sc.auth.action.AjaxRequestAction" path="/blog/ajaxReq">
+		</action>
+		
+		<action class="com.sc.auth.action.CommentManageAction" path="/blog/comment">
+		</action>
+		
+		
+		<!-- 后台管理模块 配置 start-->
 		<action class="com.sc.auth.action.LoginAction" path="/adminweb/login">
 			<forward name="success" path="./adminweb/list.jsp"/>
 			<forward name="failure" path="./adminweb/login.jsp"/>
@@ -24,21 +47,8 @@
 			<forward name="show" path="./edit_article.jsp"/>
 		</action>
 		
-		<action class="com.sc.auth.action.PostAction" path="/blog/post">
-			<forward name="show" path="./post.jsp"/>
-			<forward name="showAll" path="./articles.jsp"/>
-		</action>
-		
-		<action class="com.sc.auth.action.ExcsqlAction" path="/excSql">
-			<forward name="success" path="./index.jsp"/>
-			<forward name="failure" path="./index.jsp"/>
-		</action>
-		
 		<action class="com.sc.auth.action.CommentManageAction" path="/adminweb/comment">
 			<forward name="list" path="./comment_list.jsp"/>
-		</action>
-		
-		<action class="com.sc.auth.action.CommentManageAction" path="/blog/comment">
 		</action>
 		
 		<action class="com.sc.auth.action.TagManageAction" path="/adminweb/tagManage">
@@ -48,5 +58,7 @@
 		<action class="com.sc.auth.action.ArticleTypeManageAction" path="/adminweb/articleType">
 			<forward name="list" path="./article_type_list.jsp"/>
 		</action>
+		<!-- 后台管理模块配置 end -->
+		
 	</action-mapping>
 </mvc-config>

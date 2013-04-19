@@ -4,12 +4,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import net.sf.json.JSONArray;
-
 import com.sc.auth.action.dao.ArticleDao;
 import com.sc.auth.vo.ArticleVo;
-import com.sc.auth.vo.Tag;
 
 public class ArticleManageService {
 
@@ -75,9 +71,19 @@ public class ArticleManageService {
 	public List<ArticleVo> queryArticles() throws SQLException{
 		Map<String,Object> param = new HashMap<String, Object>();
 		List<ArticleVo> articles = dao.queryArticles(param);
-		for(int i =0; i< articles.size(); i++){
-			articles.get(i).setTags(tagManageService.queryTagsByArticleId(articles.get(i).getId()));
-		}
 		return articles;
 	}
+	
+	/**
+	 * 通过文章类型列出文章列表
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<ArticleVo> queryArticlesByType(int articleType) throws SQLException{
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("articleType", articleType);
+		List<ArticleVo> articles = dao.queryArticlesByType(param);
+		return articles;
+	}
+	
 }

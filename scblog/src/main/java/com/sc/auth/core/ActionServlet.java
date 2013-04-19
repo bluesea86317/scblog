@@ -64,7 +64,7 @@ public class ActionServlet extends HttpServlet {
 //			初始化数据库连接
 			this.initializeDataSource(rootNode);
 //			设置host
-			this.getServletContext().setAttribute("web_host", "http://localhost:7070/scblog");
+//			this.getServletContext().setAttribute("web_host", "http://localhost:7070/scblog");
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,9 +75,12 @@ public class ActionServlet extends HttpServlet {
 	private void process(HttpServletRequest request, HttpServletResponse response){
 //		设置请求响应的编码规则
 		String servletPath = request.getServletPath();
-		String actionPath = servletPath.substring(0,servletPath.lastIndexOf("."));
-//		config
+		String actionPath = servletPath;
+		if(servletPath.indexOf(".") != -1){
+			actionPath = servletPath.substring(0,servletPath.lastIndexOf("."));
+		}
 		try {
+//			设置请求和响应的编码规则
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
 			
@@ -90,12 +93,11 @@ public class ActionServlet extends HttpServlet {
 			String fileName = "";
 			String forwardPath = "";
 			int articleId = ParamUtils.getInt(request, "id", 0);
-			if(articleId != 0 && "post".equals(actionPath)){
+			if(articleId != 0 && "/blog/post".equals(actionPath)){
 				fileName = articleId + ".html";
 				filePath = filePath + "\\" + fileName;
 				File file = new File(filePath);
 				if(file.exists()){
-//					response.sendRedirect(fileName);
 					request.getRequestDispatcher(fileName).forward(request, response);
 				}else{
 					forwardPath = dealForwardPath(request, response, actionConfig);

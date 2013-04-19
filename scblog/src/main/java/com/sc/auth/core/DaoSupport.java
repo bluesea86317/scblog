@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import com.sc.auth.exception.DataSourceInitException;
+import com.sc.auth.util.DBUtils;
 import com.sc.auth.util.ParamUtils;
 
 public abstract class DaoSupport {
@@ -30,7 +32,7 @@ public abstract class DaoSupport {
 		Connection conn = null;
 		try {
 			conn = createConnection();
-			String sql = ParamUtils.getSql(sqlMapConfig, param);
+			String sql = DBUtils.getSql(sqlMapConfig, param);
 			PreparedStatement smt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			smt.executeUpdate();
 //			返回自动生成的主键ID
@@ -62,7 +64,7 @@ public abstract class DaoSupport {
 		Connection conn = null;
 		try {
 			conn = createConnection();
-			String sql = ParamUtils.getSql(sqlMapConfig, param);
+			String sql = DBUtils.getSql(sqlMapConfig, param);
 			conn.createStatement().executeUpdate(sql);
 			return flag;
 		} catch (DataSourceInitException e) {
@@ -78,26 +80,22 @@ public abstract class DaoSupport {
 	
 	@SuppressWarnings("rawtypes")
 	protected List queryForList(String sqlMapConfig, Map<String,Object> param, Class<?> clazz) throws SQLException{
-		List<Object> resultList = new ArrayList<Object>();
+		List<Object> resultList = new ArrayList<Object>();		
 		ResultSet rs;
 		Connection conn = null;
 		try {
 			conn = createConnection();
-			String sql = ParamUtils.getSql(sqlMapConfig, param);
+			String sql = DBUtils.getSql(sqlMapConfig, param);
 			rs = conn.createStatement().executeQuery(sql);
+			List<String> columnNameList = DBUtils.getColumnNamesByRS(rs);
 			while(rs.next()){
 				Object object = clazz.newInstance();
-//				Field[] fields = clazz.getDeclaredFields();
-				Method[] methods = clazz.getMethods();
+				Method[] methods = clazz.getMethods();				
 				for(Method method : methods){
-					if(method.getName().startsWith("set")){
+					if(method.getName().startsWith("set") && columnNameList.contains(ParamUtils.lowerCaseMethodName(method.getName().substring(3)))){
 						method.invoke(object, ParamUtils.getResultByMethodParam(method.getParameterTypes()[0].getName(), rs, ParamUtils.lowerCaseMethodName(method.getName().substring(3))));
 					}
 				}
-//				for(Field field : fields){
-//					Method method = clazz.getMethod("set" + ParamUtils.upperCaseMethodName(field.getName()), field.getType());
-//					method.invoke(object, ParamUtils.getResultByMethodParam(method.getParameterTypes()[0].getName(), rs, field.getName()));
-//				}
 				resultList.add(object);
 			}
 			
@@ -129,19 +127,20 @@ public abstract class DaoSupport {
 	
 	@SuppressWarnings("unchecked")
 	protected <T> T queryForObject(String sqlMapConfig, Map<String,Object> param, Class<?> clazz) throws SQLException{
-		Object object = null;
 		Connection conn = null;
 		try {
 			conn = createConnection();
-			String sql = ParamUtils.getSql(sqlMapConfig, param);
+			String sql = DBUtils.getSql(sqlMapConfig, param);
 			ResultSet rs = conn.createStatement().executeQuery(sql);
-			Field[] fields = clazz.getDeclaredFields();
+			List<String> columnNameList = DBUtils.getColumnNamesByRS(rs);
+			Object object = clazz.newInstance();
 			if(rs.next()){
-				object = clazz.newInstance();
-				for(Field field : fields){
-					Method method = clazz.getMethod("set" + ParamUtils.upperCaseMethodName(field.getName()), field.getType());
-					method.invoke(object, ParamUtils.getResultByMethodParam(method.getParameterTypes()[0].getName(), rs, field.getName()));
-				}				
+				Method[] methods = clazz.getMethods();				
+				for(Method method : methods){
+					if(method.getName().startsWith("set") && columnNameList.contains(ParamUtils.lowerCaseMethodName(method.getName().substring(3)))){
+						method.invoke(object, ParamUtils.getResultByMethodParam(method.getParameterTypes()[0].getName(), rs, ParamUtils.lowerCaseMethodName(method.getName().substring(3))));
+					}
+				}			
 			}
 			return (T)object;
 		} catch (InstantiationException e) {
@@ -154,9 +153,6 @@ public abstract class DaoSupport {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
@@ -180,7 +176,7 @@ public abstract class DaoSupport {
 		Connection conn = null;
 		try {
 			conn = createConnection();
-			String sql = ParamUtils.getSql(sqlMapConfig, param);
+			String sql = DBUtils.getSql(sqlMapConfig, param);
 			conn.createStatement().executeUpdate(sql);
 			return flag;
 		}  catch (DataSourceInitException e) {

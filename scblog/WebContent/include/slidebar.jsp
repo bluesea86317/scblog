@@ -34,7 +34,7 @@
    	</div>
    	<script type="text/javascript">
 	   	function showRecentArticle(){
-	   		$.post("./post.do",{
+	   		$.post("./ajaxReq.do",{
 				action:'listRecentArticles'
 			}, function(date){
 				var result = eval("("+date+")");
@@ -47,11 +47,11 @@
 	   	}
 		
 	   	function listArticleType(){
-			$.post("./post.do",{action: 'listArticleTypes'},function(data){
+			$.post("./ajaxReq.do",{action: 'listArticleTypes'},function(data){
 				var result = eval("("+data+")");
 				var articleType_li = "";
 				$(result).each(function(i){
-					articleType_li = articleType_li + '<li>'+ result[i].typeName +'</li>'
+					articleType_li = articleType_li + '<li><a href="./?t='+ result[i].id +'">'+ result[i].typeName + '</a> (' +result[i].articleCount + ')</li>'
 				});
 				$("#articleTypes").html(articleType_li);
 			});

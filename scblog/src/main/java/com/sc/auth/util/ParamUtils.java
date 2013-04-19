@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,7 +20,6 @@ import com.sc.auth.vo.BaseUser;
 
 public class ParamUtils {
 	
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public static String getString(HttpServletRequest request, String paramName, String defaultValue){
 		String value = request.getParameter(paramName);
@@ -81,89 +81,21 @@ public class ParamUtils {
 			return value;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static String getSql(String sql, Object param){
-		try {
-			if(param.getClass().getName().indexOf("Map") != -1){
-				Map<String,Object> paramMap = (HashMap<String,Object>)param;
-				Iterator<?> itr = paramMap.keySet().iterator();
-				while(itr.hasNext()){
-					String key = (String)itr.next();
-					Object value = paramMap.get(key);
-					if(sql.indexOf("#"+ key +"#") != -1){
-						if(null == value){
-							sql = sql.replace("#" + key + "#",String.valueOf(value));
-						}else{
-							String clazName = value.getClass().getName();
-							if(Date.class.getName().equals(clazName)){
-								sql = sql.replaceAll("#"+ key +"#", "'" + sdf.format(value) + "'");
-							}else if(String.class.getName().equals(clazName)){
-								sql = sql.replace("#" + key + "#","'" + String.valueOf(value) + "'");
-							}else{
-								sql = sql.replace("#" + key + "#",String.valueOf(value));
-							}
-						}
-					}
-				}
-			}else{				
-				Method[] methods = param.getClass().getMethods();				
-				for(Method method : methods){
-					if(method.getName().indexOf("get") != -1){
-						Object value = method.invoke(param);
-						String property = ParamUtils.lowerCaseMethodName(method.getName().substring(3));
-						if(sql.indexOf("#"+ property +"#") != -1){							
-							if(null == value){
-								sql = sql.replace("#" + property + "#",String.valueOf(value));
-							}else{
-								String clazName = value.getClass().getName();
-								if(Date.class.getName().equals(clazName)){
-									sql = sql.replaceAll("#"+ property +"#", "'" + sdf.format(value) + "'");
-								}else if(String.class.getName().equals(clazName)){
-									sql = sql.replace("#" + property + "#","'" + String.valueOf(value) + "'");
-								}else{
-									sql = sql.replace("#" + property + "#",String.valueOf(value));
-								}
-							}
-						}
-					}
-				}	
-			}
-			System.out.println("The sql is : " + sql);
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return sql;
-	}
 	
-	public static Object getResultByMethodParam(String paramClassName, ResultSet rs, String fieldName){
+	public static Object getResultByMethodParam(String paramClassName, ResultSet rs, String columnName){
 		try {
 			if(String.class.getName().equals(paramClassName)){
-				return rs.getString(fieldName);
+				return rs.getString(columnName);
+			}else if((int.class.getName().equals(paramClassName))){
+				return rs.getInt(columnName);
 			}else{
-				return rs.getObject(fieldName);
+				return rs.getObject(columnName);
 			}		
 		} catch (SQLException e) {			
-			e.printStackTrace();			
+//			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
 	
-	public static void main(String[] args) {
-		Map<String, Object> map = new LinkedHashMap<String,Object>();
-//		BaseUser user = new BaseUser();
-//		user.setUserName("Stephen");
-//		user.setId(1111);
-//		user.setPassword("888888");
-		map.put("userName", "Stephen");
-		map.put("id", 1111);
-		map.put("password", "888888");
-		System.out.println(ParamUtils.getSql("insert into #userName#,#id#,password(#password#)", map));
-	}
 }

@@ -32,23 +32,29 @@ body{background:url(../img/light_wool.png)}
 .navbar .nav > li > a {
 	text-transform: uppercase;
 	font-family: 'Droid Sans', sans-serif;
-	color: #555;
+	color: #FFFFFF;
+	line-height: 45px;
 }
 .navbar .nav > li > a:hover {
 	background-color: transparent;
-	color: #d5d5d5;
+	color: #FFFFFF;
 	background: url(../img/nav-bg.png) repeat;
 	text-decoration: none;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px; 
+	-webkit-border-radius: 0 0 5px 5px;
+	-moz-border-radius:  0 0 5px 5px;
+	border-radius:  0 0 5px 5px;
+	
+	background-color: red;
 }
+
 .navbar .nav .active > a,
 .navbar .nav .active > a:hover {
-	color: #d5d5d5;
+	color: #FFFFFF;
 	text-decoration: none;
 	background: url(../img/nav-bg.png) repeat;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px; 
+	-webkit-border-radius: 0 0 5px 5px;
+	-moz-border-radius: 0 0 5px 5px;
+	border-radius: 0 0 5px 5px;
+	 
+	background-color: red;
 }
