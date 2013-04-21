@@ -11,15 +11,14 @@
 <script type="text/javascript">
 	function addTag(){
 		var tagName = $("#tagName").val();
-		$.post("tagManage.do",{action:'add', tagName : tagName}, function(data){
-			var result = eval("(" + data + ")");
+		$.post("tagManage.do",{action:'add', tagName : tagName}, function(result){
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);				
 			}else{
 				window.alert(result.msg, false);
 			}
 			
-		});
+		},'json');
 	}
 
 	function showUpdate(id, tagName){
@@ -32,27 +31,25 @@
 	function updateTag(){
 		var tagName = $("#tagName").val();
 		var id = $("#tagId").val();
-		$.post("tagManage.do",{action:'update', tagId : id, tagName : tagName}, function(data){
-			var result = eval("(" + data + ")");
+		$.post("tagManage.do",{action:'update', tagId : id, tagName : tagName}, function(result){
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);				
 			}else{
 				window.alert(result.msg, false);
 			}
 			
-		});
+		},'json');
 	}
 	
 	function deleteTag(id){
-		$.post("tagManage.do",{action:'delete', tagId : id}, function(data){
-			var result = eval("(" + data + ")");
+		$.post("tagManage.do",{action:'delete', tagId : id}, function(result){
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);
 			}else{
 				window.alert(result.msg, false);
 			}
 			
-		});
+		},'json');
 	}
 </script>
 </head>

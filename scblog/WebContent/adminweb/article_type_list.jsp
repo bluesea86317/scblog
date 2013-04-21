@@ -11,15 +11,14 @@
 <script type="text/javascript">
 	function addType(){
 		var typeName = $("#articleTypeName").val();
-		$.post("articleType.do",{action:'add', typeName : typeName}, function(data){
-			var result = eval("(" + data + ")");
+		$.post("articleType.do",{action:'add', typeName : typeName}, function(result){
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);				
 			}else{
 				window.alert(result.msg, false);
 			}
 			
-		});
+		},'json');
 	}
 
 	function showUpdate(id, typaName){
@@ -32,15 +31,14 @@
 	function updateType(){
 		var typeName = $("#articleTypeName").val();
 		var id = $("#typeId").val();
-		$.post("articleType.do",{action:'update', typeId : id, typeName : typeName}, function(data){
-			var result = eval("(" + data + ")");
+		$.post("articleType.do",{action:'update', typeId : id, typeName : typeName}, function(result){
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);				
 			}else{
 				window.alert(result.msg, false);
 			}
 			
-		});
+		},'json');
 	}
 	
 	function deleteType(id){
@@ -52,7 +50,7 @@
 				window.alert(result.msg, false);
 			}
 			
-		});
+		},'json');
 	}
 </script>
 </head>

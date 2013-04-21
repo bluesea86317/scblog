@@ -58,26 +58,25 @@
 			articleType:articleType,
 			tag:tag
 		},
-		function (data) {
-			var result = eval("("+data+")");
+		function (result) {
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);				
 			}else{
 				window.alert(result.msg, false);
 			}
-		}
+		},
+		'json'
 		);
 	}
 	
 	function listArticleType(){
-		$.post("articleType.do",{action: 'ajax_list'},function(data){
-			var result = eval("("+data+")");
+		$.post("articleType.do",{action: 'ajax_list'},function(result){
 			var options = "";
 			$(result).each(function(i){
 				options = options + '<option value="'+result[i].id+'">'+result[i].typeName+'</option>';
 			});
 			$("#articleType").html(options);
-		});
+		},'json');
 	}
 	
 	$(document).ready(function(){listArticleType();});

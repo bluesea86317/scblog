@@ -9,10 +9,8 @@
 <title>文章列表</title>
 <%@include file="../include/commonresource.jsp" %>
 <script type="text/javascript">
-	
 	function deleteArticle(id){
-		$.post("articleManage.do",{action:'delete', articleId : id}, function(data){
-			var result = eval("(" + data + ")");
+		$.post("articleManage.do",{action:'delete', articleId : id}, function(result){
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);				
 			}else{

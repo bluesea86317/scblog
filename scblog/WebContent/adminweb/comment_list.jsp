@@ -10,27 +10,25 @@
 <%@include file="../include/commonresource.jsp" %>
 <script type="text/javascript">
 	function verify(id){
-		$.post("comment.do",{action:'update', id : id}, function(data){
-			var result = eval("(" + data + ")");
+		$.post("comment.do",{action:'update', id : id}, function(result){
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);				
 			}else{
 				window.alert(result.msg, false);
 			}
 			
-		});
+		},'json');
 	}
 	
 	function deleteComment(id){
-		$.post("comment.do",{action:'delete', id : id}, function(data){
-			var result = eval("(" + data + ")");
+		$.post("comment.do",{action:'delete', id : id}, function(result){
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);
 			}else{
 				window.alert(result.msg, false);
 			}
 			
-		});
+		},'json');
 	}
 </script>
 </head>

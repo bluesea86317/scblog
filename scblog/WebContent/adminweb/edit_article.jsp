@@ -60,14 +60,13 @@
 			articleType:articleType,
 			tag:tag
 		},
-		function (data) {
-			var result = eval("("+data+")");
+		function (result) {
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);				
 			}else{
 				window.alert(result.msg, false);
 			}
-		}
+		},'json'
 		);
 	}
 </script>

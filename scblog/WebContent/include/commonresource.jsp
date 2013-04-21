@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="${web_host }/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="${web_host }/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="${web_host }/ico/apple-touch-icon-57-precomposed.png">
-     <script src="${web_host}/js/jquery.js"></script>
+    <script src="${web_host}/js/jquery.js"></script>
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
