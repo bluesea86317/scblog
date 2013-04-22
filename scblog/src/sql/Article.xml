@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Article">
+	<typeAlias alias="ArticleVoClass" type="com.sc.auth.vo.ArticleVo"/>
+	<resultMap class="ArticleVoClass" id="ArticleVoMap">
+		<result property="id" column="id" jdbcType="number" javaType="int"/>
+		<result property="title" column="title" jdbcType="varchar" javaType="string"/>
+		<result property="intro" column="intro" jdbcType="varchar" javaType="string"/>
+		<result property="content" column="content" jdbcType="varchar" javaType="string"/>
+		<result property="authorId" column="authorId" jdbcType="number" javaType="int"/>
+		<result property="articleType" column="articleType" jdbcType="number" javaType="int"/>
+		<result property="createTime" column="createTime" jdbcType="timestamp" javaType="java.util.Date"/>
+		<result property="lastModifyTime" column="lastModifyTime" jdbcType="timestamp" javaType="java.util.Date"/>
+		<!-- <result property="typeName" column="typeName" jdbcType="varchar" javaType="string"/> -->
+	</resultMap>
+	
+	<resultMap id="ArticleVoWithTypeNameMap" extends="ArticleVoMap" class="ArticleVoClass">
+		<result property="typeName" column="typeName" jdbcType="varchar" javaType="string"/>
+	</resultMap>
+	
+	<select id="queryArticles" resultMap="ArticleVoMap">
+		select * from t_article order by id desc
+	</select>
+	
+	<insert id="addArticle" parameterClass="ArticleVoClass">
+		insert into t_article (title, intro, content, authorId, createTime, lastModifyTime, articleType) 
+					values (#title#, #intro#, #content#, #authorId#, #createTime#, #lastModifyTime#, #articleType#)
+		<selectKey resultClass="int" keyProperty="id">
+			 SELECT LAST_INSERT_ID() AS id  
+		</selectKey>
+	</insert>
+	
+	<delete id="deleteArticle" parameterClass="int">
+		delete from t_article where id = #id#
+	</delete>
+	
+	<select id="queryRecentArticles" parameterClass="java.util.Map" resultMap="ArticleVoMap">
+		select * from t_article order by id desc limit #recentCount#
+	</select>
+	
+	<select id="queryArticlesByType" parameterClass="int" resultMap="ArticleVoMap">
+		select * from t_article where articleType = #articleType# order by id desc
+	</select>
+	
+	<select id="findArticle" parameterClass="int" resultMap="ArticleVoWithTypeNameMap">
+		select a.*, at.typeName from t_article a left join t_article_type at on a.articleType = at.id where a.id = #id#
+	</select>
+	
+	<update id="updateArticle" parameterClass="ArticleVoClass">
+		update t_article 
+		set title = #title#, 
+			intro = #intro#, 
+			content = #content#, 
+			authorId = #authorId#, 
+			lastModifyTime = #lastModifyTime#, 
+			articleType = #articleType# 
+		where id = #id#"
+	</update>
+	
+</sqlMap>

@@ -48,10 +48,8 @@ public class ArticleManageService {
 		return dao.deleteArticle(param);
 	}
 	
-	public ArticleVo findArticle(int id) throws SQLException{
-		Map<String,Object> param = new HashMap<String, Object>();
-		param.put("id", id);
-		ArticleVo article = dao.findArticle(param);
+	public ArticleVo findArticle(int id) throws SQLException{		
+		ArticleVo article = dao.findArticle(id);
 		article.setTags(tagManageService.queryTagsByArticleId(article.getId()));
 		return article;
 	}
@@ -80,9 +78,7 @@ public class ArticleManageService {
 	 * @throws SQLException
 	 */
 	public List<ArticleVo> queryArticlesByType(int articleType) throws SQLException{
-		Map<String,Object> param = new HashMap<String, Object>();
-		param.put("articleType", articleType);
-		List<ArticleVo> articles = dao.queryArticlesByType(param);
+		List<ArticleVo> articles = dao.queryArticlesByType(articleType);
 		return articles;
 	}
 	

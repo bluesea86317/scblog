@@ -20,7 +20,7 @@ import com.sc.auth.util.DBUtils;
 import com.sc.auth.util.ParamUtils;
 
 public abstract class DaoSupport {
-		
+
 	/**
 	 * Sql statement of insert
 	 * @param sqlMapConfig
