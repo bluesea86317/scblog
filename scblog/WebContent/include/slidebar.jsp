@@ -35,7 +35,7 @@
 	   	}
 		
 	   	function listArticleType(){
-			$.ajax({url: "./ajaxReq.do", type: 'post', data : {action : "listArticleTypes"}, dataType:"json", success: function(result){				
+			$.ajax({url: "./ajaxReq.do", type: 'post', data : {action : "listArticleTypesWithCount"}, dataType:"json", success: function(result){				
 				var articleType_li = "";
 				$(result).each(function(i){
 					articleType_li = articleType_li + '<li><a href="./?t='+ result[i].id +'">'+ result[i].typeName + '</a> (' + result[i].articleCount + ')</li>'

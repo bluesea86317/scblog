@@ -31,10 +31,19 @@ public class AjaxRequestAction extends Action {
 			return listRecentArticles(request, response, actionForward);
 		}else if("listArticleTypes".equals(action)){
 			return listArticleTypes(request, response, actionForward);
+		}else if("listArticleTypesWithCount".equals(action)){
+			return listArticleTypesWithCount(request, response, actionForward);
 		}
 		return null;
 	}
 
+	/**
+	 * 查询所有的文章类型
+	 * @param request
+	 * @param response
+	 * @param actionForward
+	 * @return
+	 */
 	private String listArticleTypes(HttpServletRequest request,
 			HttpServletResponse response, ActionForward actionForward) {
 		try {
@@ -48,6 +57,26 @@ public class AjaxRequestAction extends Action {
 		return null;
 	}
 
+	/**
+	 * 查询所有的文章类型
+	 * @param request
+	 * @param response
+	 * @param actionForward
+	 * @return
+	 */
+	private String listArticleTypesWithCount(HttpServletRequest request,
+			HttpServletResponse response, ActionForward actionForward) {
+		try {
+			List<ArticleType> articleTypes = articleTypeService.queryArticleTypeCount();
+			JSONArray jsonArray = new JSONArray();
+			jsonArray.addAll(articleTypes);
+			outPut(response, jsonArray.toString());
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	private String listRecentArticles(HttpServletRequest request,
 			HttpServletResponse response, ActionForward forward) {
 		try {

@@ -5,10 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sc.auth.core.DaoSupport;
+import com.sc.auth.core.JBCDaoSupport;
 import com.sc.auth.exception.DataSourceInitException;
 import com.sc.auth.vo.BaseUser;
 
-public class UserDao extends DaoSupport {
+public class UserDao extends JBCDaoSupport {
 	
 	public static UserDao getInstance(){
 		return new UserDao();
@@ -26,11 +27,10 @@ public class UserDao extends DaoSupport {
 	 */
 	public BaseUser getUser(String userName, String password) throws SQLException{
 		Map<String,Object> paramMap = new HashMap<String,Object>();
-		String sql = "select * from t_user where userName = #userName# and password = PASSWORD(#password#)";
 		BaseUser baseUser;
 		paramMap.put("userName", userName);
 		paramMap.put("password", password);
-		baseUser = (BaseUser)queryForObject(sql, paramMap, BaseUser.class);
+		baseUser = (BaseUser)queryForObject("User.getUser", paramMap);
 		return baseUser;
 	}
 	

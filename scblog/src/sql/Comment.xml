@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Comment">
+	<typeAlias alias="CommentClass" type="com.sc.auth.vo.CommentVo"/>
+	
+	<insert id="addComment" parameterClass="CommentClass">
+		insert into t_comment (visitor, email, website, comment, articleId, createTime, followedId, status) values (#visitor#, #email#, #website#, #comment#, #articleId#, #createTime#, #followedId#, #status#)
+	</insert>
+	
+	<update id="updateCommentStatus" parameterClass="int">
+		update t_comment set status = 1 where id = #id#
+	</update>
+	
+	<delete id="deleteComment" parameterClass="int">
+		delete from t_comment where id = #id#
+	</delete>
+	
+	<select id="queryComments" resultClass="CommentClass">
+		select * from t_comment
+	</select>
+	
+	<select id="findCommentByArticleId" resultClass="CommentClass" parameterClass="int">
+		select * from t_comment where articleId = #articleId# and status = 1
+	</select>
+</sqlMap>

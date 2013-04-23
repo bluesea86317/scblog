@@ -42,8 +42,7 @@
 	}
 	
 	function deleteType(id){
-		$.post("articleType.do",{action:'delete', typeId : id}, function(data){
-			var result = eval("(" + data + ")");
+		$.post("articleType.do",{action:'delete', typeId : id}, function(result){
 			if(result.resultCode == "success"){
 				window.alert(result.msg, true);
 			}else{

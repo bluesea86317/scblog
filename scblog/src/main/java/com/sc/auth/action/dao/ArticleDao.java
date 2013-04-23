@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.sc.auth.core.DaoSupport;
-import com.sc.auth.core.TestDaoSupport;
+import com.sc.auth.core.JBCDaoSupport;
 import com.sc.auth.vo.ArticleVo;
 
-public class ArticleDao extends TestDaoSupport {
+public class ArticleDao extends JBCDaoSupport {
 	
 	public static ArticleDao getInstance(){
 		return new ArticleDao();

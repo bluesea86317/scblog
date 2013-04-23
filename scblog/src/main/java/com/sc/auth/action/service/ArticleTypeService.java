@@ -21,20 +21,18 @@ public class ArticleTypeService {
 	}
 	
 	public boolean updateArticleType(ArticleType articleType) throws SQLException{
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("id", articleType.getId());
-		param.put("typeName", articleType.getTypeName());
-		return articleTypeDao.updateArticleType(param);
+		return articleTypeDao.updateArticleType(articleType);
 	}
 	
 	public boolean deleteArticleType(int id) throws SQLException{
-		Map<String,Object> param = new HashMap<String,Object>();
-		param.put("id", id);
-		return articleTypeDao.deleteArticleType(param);
+		return articleTypeDao.deleteArticleType(id);
 	}
 	
 	public List<ArticleType> queryArtilcType() throws SQLException{
-		Map<String,Object> param = new HashMap<String,Object>();
-		return articleTypeDao.queryArticleType(param);
+		return articleTypeDao.queryArticleType();
+	}
+	
+	public List<ArticleType> queryArticleTypeCount() throws SQLException{
+		return articleTypeDao.queryArticleType();
 	}
 }

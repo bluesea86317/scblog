@@ -3,5 +3,10 @@
 "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
 <sqlMapConfig>
 	<settings useStatementNamespaces="true"/>
+
 	<sqlMap resource="Article.xml"/>
+	<sqlMap resource="Tag.xml"/>
+	<sqlMap resource="User.xml"/>
+	<sqlMap resource="Comment.xml"/>
+	<sqlMap resource="ArticleType.xml"/>
 </sqlMapConfig>

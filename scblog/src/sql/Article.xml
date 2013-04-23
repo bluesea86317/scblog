@@ -56,7 +56,7 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 			authorId = #authorId#, 
 			lastModifyTime = #lastModifyTime#, 
 			articleType = #articleType# 
-		where id = #id#"
+		where id = #id#
 	</update>
 	
 </sqlMap>

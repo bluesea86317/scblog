@@ -45,21 +45,20 @@ public class TagManageService {
 	}
 	
 	public void deleteRelationByArticleId(int articleId) throws SQLException{
-		Map<String,Object> param = new HashMap<String, Object>();
-		param.put("articleId", articleId);
-		tagDao.deleteRelationByArticleId(param);
+//		Map<String,Object> param = new HashMap<String, Object>();
+//		param.put("articleId", articleId);
+		tagDao.deleteRelationByArticleId(articleId);
 	}
 	
 	public void deleteTag(int tagId) throws SQLException{
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("tagId", tagId);
-		tagDao.deleteTag(param);
-		tagDao.deleteArticleTagRelation(param);
+		tagDao.deleteTag(tagId);
+		tagDao.deleteArticleTagRelation(tagId);
 	}
 	
 	public List<Tag> queryTags() throws SQLException{
-		Map<String,Object> param = new HashMap<String, Object>();
-		return tagDao.queryTags(param);
+		return tagDao.queryTags();
 	}
 	
 	public List<Tag> queryTagsByArticleIdAndTagId(int articleId, int tagId) throws SQLException{
@@ -71,9 +70,12 @@ public class TagManageService {
 	}
 	
 	public void updateTag(int id, String tagName) throws SQLException {
-		Map<String,Object> param = new HashMap<String, Object>();
-		param.put("id", id);
-		param.put("tagName", tagName);
-		tagDao.updateTag(param);		
+//		Map<String,Object> param = new HashMap<String, Object>();
+//		param.put("id", id);
+//		param.put("tagName", tagName);
+		Tag tag = new Tag();
+		tag.setId(id);
+		tag.setTagName(tagName);
+		tagDao.updateTag(tag);		
 	}
 }

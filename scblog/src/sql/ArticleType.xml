@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ArticleType">
+	<typeAlias alias="ArticleTypeClass" type="com.sc.auth.vo.ArticleType"/>
+	
+	<insert id="addArticleType" parameterClass="ArticleTypeClass">
+		insert into t_article_type (typeName) values (#typeName#)
+	</insert>
+	
+	<update id="updateArticleType" parameterClass="ArticleTypeClass">
+		update t_article_type set typeName = #typeName# where id = #id#
+	</update>
+	
+	<delete id="deleteArticleType" parameterClass="int">
+		delete from t_article_type where id = #id#
+	</delete>
+	
+	<select id="queryArticleType" resultClass="ArticleTypeClass">
+		select * from t_article_type
+	</select>
+	
+	<select id="queryArticleTypeCount" resultClass="ArticleTypeClass">
+		select at.* , count(*) articleCount from t_article_type at inner join t_article a on at.id = a.articleType group by at.id, at.typeName
+	</select>
+</sqlMap>

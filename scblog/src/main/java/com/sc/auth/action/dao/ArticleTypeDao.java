@@ -5,33 +5,36 @@ import java.util.List;
 import java.util.Map;
 
 import com.sc.auth.core.DaoSupport;
+import com.sc.auth.core.JBCDaoSupport;
 import com.sc.auth.vo.ArticleType;
 
-public class ArticleTypeDao extends DaoSupport {
+public class ArticleTypeDao extends JBCDaoSupport {
 	
 	public static ArticleTypeDao getInstance(){
 		return new ArticleTypeDao();
 	}
 	
 	public int addArticleType(ArticleType articleType) throws SQLException{
-		String sql = "insert into t_article_type (typeName) values (#typeName#)";
-		return insert(sql, articleType);
+		return insert("ArticleType.addArticleType", articleType);
 	}
 	
-	public boolean updateArticleType(Map<String,Object> param) throws SQLException{
-		String sql = "update t_article_type set typeName = #typeName# where id = #id#";
-		return update(sql, param);
+	public boolean updateArticleType(ArticleType articleType) throws SQLException{
+		return update("ArticleType.updateArticleType", articleType) != 0 ? true : false;
 	}
 	
-	public boolean deleteArticleType(Map<String,Object> param) throws SQLException{
-		String sql = "delete from t_article_type where id = #id#";
-		return delete(sql, param);
+	public boolean deleteArticleType(int typeId) throws SQLException{
+		return delete("ArticleType.deleteArticleType",typeId) != 0 ? true : false;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<ArticleType> queryArticleType(Map<String,Object> param) throws SQLException{
-		String sql = "select at.* , count(*) articleCount from t_article_type at inner join t_article a on at.id = a.articleType group by at.id, at.typeName";
-		List<ArticleType> articleTypeList = queryForList(sql, param, ArticleType.class);
+	public List<ArticleType> queryArticleType() throws SQLException{
+		List<ArticleType> articleTypeList = queryForList("ArticleType.queryArticleType");
+		return articleTypeList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ArticleType> queryArticleTypeCount() throws SQLException{
+		List<ArticleType> articleTypeList = queryForList("ArticleType.queryArticleTypeCount");
 		return articleTypeList;
 	}
 }

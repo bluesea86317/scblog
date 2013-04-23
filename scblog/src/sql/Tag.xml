@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Tag">
+	<typeAlias alias="TagClass" type="com.sc.auth.vo.Tag"/>	
+	
+	<insert id="addTag" parameterClass="TagClass">
+		insert into t_tag (tagName) values (#tagName#)
+		<selectKey resultClass="int" keyProperty="id">
+			 SELECT LAST_INSERT_ID() AS id
+		</selectKey>
+	</insert>
+	
+	<insert id="addArticleTagRelation" parameterClass="java.util.Map">
+		insert into t_article_tag (articleId, tagId) values (#articleId#, #tagId#)
+	</insert>
+	
+	<select id="findTag" parameterClass="string" resultClass="TagClass">
+		select * from t_tag where tagName = #tagName#
+	</select>
+	
+	<select id="queryTagsByArticleId" parameterClass="int" resultClass="TagClass">
+		select tt.* from t_article_tag at left join t_tag tt on at.tagId = tt.id where at.articleId = #articleId#
+	</select>
+	
+	<select id="queryTags" resultClass="TagClass">
+		select * from t_tag
+	</select>
+	
+	<select id="queryTagsByArticleIdAndTagId" parameterClass="java.util.Map" resultClass="TagClass">
+		select tt.* from t_article_tag at left join t_tag tt on at.tagId = tt.id where at.articleId = #articleId# and at.tagId = #tagId#"
+	</select>
+	
+	<delete id="deleteTag" parameterClass="int">
+		delete from t_tag where id = #tagId#
+	</delete>
+	
+	<delete id="deleteArticleTagRelation" parameterClass="int">
+		delete from t_article_tag where tagId = #tagId#
+	</delete>
+	
+	<delete id="deleteRelationByArticleId"  parameterClass="int">
+		delete from t_article_tag where articleId = #articleId#
+	</delete>
+	
+	<update id="updateTag" parameterClass="java.util.Map">
+		update t_tag set tagName = #tagName# where id = #id#
+	</update>
+</sqlMap>

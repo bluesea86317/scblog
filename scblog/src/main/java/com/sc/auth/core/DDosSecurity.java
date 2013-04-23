@@ -1,11 +1,8 @@
 package com.sc.auth.core;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -33,9 +30,9 @@ public class DDosSecurity implements Runnable{
 	public static Map<String, Long> ip_filter = Collections.synchronizedMap(new LinkedHashMap<String, Long>());
 	
 	/**
-	 * 请求上限阈值, 单位时间内超过30次就认为是恶意攻击
+	 * 请求上限阈值, 单位时间内超过90次就认为是恶意攻击
 	 */
-	private static int max_request_count = 30;
+	private static int max_request_count = 90;
 	
 	/**
 	 * 判断非法请求的时间间隔, 暂定30秒, 如果30秒内请求超过限制的阈值就认为是非法的恶意请求

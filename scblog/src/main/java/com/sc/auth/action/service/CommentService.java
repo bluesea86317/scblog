@@ -34,7 +34,7 @@ public class CommentService {
 	public boolean updateCommentStatus(int id) throws SQLException{
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", id);
-		return commentDao.updateCommentStatus(param);
+		return commentDao.updateCommentStatus(id);
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class CommentService {
 	public boolean deleteComment(int id) throws SQLException{
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", id);
-		return commentDao.deleteComment(param);
+		return commentDao.deleteComment(id);
 	}
 	
 	/**
@@ -55,8 +55,7 @@ public class CommentService {
 	 * @throws SQLException
 	 */
 	public List<CommentVo> queryComments() throws SQLException{
-		Map<String,Object> param = new HashMap<String, Object>();
-		return commentDao.queryComments(param);
+		return commentDao.queryComments();
 	}
 	
 	/**
@@ -66,8 +65,6 @@ public class CommentService {
 	 * @throws SQLException
 	 */
 	public List<CommentVo> findComments(int articleId) throws SQLException{
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("articleId", articleId);
-		return commentDao.findCommentByArticleId(param);
+		return commentDao.findCommentByArticleId(articleId);
 	}
 }
