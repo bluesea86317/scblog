@@ -20,8 +20,6 @@ public class ExcsqlAction extends Action {
 
 	private ExcSqlDao excSqlDao = ExcSqlDao.getInstance();
 	
-	private TestDao testDao = TestDao.getInstance();
-	
 	@Override
 	public String excute(HttpServletRequest request,
 			HttpServletResponse response, ActionForward actionForward) throws IOException {		
@@ -43,7 +41,7 @@ public class ExcsqlAction extends Action {
 		
 		List<ArticleVo> vo;
 		try {
-			vo = testDao.queryArticles();
+			vo = excSqlDao.queryArticles();
 			JSONArray ja = new JSONArray();
 			ja.addAll(vo);
 			outPut(response, ja.toString());

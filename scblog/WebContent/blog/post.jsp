@@ -68,7 +68,7 @@
     	<!-- posts start -->
     	<div id="posts">
     		<div class="full-post">
-	    		<h1 class="full-post-title">${article.title }</h1>
+	    		<h2 class="full-post-title">${article.title }</h2>
 	    		<div class="meta-full-post">发布于: <fmt:formatDate value="${article.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/> by <span class="color_orange">Stephen Chen</span></div>
 	    		<div class="full-post-content">
 	    			<!-- <p>

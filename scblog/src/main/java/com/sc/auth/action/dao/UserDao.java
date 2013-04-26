@@ -4,12 +4,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sc.auth.core.DaoSupport;
-import com.sc.auth.core.JBCDaoSupport;
+import com.sc.auth.core.JDBCDaoSupport;
 import com.sc.auth.exception.DataSourceInitException;
 import com.sc.auth.vo.BaseUser;
 
-public class UserDao extends JBCDaoSupport {
+public class UserDao extends JDBCDaoSupport {
 	
 	public static UserDao getInstance(){
 		return new UserDao();
@@ -30,7 +29,7 @@ public class UserDao extends JBCDaoSupport {
 		BaseUser baseUser;
 		paramMap.put("userName", userName);
 		paramMap.put("password", password);
-		baseUser = (BaseUser)queryForObject("User.getUser", paramMap);
+		baseUser = (BaseUser)getJdbcDaoTemplate().queryForObject("User.getUser", paramMap);
 		return baseUser;
 	}
 	

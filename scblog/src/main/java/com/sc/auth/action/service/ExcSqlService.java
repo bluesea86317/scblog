@@ -1,6 +1,7 @@
 package com.sc.auth.action.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -8,34 +9,19 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.sc.auth.action.dao.ExcSqlDao;
+import com.sc.auth.vo.ArticleVo;
 
 public class ExcSqlService {	
 	
-	private DataSourceTransactionManager transactionManager;
-	private final static ExcSqlService excSqlService = new ExcSqlService();
+	
 	private ExcSqlDao excSqlDao = ExcSqlDao.getInstance();	
-	private DefaultTransactionDefinition def = new DefaultTransactionDefinition();
 	
-	private DataSourceTransactionManager createTransactionManager(){
-		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
-//		transactionManager.setDataSource(excSqlDao.getDataSource());
-		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-		return transactionManager;
-	}
 	
-	public boolean excuteSql(String sql){
-		transactionManager = createTransactionManager();
-		TransactionStatus status = transactionManager.getTransaction(def);
-		try {
-			return excSqlDao.excuteSql(sql);
-		} catch (SQLException e) {
-			transactionManager.rollback(status);
-			e.printStackTrace();
-		}
-		return false;
+	public List<ArticleVo> excuteSql(String sql) throws SQLException{
+		return excSqlDao.queryArticles();
 	}
 	
 	public static ExcSqlService getInstance() {
-		return excSqlService;
+		return new ExcSqlService();
 	}
 }

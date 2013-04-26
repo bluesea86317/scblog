@@ -2,7 +2,10 @@
  * @auth wen_chen
  */
 
-body{background:url(../img/light_wool.png)}
+body{
+	background:url(http://changshiban.com/wp-content/themes/responsy-v3.3/img/background/body-light.jpg);
+	font-family: "微软雅黑", Arial;
+}
 
 .footer{
 	

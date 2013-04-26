@@ -9,15 +9,17 @@
 				</form>
 			</div>
 			<div class="sidebar-content">				
-				<h5>近期文章</h5>
+				<h4>近期文章</h4>
 				<ul id="recentArticles">
+					<div class="ds-waiting"></div>
 				</ul>				
 				<br>
-				<h5>文章分类</h5>
+				<h4>文章分类</h4>
 				<ul id="articleTypes">
+					<div class="ds-waiting"></div>
 				</ul>
 				<br>
-				<h5>人生格言</h5>
+				<h4>人生格言</h4>
 				<div>自从我变成了一坨屎,就再也没有人踩在我头上了.</div>
 			</div>
 		</div>
