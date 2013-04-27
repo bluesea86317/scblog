@@ -10,6 +10,9 @@ public class JDBCDaoTemplate implements DaoTemplate{
 	
 	private SqlMapClient sqlMapClient;
 	
+	public JDBCDaoTemplate(){
+	}
+	
 	public JDBCDaoTemplate(SqlMapClient sqlMapClient){	
 		this.sqlMapClient = sqlMapClient;
 	}

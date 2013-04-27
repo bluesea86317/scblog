@@ -1,8 +1,11 @@
-package com.sc.auth.core;
+package com.sc.auth.core.transaction;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+
+import org.springframework.cglib.proxy.Enhancer;
+import org.springframework.cglib.proxy.MethodInterceptor;
+import org.springframework.cglib.proxy.MethodProxy;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -11,7 +14,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
  * @author wen_chen
  *
  */
-public class TransactionStartInvocationHandler implements InvocationHandler {
+public class TransactionStartInvocationHandler implements MethodInterceptor {
 
 	private SqlMapClient sqlMapClient;
 	
@@ -21,11 +24,12 @@ public class TransactionStartInvocationHandler implements InvocationHandler {
 		this.target = target;
 		this.sqlMapClient = sqlMapClient;
 	}
-	
-	public Object invoke(Object proxy, Method method, Object[] args)
-			throws Throwable {
+
+	public Object intercept(Object obj, Method method, Object[] args,
+			MethodProxy proxy) throws Throwable {
 		Object object = new Object();
 		try{
+			
 			sqlMapClient.startTransaction();
 			object = method.invoke(this.target, args);
 			sqlMapClient.commitTransaction();
@@ -35,6 +39,14 @@ public class TransactionStartInvocationHandler implements InvocationHandler {
 			sqlMapClient.endTransaction();
 		}
 		return object;
+	}
+	
+	public Object getInstance(Object target){
+		this.target = target;
+		Enhancer enhancer = new Enhancer();
+		enhancer.setSuperclass(this.target.getClass());
+		enhancer.setCallback(this);
+		return enhancer.create();
 	}
 
 }
