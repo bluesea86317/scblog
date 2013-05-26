@@ -12,19 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
-import com.sc.auth.action.service.ArticleManageService;
-import com.sc.auth.action.service.ArticleTypeService;
-import com.sc.auth.action.service.TagManageService;
 import com.sc.auth.core.Action;
 import com.sc.auth.core.ActionForward;
+import com.sc.auth.core.Env;
+import com.sc.auth.service.ArticleManageService;
+import com.sc.auth.service.ArticleTypeService;
+import com.sc.auth.service.TagManageService;
 import com.sc.auth.util.ParamUtils;
 import com.sc.auth.vo.ArticleVo;
 import com.sc.auth.vo.BaseUser;
 
 public class ArticleManageAction extends Action {
 
-	private ArticleManageService articleManageService = ArticleManageService.getInstance();
-	private ArticleTypeService articleTypeService = ArticleTypeService.getInstance();
+	private ArticleManageService articleManageService = Env.getBean("articleManageService");
+	private ArticleTypeService articleTypeService = Env.getBean("articleTypeService");
 	@Override
 	public String excute(HttpServletRequest request,
 			HttpServletResponse response, ActionForward forward) throws IOException {

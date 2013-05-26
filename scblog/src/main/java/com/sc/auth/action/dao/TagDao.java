@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sc.auth.core.JDBCDaoSupport;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import com.sc.auth.vo.Tag;
 
-public class TagDao extends JDBCDaoSupport {
+public class TagDao extends SqlMapClientDaoSupport {
 	
 	public static TagDao getInstance(){
 		return new TagDao();
@@ -20,7 +20,7 @@ public class TagDao extends JDBCDaoSupport {
 	 * @throws SQLException
 	 */
 	public int addTag(Tag tag) throws SQLException{
-		return getJdbcDaoTemplate().insert("Tag.addTag", tag);
+		return (Integer)getSqlMapClientTemplate().insert("Tag.addTag", tag);
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class TagDao extends JDBCDaoSupport {
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("articleId", articleId);
 		param.put("tagId", tagId);
-		return getJdbcDaoTemplate().insert("Tag.addArticleTagRelation", param);
+		return (Integer)getSqlMapClientTemplate().insert("Tag.addArticleTagRelation", param);
 	}
 	
 	/**
@@ -43,33 +43,33 @@ public class TagDao extends JDBCDaoSupport {
 	 * @throws SQLException
 	 */
 	public Tag findTag(String tagName) throws SQLException{		
-		return (Tag)getJdbcDaoTemplate().queryForObject("Tag.findTag", tagName);
+		return (Tag)getSqlMapClientTemplate().queryForObject("Tag.findTag", tagName);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Tag> queryTagsByArticleId(int articleId) throws SQLException{
-		return (List<Tag>)getJdbcDaoTemplate().queryForList("Tag.queryTagsByArticleId", articleId);
+		return (List<Tag>)getSqlMapClientTemplate().queryForList("Tag.queryTagsByArticleId", articleId);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Tag> queryTags() throws SQLException{
-		return (List<Tag>)getJdbcDaoTemplate().queryForList("Tag.queryTags");
+		return (List<Tag>)getSqlMapClientTemplate().queryForList("Tag.queryTags");
 	}
 	
 	public boolean deleteTag(int tagId) throws SQLException {
-		return getJdbcDaoTemplate().delete("Tag.deleteTag", tagId) != 0 ? true : false;
+		return getSqlMapClientTemplate().delete("Tag.deleteTag", tagId) != 0 ? true : false;
 	}
 	
 	public boolean deleteArticleTagRelation(int tagId) throws SQLException {
-		return getJdbcDaoTemplate().delete("Tag.deleteArticleTagRelation", tagId) != 0 ? true : false;
+		return getSqlMapClientTemplate().delete("Tag.deleteArticleTagRelation", tagId) != 0 ? true : false;
 	}
 	
 	public boolean updateTag(Tag tag) throws SQLException {
-		return getJdbcDaoTemplate().update("Tag.updateTag", tag) != 0 ? true : false;
+		return getSqlMapClientTemplate().update("Tag.updateTag", tag) != 0 ? true : false;
 	}
 	
 	public boolean deleteRelationByArticleId(int articleId) throws SQLException {
-		return getJdbcDaoTemplate().delete("Tag.deleteRelationByArticleId", articleId) != 0? true : false;
+		return getSqlMapClientTemplate().delete("Tag.deleteRelationByArticleId", articleId) != 0? true : false;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -77,6 +77,6 @@ public class TagDao extends JDBCDaoSupport {
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("articleId", articleId);
 		param.put("tagId", tagId);		
-		return (List<Tag>)getJdbcDaoTemplate().queryForList("Tag.queryTagsByArticleIdAndTagId", param);
+		return (List<Tag>)getSqlMapClientTemplate().queryForList("Tag.queryTagsByArticleIdAndTagId", param);
 	}
 }

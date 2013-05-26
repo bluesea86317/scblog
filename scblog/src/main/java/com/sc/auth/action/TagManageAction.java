@@ -7,15 +7,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sc.auth.action.service.TagManageService;
 import com.sc.auth.core.Action;
 import com.sc.auth.core.ActionForward;
+import com.sc.auth.core.Env;
+import com.sc.auth.service.TagManageService;
 import com.sc.auth.util.ParamUtils;
 import com.sc.auth.vo.Tag;
 
 public class TagManageAction extends Action {
 	
-	private TagManageService tagManageService = TagManageService.getInstance();
+	private TagManageService tagManageService = Env.getBean("tagManageService");
 	@Override
 	public String excute(HttpServletRequest request,
 			HttpServletResponse response, ActionForward actionForward)

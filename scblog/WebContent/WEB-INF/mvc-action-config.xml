@@ -5,7 +5,7 @@
 			<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 			<property name="url" value="jdbc:mysql://localhost:3306/scblog?useUnicode=true&amp;characterEncoding=utf-8"></property>
 			<property name="username" value="root"></property>
-			<property name="password" value="kingdee"></property>
+			<property name="password" value="888888"></property>
 			<property name="loginTimeout" value="100"></property>
 			<property name="initialSize" value="3"></property>
 		</data-source>
@@ -17,19 +17,19 @@
 			<forward name="failure" path="./index.jsp"/>
 		</action>
 		
-		<action class="com.sc.auth.action.PostAction" path="/blog/post">
-			<forward name="show" path="./post.jsp"/>
-			<forward name="showAll" path="./articles.jsp"/>
+		<action class="com.sc.auth.action.PostAction" path="/post">
+			<forward name="show" path="./blog/post.jsp"/>
+			<forward name="showAll" path="./blog/articles.jsp"/>
 		</action>
 		
 		<action class="com.sc.auth.action.BlogIndexAction" path="/blog/">			
 			<forward name="showAll" path="./articles.jsp"/>
 		</action>
 		
-		<action class="com.sc.auth.action.AjaxRequestAction" path="/blog/ajaxReq">
+		<action class="com.sc.auth.action.AjaxRequestAction" path="/ajaxReq">
 		</action>
 		
-		<action class="com.sc.auth.action.CommentManageAction" path="/blog/comment">
+		<action class="com.sc.auth.action.CommentManageAction" path="/comment">
 		</action>
 		
 		

@@ -7,12 +7,22 @@ import com.sc.auth.vo.BaseUser;
 
 public class UserLoginService {
 
-	public UserDao getUserDao() {
-		return new UserDao();
-	}
+	private UserDao userDao;
 	
 	public BaseUser getUser(String userName, String password) throws SQLException{
 		return getUserDao().getUser(userName, password);
+	}
+	
+	public BaseUser getBaseUser(String userName, String password) throws SQLException{
+		return new BaseUser();
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 	
 }

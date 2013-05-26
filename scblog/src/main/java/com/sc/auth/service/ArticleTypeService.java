@@ -1,4 +1,4 @@
-package com.sc.auth.action.service;
+package com.sc.auth.service;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -10,29 +10,33 @@ import com.sc.auth.vo.ArticleType;
 
 public class ArticleTypeService {
 	
-	public ArticleTypeDao articleTypeDao = ArticleTypeDao.getInstance();
-	
-	public static ArticleTypeService getInstance(){
-		return new ArticleTypeService();
-	}
+	private ArticleTypeDao articleTypeDao;
 	
 	public int addArticleType(ArticleType articleType) throws SQLException{
-		return articleTypeDao.addArticleType(articleType);
+		return getArticleTypeDao().addArticleType(articleType);
 	}
 	
 	public boolean updateArticleType(ArticleType articleType) throws SQLException{
-		return articleTypeDao.updateArticleType(articleType);
+		return getArticleTypeDao().updateArticleType(articleType);
 	}
 	
 	public boolean deleteArticleType(int id) throws SQLException{
-		return articleTypeDao.deleteArticleType(id);
+		return getArticleTypeDao().deleteArticleType(id);
 	}
 	
 	public List<ArticleType> queryArtilcType() throws SQLException{
-		return articleTypeDao.queryArticleType();
+		return getArticleTypeDao().queryArticleType();
 	}
 	
 	public List<ArticleType> queryArticleTypeCount() throws SQLException{
-		return articleTypeDao.queryArticleType();
+		return getArticleTypeDao().queryArticleType();
+	}
+
+	public ArticleTypeDao getArticleTypeDao() {
+		return articleTypeDao;
+	}
+
+	public void setArticleTypeDao(ArticleTypeDao articleTypeDao) {
+		this.articleTypeDao = articleTypeDao;
 	}
 }

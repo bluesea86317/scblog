@@ -4,9 +4,9 @@
 <sqlMapConfig>
 	<settings useStatementNamespaces="true"/>
 
-	<sqlMap resource="Article.xml"/>
-	<sqlMap resource="Tag.xml"/>
-	<sqlMap resource="User.xml"/>
-	<sqlMap resource="Comment.xml"/>
-	<sqlMap resource="ArticleType.xml"/>
+	<sqlMap resource="sql/Article.xml"/>
+	<sqlMap resource="sql/Tag.xml"/>
+	<sqlMap resource="sql/User.xml"/>
+	<sqlMap resource="sql/Comment.xml"/>
+	<sqlMap resource="sql/ArticleType.xml"/>
 </sqlMapConfig>

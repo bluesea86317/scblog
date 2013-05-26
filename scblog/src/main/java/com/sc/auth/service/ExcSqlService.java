@@ -1,4 +1,4 @@
-package com.sc.auth.action.service;
+package com.sc.auth.service;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd"
+	default-lazy-init="true">
+	
+	<bean id="articleDao" class="com.sc.auth.action.dao.ArticleDao">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	
+	<bean id="articleTypeDao" class="com.sc.auth.action.dao.ArticleTypeDao">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	
+	<bean id="commentDao" class="com.sc.auth.action.dao.CommentDao">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	
+	<bean id="tagDao" class="com.sc.auth.action.dao.TagDao">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	
+	<bean id="userDao" class="com.sc.auth.action.dao.UserDao">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	
+	<bean id="articleManageService" class="com.sc.auth.service.ArticleManageService">
+		<property name="articleDao" ref="articleDao"></property>
+		<property name="tagManageService" ref="tagManageService"></property>
+	</bean>
+	
+	<bean id="articleTypeService" class="com.sc.auth.service.ArticleTypeService">
+		<property name="articleTypeDao" ref="articleTypeDao"></property>
+	</bean>
+	
+	<bean id="commentService" class="com.sc.auth.service.CommentService">
+		<property name="commentDao" ref="commentDao"></property>
+	</bean>
+	
+	<bean id="tagManageService" class="com.sc.auth.service.TagManageService">
+		<property name="tagDao" ref="tagDao"></property>
+	</bean>
+	
+	<bean id="userLoginService" class="com.sc.auth.service.UserLoginService">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+</beans>

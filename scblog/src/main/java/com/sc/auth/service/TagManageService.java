@@ -1,4 +1,4 @@
-package com.sc.auth.action.service;
+package com.sc.auth.service;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -11,11 +11,8 @@ import com.sc.auth.vo.Tag;
 
 public class TagManageService {
 	
-	private TagDao tagDao = TagDao.getInstance();
+	private TagDao tagDao;
 	
-	public static TagManageService getInstance(){
-		return new TagManageService();
-	}
 	/**
 	 * 新增文章的标签
 	 * @param articleId
@@ -28,11 +25,11 @@ public class TagManageService {
 		deleteRelationByArticleId(articleId);
 		if(!StringUtils.isNullOrEmpty(tagStr.replace(",", ""))){
 			for(String tagName : tags){
-				Tag tag = tagDao.findTag(tagName);
+				Tag tag = getTagDao().findTag(tagName);
 				if(tag == null){
 					tag = new Tag();
 					tag.setTagName(tagName);
-					tag.setId(tagDao.addTag(tag));
+					tag.setId(getTagDao().addTag(tag));
 				}
 //				再添加新的标签关联关系
 				addArticleTagRelation(articleId, tag.getId());			
@@ -41,32 +38,32 @@ public class TagManageService {
 	}
 	
 	public void addArticleTagRelation(int articleId, int tagId) throws SQLException{		
-		tagDao.addArticleTagRelation(articleId, tagId);			
+		getTagDao().addArticleTagRelation(articleId, tagId);			
 	}
 	
 	public void deleteRelationByArticleId(int articleId) throws SQLException{
 //		Map<String,Object> param = new HashMap<String, Object>();
 //		param.put("articleId", articleId);
-		tagDao.deleteRelationByArticleId(articleId);
+		getTagDao().deleteRelationByArticleId(articleId);
 	}
 	
 	public void deleteTag(int tagId) throws SQLException{
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("tagId", tagId);
-		tagDao.deleteTag(tagId);
-		tagDao.deleteArticleTagRelation(tagId);
+		getTagDao().deleteTag(tagId);
+		getTagDao().deleteArticleTagRelation(tagId);
 	}
 	
 	public List<Tag> queryTags() throws SQLException{
-		return tagDao.queryTags();
+		return getTagDao().queryTags();
 	}
 	
 	public List<Tag> queryTagsByArticleIdAndTagId(int articleId, int tagId) throws SQLException{
-		return tagDao.queryTagsByArticleIdAndTagId(articleId, tagId);		
+		return getTagDao().queryTagsByArticleIdAndTagId(articleId, tagId);		
 	}
 	
 	public List<Tag> queryTagsByArticleId(int articleId) throws SQLException{
-		return tagDao.queryTagsByArticleId(articleId);		
+		return getTagDao().queryTagsByArticleId(articleId);		
 	}
 	
 	public void updateTag(int id, String tagName) throws SQLException {
@@ -76,6 +73,14 @@ public class TagManageService {
 		Tag tag = new Tag();
 		tag.setId(id);
 		tag.setTagName(tagName);
-		tagDao.updateTag(tag);		
+		getTagDao().updateTag(tag);		
+	}
+
+	public TagDao getTagDao() {
+		return tagDao;
+	}
+
+	public void setTagDao(TagDao tagDao) {
+		this.tagDao = tagDao;
 	}
 }

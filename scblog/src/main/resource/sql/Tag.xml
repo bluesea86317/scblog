@@ -3,7 +3,11 @@
 PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Tag">
-	<typeAlias alias="TagClass" type="com.sc.auth.vo.Tag"/>	
+	<typeAlias alias="TagClass" type="com.sc.auth.vo.Tag"/>
+	<resultMap class="TagClass" id="TagClassMap">
+		<result property="id" column="id" notNullColumn="0" nullValue="0"/>
+		<result property="tagName" column="tagName"/>
+	</resultMap>
 	
 	<insert id="addTag" parameterClass="TagClass">
 		insert into t_tag (tagName) values (#tagName#)
@@ -20,7 +24,7 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 		select * from t_tag where tagName = #tagName#
 	</select>
 	
-	<select id="queryTagsByArticleId" parameterClass="int" resultClass="TagClass">
+	<select id="queryTagsByArticleId" parameterClass="int" resultMap="TagClassMap">
 		select tt.* from t_article_tag at left join t_tag tt on at.tagId = tt.id where at.articleId = #articleId#
 	</select>
 	

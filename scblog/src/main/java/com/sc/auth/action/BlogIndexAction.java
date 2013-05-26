@@ -7,15 +7,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sc.auth.action.service.ArticleManageService;
 import com.sc.auth.core.Action;
 import com.sc.auth.core.ActionForward;
+import com.sc.auth.core.Env;
+import com.sc.auth.service.ArticleManageService;
 import com.sc.auth.util.ParamUtils;
 import com.sc.auth.vo.ArticleVo;
 
 public class BlogIndexAction extends Action{
 
-	private ArticleManageService articleManageService = ArticleManageService.getInstance();	
+	private ArticleManageService articleManageService = Env.getBean("articleManageService");	
 	
 	@Override
 	public String excute(HttpServletRequest request,

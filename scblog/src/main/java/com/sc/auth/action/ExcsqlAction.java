@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
-import com.sc.auth.action.service.ExcSqlService;
 import com.sc.auth.core.Action;
 import com.sc.auth.core.ActionForward;
-import com.sc.auth.core.transaction.Env;
+import com.sc.auth.core.Env;
+import com.sc.auth.service.ExcSqlService;
 import com.sc.auth.vo.ArticleVo;
 
 public class ExcsqlAction extends Action {

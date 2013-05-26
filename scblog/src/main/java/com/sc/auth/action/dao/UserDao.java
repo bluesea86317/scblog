@@ -4,11 +4,13 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+
 import com.sc.auth.core.JDBCDaoSupport;
 import com.sc.auth.exception.DataSourceInitException;
 import com.sc.auth.vo.BaseUser;
 
-public class UserDao extends JDBCDaoSupport {
+public class UserDao extends SqlMapClientDaoSupport {
 	
 	public static UserDao getInstance(){
 		return new UserDao();
@@ -29,7 +31,7 @@ public class UserDao extends JDBCDaoSupport {
 		BaseUser baseUser;
 		paramMap.put("userName", userName);
 		paramMap.put("password", password);
-		baseUser = (BaseUser)getJdbcDaoTemplate().queryForObject("User.getUser", paramMap);
+		baseUser = (BaseUser)getSqlMapClientTemplate().queryForObject("User.getUser", paramMap);
 		return baseUser;
 	}
 	

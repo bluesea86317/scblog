@@ -1,4 +1,4 @@
-package com.sc.auth.action.service;
+package com.sc.auth.service;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -9,12 +9,9 @@ import com.sc.auth.vo.ArticleVo;
 
 public class ArticleManageService {
 
-	private ArticleDao dao = ArticleDao.getInstance();
-	private TagManageService tagManageService = TagManageService.getInstance();
+	private ArticleDao articleDao;
+	private TagManageService tagManageService;
 	
-	public static ArticleManageService getInstance(){
-		return new ArticleManageService();
-	}
 	
 	/**
 	 * 新增文章
@@ -23,17 +20,17 @@ public class ArticleManageService {
 	 * @throws SQLException
 	 */
 	public void addArticle(ArticleVo article, String tagStr) throws SQLException{
-		int articleId = dao.addArticle(article);
+		int articleId = articleDao.addArticle(article);
 		addArticleTag(articleId, tagStr);
 	}
 
 	public void updateArticle(ArticleVo article, String tagStr) throws SQLException{
-		dao.updateArticle(article);
+		articleDao.updateArticle(article);
 		addArticleTag(article.getId(), tagStr);
 	}
 	
 	public void addArticleTag(int articleId, String tagStr) throws SQLException{
-		tagManageService.addArticleTag(articleId, tagStr);
+		getTagManageService().addArticleTag(articleId, tagStr);
 	}
 	
 	/**
@@ -45,19 +42,19 @@ public class ArticleManageService {
 	public boolean deleteArticle(int id) throws SQLException{
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("id", id);
-		return dao.deleteArticle(param);
+		return articleDao.deleteArticle(param);
 	}
 	
 	public ArticleVo findArticle(int id) throws SQLException{		
-		ArticleVo article = dao.findArticle(id);
-		article.setTags(tagManageService.queryTagsByArticleId(article.getId()));
+		ArticleVo article = articleDao.findArticle(id);
+		article.setTags(getTagManageService().queryTagsByArticleId(article.getId()));
 		return article;
 	}
 	
 	public List<ArticleVo> queryRecentArticles() throws SQLException{
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("recentCount", 5);
-		List<ArticleVo> articles = dao.queryRecentArticles(param);		
+		List<ArticleVo> articles = articleDao.queryRecentArticles(param);		
 		return articles;
 	}
 	
@@ -68,7 +65,7 @@ public class ArticleManageService {
 	 */
 	public List<ArticleVo> queryArticles() throws SQLException{
 		Map<String,Object> param = new HashMap<String, Object>();
-		List<ArticleVo> articles = dao.queryArticles(param);
+		List<ArticleVo> articles = articleDao.queryArticles(param);
 		return articles;
 	}
 	
@@ -78,8 +75,24 @@ public class ArticleManageService {
 	 * @throws SQLException
 	 */
 	public List<ArticleVo> queryArticlesByType(int articleType) throws SQLException{
-		List<ArticleVo> articles = dao.queryArticlesByType(articleType);
+		List<ArticleVo> articles = articleDao.queryArticlesByType(articleType);
 		return articles;
+	}
+
+	public TagManageService getTagManageService() {
+		return tagManageService;
+	}
+
+	public void setTagManageService(TagManageService tagManageService) {
+		this.tagManageService = tagManageService;
+	}
+
+	public ArticleDao getArticleDao() {
+		return articleDao;
+	}
+
+	public void setArticleDao(ArticleDao articleDao) {
+		this.articleDao = articleDao;
 	}
 	
 }

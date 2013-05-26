@@ -9,11 +9,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="${web_host }/blog/">SC'BL<span id="breath_o" style="opacity: 0;">O</span>G</a>
+          <a class="brand" href="${web_host }/">SC'BL<span id="breath_o" style="opacity: 0;">O</span>G</a>
           <div class="nav-collapse pull-right">
             <ul class="nav">
-              <li class="active"><a href="${web_host }/">主页</a></li>
-              <li><a href="${web_host }/#about">关于我</a></li>
+              <li ${empty param.index ? 'class=active':'' }><a href="${web_host }/">主页</a></li>
+              <li ${param.index == 'about'? 'class=active':'' }><a href="${web_host }/about.jsp">关于我</a></li>
               <li><a href="http://weibo.com/iamstephenchen" target="_blank">关注我</a></li>
             </ul>
             <c:if test="${!empty logonUser }">

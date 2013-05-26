@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
-import com.sc.auth.action.service.ArticleTypeService;
 import com.sc.auth.core.Action;
 import com.sc.auth.core.ActionForward;
+import com.sc.auth.core.Env;
+import com.sc.auth.service.ArticleTypeService;
 import com.sc.auth.util.ParamUtils;
 import com.sc.auth.vo.ArticleType;
 
 public class ArticleTypeManageAction extends Action {
 
-	private ArticleTypeService articleTypeService = ArticleTypeService.getInstance();
+	private ArticleTypeService articleTypeService = Env.getBean("articleTypeService");
 	@Override
 	public String excute(HttpServletRequest request,
 			HttpServletResponse response, ActionForward actionForward)
