@@ -48,7 +48,7 @@
 		    </div> -->
 		    <!-- <h1>Bootstrap starter template</h1>-->
       		<p>深圳IT从业者，热爱软件开发，热爱游戏，热爱互联网，也热爱生活。</p>
-    		<a class="btn btn-success btn-large" href="${web_host }/blog/"><span>Welcome, to my blog >></span></a>
+    		<a class="btn btn-success btn-large" href="${web_host }/"><span>Welcome, to my blog >></span></a>
 	    </div>
       
     </div> 

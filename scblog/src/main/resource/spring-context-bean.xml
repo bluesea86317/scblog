@@ -45,4 +45,9 @@
 	<bean id="userLoginService" class="com.sc.auth.service.UserLoginService">
 		<property name="userDao" ref="userDao"></property>
 	</bean>
+	
+	<bean id="configService" class="com.sc.auth.service.ConfigService">
+		<property name="configPath" value="data-source-config.properties"></property>
+		<!-- <constructor-arg value=""></constructor-arg> -->		
+	</bean>
 </beans>

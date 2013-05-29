@@ -63,8 +63,7 @@ public class ActionServlet extends HttpServlet {
 			this.initializeActionConfig(rootNode);
 //			初始化数据库连接
 			this.initializeDataSource(rootNode);
-//			设置host
-//			this.getServletContext().setAttribute("web_host", "http://localhost:7070/scblog");
+
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,13 +88,13 @@ public class ActionServlet extends HttpServlet {
 				throw new NonActionForRequstException("There is no action config for this request which path is \"" + actionPath + "\"");			
 			}			
 			
-			String filePath = getServletContext().getRealPath("/blog");
+			String filePath = getServletContext().getRealPath("/");
 			String fileName = "";
 			String forwardPath = "";
 			int articleId = ParamUtils.getInt(request, "id", 0);
-			if(articleId != 0 && "/blog/post".equals(actionPath)){
-				fileName = articleId + ".html";
-				filePath = filePath + "\\" + fileName;
+			if(articleId != 0 && "/post".equals(actionPath)){
+				fileName = "blog"+ "/" + articleId + ".html";
+				filePath = filePath + "/" + fileName;
 				File file = new File(filePath);
 				if(file.exists()){
 					request.getRequestDispatcher(fileName).forward(request, response);

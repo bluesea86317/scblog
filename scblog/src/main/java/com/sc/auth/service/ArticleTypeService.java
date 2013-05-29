@@ -29,7 +29,7 @@ public class ArticleTypeService {
 	}
 	
 	public List<ArticleType> queryArticleTypeCount() throws SQLException{
-		return getArticleTypeDao().queryArticleType();
+		return getArticleTypeDao().queryArticleTypeCount();
 	}
 
 	public ArticleTypeDao getArticleTypeDao() {
