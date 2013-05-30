@@ -4,8 +4,10 @@
   <head>
     <meta charset="utf-8">
     <title>Stephen Chen 个人博客</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A blog about software development technology">
+    <meta name="robots" content="index, follow" />
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+	<title>SCBLOG 技术交流博客</title>
+	<meta name="Description" content="技术交流博客, java, javascript, 生活, 学习, linux"/>
     <meta name="author" content="Stephen Chen">
 	<%@include file="./include/commonresource.jsp" %>
 	<script type="text/javascript">

@@ -18,8 +18,8 @@ public class ArticleDao extends SqlMapClientDaoSupport{
 		return (Integer)getSqlMapClientTemplate().insert("Article.addArticle", article);
 	}
 	
-	public boolean deleteArticle(Map<String,Object> param) throws SQLException{		
-		int count = getSqlMapClientTemplate().delete("Article.deleteArticle", param);
+	public boolean deleteArticle(int id) throws SQLException{		
+		int count = getSqlMapClientTemplate().delete("Article.deleteArticle", id);
 		return count > 0 ? true : false;
 	}
 	

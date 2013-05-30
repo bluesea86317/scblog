@@ -12,8 +12,8 @@ public class ArticleTypeService {
 	
 	private ArticleTypeDao articleTypeDao;
 	
-	public int addArticleType(ArticleType articleType) throws SQLException{
-		return getArticleTypeDao().addArticleType(articleType);
+	public void addArticleType(ArticleType articleType) throws SQLException{
+		getArticleTypeDao().addArticleType(articleType);
 	}
 	
 	public boolean updateArticleType(ArticleType articleType) throws SQLException{

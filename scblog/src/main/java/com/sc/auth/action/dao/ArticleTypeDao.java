@@ -13,8 +13,8 @@ public class ArticleTypeDao extends SqlMapClientDaoSupport {
 		return new ArticleTypeDao();
 	}
 	
-	public int addArticleType(ArticleType articleType) throws SQLException{
-		return (Integer)getSqlMapClientTemplate().insert("ArticleType.addArticleType", articleType);
+	public void addArticleType(ArticleType articleType) throws SQLException{
+		getSqlMapClientTemplate().insert("ArticleType.addArticleType", articleType);
 	}
 	
 	public boolean updateArticleType(ArticleType articleType) throws SQLException{

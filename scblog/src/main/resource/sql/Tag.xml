@@ -18,6 +18,9 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 	
 	<insert id="addArticleTagRelation" parameterClass="java.util.Map">
 		insert into t_article_tag (articleId, tagId) values (#articleId#, #tagId#)
+		<selectKey resultClass="int" keyProperty="id">
+			 SELECT LAST_INSERT_ID() AS id
+		</selectKey>
 	</insert>
 	
 	<select id="findTag" parameterClass="string" resultClass="TagClass">

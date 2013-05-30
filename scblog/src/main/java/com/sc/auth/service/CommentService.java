@@ -18,8 +18,8 @@ public class CommentService {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int addComment(CommentVo comment) throws SQLException{		
-		return getCommentDao().addComment(comment);
+	public void addComment(CommentVo comment) throws SQLException{		
+		getCommentDao().addComment(comment);
 	}
 	
 	/**

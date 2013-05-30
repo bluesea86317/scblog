@@ -39,10 +39,8 @@ public class ArticleManageService {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public boolean deleteArticle(int id) throws SQLException{
-		Map<String,Object> param = new HashMap<String, Object>();
-		param.put("id", id);
-		return articleDao.deleteArticle(param);
+	public boolean deleteArticle(int id) throws SQLException{		
+		return articleDao.deleteArticle(id);
 	}
 	
 	public ArticleVo findArticle(int id) throws SQLException{		

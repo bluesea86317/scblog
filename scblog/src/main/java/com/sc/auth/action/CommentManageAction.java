@@ -8,6 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.json.JSONArray;
 
 import com.sc.auth.core.Action;
@@ -103,7 +105,7 @@ public class CommentManageAction extends Action{
 		String visitor = ParamUtils.getString(request, "visitor", "");
 		String email = ParamUtils.getString(request, "email", "");
 		String website = ParamUtils.getString(request, "website", "");
-		if(website.indexOf("http") == -1){
+		if(website.indexOf("http") == -1 && StringUtils.isNotBlank(website)){
 			website = "http://" + website;
 		}
 		try {

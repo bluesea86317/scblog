@@ -12,8 +12,8 @@ public class CommentDao extends SqlMapClientDaoSupport{
 		return new CommentDao();
 	}
 	
-	public int addComment(CommentVo comment) throws SQLException{		
-		return (Integer)getSqlMapClientTemplate().insert("Comment.addComment", comment);
+	public void addComment(CommentVo comment) throws SQLException{		
+		getSqlMapClientTemplate().insert("Comment.addComment", comment);
 	}
 	
 	public boolean updateCommentStatus(int commentId) throws SQLException{

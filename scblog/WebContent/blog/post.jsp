@@ -6,7 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>文章</title>
+<meta name="robots" content="index, follow" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<title>SCBLOG - ${article.title }</title>
+<meta name="Description" content='<c:out value="${article.intro }"></c:out>'/>
 <%@include file="../include/commonresource.jsp" %>
 <script type="text/javascript">
 	function submitComment(){
@@ -43,7 +46,7 @@
 			var comment_div = "";
 			$(result).each(function(i){
 				//alert(result[i].id);
-				comment_div = comment_div + '<div class="comment_c"><h5><a href="'+result[i].website+'" rel="external nofollow" class="url">'+result[i].visitor+'</a><span class="pull-right">'+result[i].responseTime+'</span></h5><p>'+result[i].comment+'</p><div class="pull-right"><a href="javascript:reply('+result[i].id+',\''+result[i].visitor+'\')">回复</a></div><div class="clearfix"></div></div>'
+				comment_div = comment_div + '<div class="comment_c"><h5><a href="'+result[i].website+'#" rel="external nofollow" class="url">'+result[i].visitor+'</a><span class="pull-right">'+result[i].responseTime+'</span></h5><p>'+result[i].comment+'</p><div class="pull-right"><a href="javascript:reply('+result[i].id+',\''+result[i].visitor+'\')">回复</a></div><div class="clearfix"></div></div>'
 				$("#comment").html(comment_div);
 			});
 		});

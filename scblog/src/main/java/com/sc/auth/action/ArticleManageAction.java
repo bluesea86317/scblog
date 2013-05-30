@@ -1,5 +1,6 @@
 package com.sc.auth.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -64,7 +65,8 @@ public class ArticleManageAction extends Action {
 			article.setAuthorId(authorId);
 			article.setArticleType(articleType);
 			article.setLastModifyTime(new Date());
-			articleManageService.updateArticle(article, tagStr);			
+			articleManageService.updateArticle(article, tagStr);	
+			removeHtml(id, request);
 			return_out(response, PROCESS_RESULT_SUCCESS, "文章修改成功");
 		} catch (SQLException e) {			
 			e.printStackTrace();
@@ -73,6 +75,20 @@ public class ArticleManageAction extends Action {
 		return null;
 	}
 
+	/**
+	 * 每次更新都要自动删除已经生成的静态文件
+	 * @param articleId
+	 * @param request
+	 */
+	private void removeHtml(int articleId, HttpServletRequest request){
+		String filePath = request.getSession().getServletContext().getRealPath("");
+		String fileName = "blog"+ "/" + articleId + ".html";
+		filePath = filePath + "/" + fileName;
+		File file = new File(filePath);
+		if(file.exists()){
+			file.delete();
+		}
+	}
 	private String listArticle(HttpServletRequest request,
 			HttpServletResponse response, ActionForward forward) {
 		try {
@@ -156,6 +172,7 @@ public class ArticleManageAction extends Action {
 			article.setContent(content);
 			article.setCreateTime(new Date());
 			article.setArticleType(articleType);
+			System.out.println("request article title : " + title);
 //			新增文章和标签
 			articleManageService.addArticle(article, tagStr);			
 			return_out(response, PROCESS_RESULT_SUCCESS, "文章新增成功");

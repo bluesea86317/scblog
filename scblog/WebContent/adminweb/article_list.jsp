@@ -17,7 +17,7 @@
 				window.alert(result.msg, false);
 			}
 			
-		});
+		},'json');
 	}
 	
 	function edit(id){
