@@ -49,7 +49,7 @@ public class CommentManageAction extends Action{
 			JSONArray jsonArray = new JSONArray();
 			jsonArray.addAll(comments);			
 			outPut(response, jsonArray.toString());
-		} catch (SQLException e) {			
+		} catch (Exception e) {			
 			e.printStackTrace();
 			return_out(response, PROCESS_RESULT_FAILURE, e.getMessage());
 		}
@@ -64,7 +64,7 @@ public class CommentManageAction extends Action{
 			comments = commentService.queryComments();
 			request.setAttribute("comments", comments);
 			return actionForward.findForward("list");
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
@@ -77,7 +77,7 @@ public class CommentManageAction extends Action{
 		try {
 			commentService.deleteComment(id);
 			return_out(response, PROCESS_RESULT_SUCCESS, "删除成功");
-		} catch (SQLException e) {			
+		} catch (Exception e) {			
 			e.printStackTrace();
 			return_out(response, PROCESS_RESULT_FAILURE, "删除失败，错误信息： " + e.getMessage());
 		}
@@ -90,7 +90,7 @@ public class CommentManageAction extends Action{
 		try {
 			commentService.updateCommentStatus(id);
 			return_out(response, PROCESS_RESULT_SUCCESS, "审核成功");
-		} catch (SQLException e) {			
+		} catch (Exception e) {			
 			e.printStackTrace();
 			return_out(response, PROCESS_RESULT_FAILURE, "审核失败，错误信息： " + e.getMessage());
 		}
@@ -99,16 +99,19 @@ public class CommentManageAction extends Action{
 
 	private String addComment(HttpServletRequest request,
 			HttpServletResponse response, ActionForward actionForward) {
-		String commentContent = ParamUtils.getString(request, "commentContent", "");
-		int articleId = ParamUtils.getInt(request, "articleId", 0);
-		int followedId = ParamUtils.getInt(request, "followedId", 0);	
-		String visitor = ParamUtils.getString(request, "visitor", "");
-		String email = ParamUtils.getString(request, "email", "");
-		String website = ParamUtils.getString(request, "website", "");
-		if(website.indexOf("http") == -1 && StringUtils.isNotBlank(website)){
-			website = "http://" + website;
-		}
 		try {
+			String commentContent = ParamUtils.getString(request, "commentContent", "");
+			int articleId = ParamUtils.getInt(request, "articleId", 0);
+			int followedId = ParamUtils.getInt(request, "followedId", 0);	
+			String visitor = ParamUtils.getString(request, "visitor", "");
+			String email = ParamUtils.getString(request, "email", "");
+			String website = ParamUtils.getString(request, "website", "");
+			if(StringUtils.isBlank(commentContent) || StringUtils.isBlank(visitor)){
+				throw new Exception("评论信息部完整");
+			}
+			if(website.indexOf("http") == -1 && StringUtils.isNotBlank(website)){
+				website = "http://" + website;
+			}
 			CommentVo comment = new CommentVo();
 			comment.setVisitor(visitor);
 			comment.setEmail(email);
@@ -120,7 +123,8 @@ public class CommentManageAction extends Action{
 			comment.setStatus(CommentVo.STATUS_UNVERIFIED);
 			commentService.addComment(comment);
 			return_out(response, PROCESS_RESULT_SUCCESS, "评论成功");
-		} catch (SQLException e) {			
+			
+		} catch (Exception e) {			
 			e.printStackTrace();
 			return_out(response, PROCESS_RESULT_FAILURE, "评论失败，错误信息： " + e.getMessage());
 		}

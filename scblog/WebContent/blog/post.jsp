@@ -5,10 +5,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
+<title>SCBLOG - ${article.title }</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="index, follow" />
-<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-<title>SCBLOG - ${article.title }</title>
 <meta name="Description" content='<c:out value="${article.intro }"></c:out>'/>
 <%@include file="../include/commonresource.jsp" %>
 <script type="text/javascript">
@@ -19,6 +18,14 @@
 		var commentContent = $("#commentContent").val();
 		var website = $("#website").val();
 		var followedId = $("#followedId").val();
+		if(visitor == ""){
+			window.alert("称呼不能为空");
+			return;
+		}
+		if(commentContent == ""){
+			window.alert("请填写评论内容");
+			return;
+		}
 		$.post("./comment.do",{
 			action:'add',
 			articleId:articleId,

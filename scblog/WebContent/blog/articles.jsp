@@ -5,10 +5,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
+<title>SCBLOG 技术交流博客</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="index, follow" />
-<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-<title>SCBLOG 技术交流博客</title>
 <meta name="Description" content="技术交流博客, java, javascript, 生活, 学习, linux"/>
 <%@include file="../include/commonresource.jsp" %>
 </head>

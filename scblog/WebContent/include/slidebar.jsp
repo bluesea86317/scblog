@@ -20,7 +20,7 @@
 				</ul>
 				<br>
 				<h4>人生格言</h4>
-				<div>自从我变成了一坨屎,就再也没有人踩在我头上了.</div>
+				<div>To be, or not to be.</div>
 			</div>
 		</div>
    	</div>
