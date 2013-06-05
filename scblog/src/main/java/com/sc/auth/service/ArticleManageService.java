@@ -77,6 +77,12 @@ public class ArticleManageService {
 		return articles;
 	}
 
+	public List<ArticleVo> searchArticles(String searchValue) throws SQLException{
+		searchValue = "%"+searchValue+"%";
+		List<ArticleVo> articles = articleDao.searchArticles(searchValue);
+		return articles;
+	}
+	
 	public TagManageService getTagManageService() {
 		return tagManageService;
 	}

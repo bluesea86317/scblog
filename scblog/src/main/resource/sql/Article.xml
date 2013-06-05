@@ -48,6 +48,10 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 		select a.*, at.typeName from t_article a left join t_article_type at on a.articleType = at.id where a.id = #id#
 	</select>
 	
+	<select id="searchArticles" parameterClass="string" resultMap="ArticleVoMap">
+		select * from t_article where title like #searchValue# or intro like #searchValue# or content like #searchValue# order by id desc
+	</select>
+	
 	<update id="updateArticle" parameterClass="ArticleVoClass">
 		update t_article 
 		set title = #title#, 

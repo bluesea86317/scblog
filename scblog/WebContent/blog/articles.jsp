@@ -18,24 +18,36 @@
     <div id="content">
     	<!-- posts start -->
     	<div id="posts">
-    		<c:forEach items="${articles }" var="article">
-    		<div class="single-post">
-    			<!-- <div class="single-post-image">
-    				<img src="../images/image5.jpg" alt="Another Image in a Post" style="opacity: 1;">
-    			</div> -->
-    			<div class="single-post-text">
-    				<h2><a href="./post.htm?id=${article.id }">${article.title }</a></h2>
-    				<div class="single-post-content pull-left">
-    					${article.intro }
-					</div>
-					<div class="meta pull-left">
-						<p><fmt:formatDate value="${article.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/></p>
-						<p><span class="color_orange">Stephen Chen</span></p>
-					</div>
-					<div class="clearfix"></div>
-    			</div>
-    		</div>
-    		</c:forEach>
+    		<c:choose>
+    			<c:when test="${empty articles }">
+    				<div class="single-post">
+    					<div class="single-post-text">
+    						抱歉，没有找到与"${param.s }"相关的文章
+    					</div>
+    				</div>
+    			</c:when>
+    			<c:otherwise>
+    				<c:forEach items="${articles }" var="article">
+		    		<div class="single-post">
+		    			<!-- <div class="single-post-image">
+		    				<img src="../images/image5.jpg" alt="Another Image in a Post" style="opacity: 1;">
+		    			</div> -->
+		    			<div class="single-post-text">
+		    				<h2><a href="./post.htm?id=${article.id }">${article.title }</a></h2>
+		    				<div class="single-post-content pull-left">
+		    					${article.intro }
+							</div>
+							<div class="meta pull-left">
+								<p><fmt:formatDate value="${article.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+								<p><span class="color_orange">Stephen Chen</span></p>
+							</div>
+							<div class="clearfix"></div>
+		    			</div>
+		    		</div>
+		    		</c:forEach>
+    			</c:otherwise>
+    		</c:choose>
+    		
     	</div>    	
     	<%@include file="../include/slidebar.jsp" %>
     </div>

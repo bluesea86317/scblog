@@ -52,4 +52,11 @@ public class ArticleDao extends SqlMapClientDaoSupport{
 	public void updateArticle(ArticleVo article) throws SQLException {		
 		getSqlMapClientTemplate().update("Article.updateArticle", article);
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<ArticleVo> searchArticles(String searchValue) {
+		List<ArticleVo> articles;
+		articles = (List<ArticleVo>)getSqlMapClientTemplate().queryForList("Article.searchArticles", searchValue);
+		return articles;
+	}
 }

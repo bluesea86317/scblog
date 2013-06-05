@@ -62,7 +62,7 @@ public class ActionServlet extends HttpServlet {
 //			初始化actionConfig		
 			this.initializeActionConfig(rootNode);
 //			初始化数据库连接
-			this.initializeDataSource(rootNode);
+//			this.initializeDataSource(rootNode);
 
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
