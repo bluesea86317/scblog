@@ -4,7 +4,7 @@
    	<div id="slidebar">
    		<div class="" style="width: 285px; margin-left: 35px;">
     		<div class="search-form">
-				<form action="" method="get">
+				<form action="${web_host }/" method="get">
 					<input type="text" value="搜索..." name="s" id="ls" class="searchfield" onfocus="if (this.value == '搜索...') {this.value = '';}" onblur="if (this.value == '') {this.value = '搜索...';}">
 				</form>
 			</div>

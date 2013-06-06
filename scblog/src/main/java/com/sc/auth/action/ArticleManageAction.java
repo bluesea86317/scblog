@@ -52,8 +52,8 @@ public class ArticleManageAction extends Action {
 			String title = ParamUtils.getString(request, "title", "");
 			String articleIntro = ParamUtils.getString(request, "articleIntro", "");
 			String content = ParamUtils.getString(request, "articleContent", "");
-			content = content.replace("'", "\\'");
-			articleIntro = articleIntro.replace("'", "\\'");
+			content = content.replace("'", "\'");
+			articleIntro = articleIntro.replace("'", "\'");
 			int authorId = ((BaseUser)request.getSession().getAttribute("logonUser")).getId();
 			String tagStr = ParamUtils.getString(request, "tag", "");
 			int articleType = ParamUtils.getInt(request, "articleType", 0);

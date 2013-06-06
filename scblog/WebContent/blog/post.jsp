@@ -92,7 +92,7 @@
 	    			<p>分类: <span class="color_orange">${article.typeName}</span></p>
 	    			<p>标签:
 	    				<c:forEach items="${article.tags}" var="tag" varStatus="status">
-	    					<span class="color_orange">${tag.tagName }</span><c:if test="${!status.last }">,</c:if>
+	    					<span class="color_orange">${tag.tagName }</span><c:if test="${!status.last }">&nbsp;</c:if>
 	    				</c:forEach>
 	    		</div>
 	    		<div class="comment" id="comment">
