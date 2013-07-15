@@ -2,11 +2,14 @@ package com.sc.auth.core;
 
 import java.io.Serializable;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 public class Env {
+	
+	private static Logger log = Logger.getLogger(Env.class);
 	
 	public final static String CONFIG_FILE = "spring-context.xml";
 	
@@ -28,9 +31,8 @@ public class Env {
 			static {
 				long start = System.currentTimeMillis();
 				context = new ClassPathXmlApplicationContext(CONFIG_FILE);
-				long timespan = System.currentTimeMillis() - start;
-				System.out.println("spring context loaded. " + timespan + " millis");
-//				if (LOG.isInfoEnabled()) LOG.info("spring context loaded. " + timespan + " millis");
+				long timespan = System.currentTimeMillis() - start;				
+				if (log.isInfoEnabled()) log.info("spring context loaded. " + timespan + " millis");
 			}
 		}
 	}

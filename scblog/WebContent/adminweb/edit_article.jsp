@@ -16,6 +16,7 @@
 		oFCKeditor.Height = 300 ;       
 		oFCKeditor.Width = 600;    
 		oFCKeditor.ToolbarSet = 'Basic';
+		oFCKeditor.value = oFCKeditor._HTMLEncode($("#articleContent").html());
 		oFCKeditor.ReplaceTextarea() ;
 		
 		var oFCKeditor1 = new FCKeditor('articleIntro') ;
@@ -23,6 +24,7 @@
 		oFCKeditor1.Height = 300 ;       
 		oFCKeditor1.Width = 600;    
 		oFCKeditor1.ToolbarSet = 'Basic';
+		oFCKeditor1.value = oFCKeditor1._HTMLEncode($("#articleIntro").html());
 		oFCKeditor1.ReplaceTextarea() ;
 	};
 	
@@ -89,12 +91,12 @@
 				</tr>
 				<tr>
 					<th>*内容简介:</th>
-					<td><div id="box-body">&nbsp;&nbsp;<textarea style="display: none;" id="articleIntro" name="articleIntro" cols="" rows="20" class="textarea">${article.intro}</textarea></div></td>
+					<td><div id="box-body"><textarea style="display: none;" id="articleIntro" name="articleIntro" cols="" rows="20" class="textarea">${article.intro}</textarea></div></td>
 				</tr>
 				<tr>
 					<th>*文章内容：</th>
 					<td>
-						<div id="box-body">&nbsp;&nbsp;<textarea style="display: none;" id="articleContent" name="articleContent" cols="" rows="20" class="textarea">${article.content}</textarea></div>
+						<div id="box-body"><textarea style="display: none;" id="articleContent" name="articleContent" cols="" rows="20" class="textarea">${article.content}</textarea></div>
 					</td>
 				</tr>
 				<tr>

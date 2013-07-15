@@ -8,8 +8,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
+
 public class DDosSecurity implements Runnable{
 	
+	private static Logger log = Logger.getLogger(DDosSecurity.class);
 	/**
 	 * 用于统计某一ip单位时间内的发起的请求次数
 	 */
@@ -74,7 +77,7 @@ public class DDosSecurity implements Runnable{
 				int count = ip_count.get(key);				
 				if(count > max_request_count){
 					ip_filter.put(key,System.currentTimeMillis());
-					System.out.println("有异常请求的主机, ip是: " + key + ", 30秒内请求次数达到: " + count + "次");
+					log.info("有异常请求的主机, ip是: " + key + ", 30秒内请求次数达到: " + count + "次");
 				}
 				ip_count.remove(key);
 			}

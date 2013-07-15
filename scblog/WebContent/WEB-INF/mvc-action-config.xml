@@ -35,8 +35,8 @@
 		
 		<!-- 后台管理模块 配置 start-->
 		<action class="com.sc.auth.action.LoginAction" path="/adminweb/login">
-			<forward name="success" path="./adminweb/list.jsp"/>
-			<forward name="failure" path="./adminweb/login.jsp"/>
+			<forward name="success" path="./list.jsp"/>
+			<forward name="failure" path="./login.jsp"/>
 		</action>
 		
 		<action class="com.sc.auth.action.LogoutAction" path="/adminweb/logout">

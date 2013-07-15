@@ -12,7 +12,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
+ 
   <servlet>
   	<servlet-name>ActionServlet</servlet-name>
   	<servlet-class>com.sc.auth.core.ActionServlet</servlet-class>
@@ -36,6 +36,7 @@
   	<servlet-name>ActionServlet</servlet-name>
   	<url-pattern>/blog/</url-pattern>
   </servlet-mapping>
+  
   
     <filter>
   	<filter-name>DDosSecurityFilter</filter-name>

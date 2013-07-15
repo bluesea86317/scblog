@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -27,6 +28,8 @@ import com.sc.auth.util.StringUtils;
 public class ActionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static Logger log = Logger.getLogger(ActionServlet.class); 
 	
 	Map<String,ActionConfig> configMap = new HashMap<String,ActionConfig>();
 	
@@ -56,13 +59,10 @@ public class ActionServlet extends HttpServlet {
 //		初始化数据库连接		
 		try {
 			SAXReader reader = new SAXReader();
-
 			Document doc = reader.read(new File(configPath));
 			Element rootNode = doc.getRootElement();
-//			初始化actionConfig		
+//			初始化actionConfig
 			this.initializeActionConfig(rootNode);
-//			初始化数据库连接
-//			this.initializeDataSource(rootNode);
 
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
@@ -82,7 +82,7 @@ public class ActionServlet extends HttpServlet {
 //			设置请求和响应的编码规则
 			response.setCharacterEncoding("UTF-8");
 			request.setCharacterEncoding("UTF-8");
-			
+			log.info("请求的actionPath是:" + actionPath);
 			ActionConfig actionConfig = configMap.get(actionPath);
 			if(null == actionConfig){
 				throw new NonActionForRequstException("There is no action config for this request which path is \"" + actionPath + "\"");			
@@ -141,6 +141,7 @@ public class ActionServlet extends HttpServlet {
 	 * 初始化数据库连接
 	 * @param rootNode
 	 */
+	@Deprecated
 	private void initializeDataSource(Element rootNode){
 		System.out.println("初始化数据库连接开始");
 		List<?> dataSourceNodesList = rootNode.selectNodes("data-sources/data-source");
@@ -166,7 +167,6 @@ public class ActionServlet extends HttpServlet {
 			}
 //			初始化DB连接
 			DataSourceFactory.init((DataSource)dataSource);
-			System.out.println("初始化数据库连接结束");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -198,7 +198,7 @@ public class ActionServlet extends HttpServlet {
 	 */
 	private void initializeActionConfig(Element rootNode){
 		List<?> nodesList = rootNode.selectNodes("action-mapping/action");
-		System.out.println("初始化actionConfig开始");
+		log.info("初始化actionConfig开始");
 		for(Object node : nodesList){
 //			加载actionConfig
 			ActionConfig actionConfig = new ActionConfig();
@@ -221,6 +221,6 @@ public class ActionServlet extends HttpServlet {
 			actionConfig.setActionForward(forward);
 			configMap.put(actionPath,actionConfig);
 		}
-		System.out.println("初始化actionConfig结束");
+		log.info("初始化actionConfig结束");
 	}
 }
